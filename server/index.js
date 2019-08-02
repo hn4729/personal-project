@@ -5,6 +5,20 @@ const session = require("express-session");
 
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 
+//Firebase
+const firebase = require("firebase-admin");
+//const functions = require("firebase-functions");
+
+const serviceAccount = require("../../serviceAccount.json");
+
+firebase.initializeApp({
+  credential: firebase.credential.cert(serviceAccount),
+  databaseURL: "https://personal-project-devmtn.firebaseio.com",
+  storageBucket: "personal-project-devmtn.appspot.com"
+});
+
+const bucket = firebase.storage().bucket();
+
 const app = express();
 
 massive(CONNECTION_STRING)
