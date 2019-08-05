@@ -5,19 +5,9 @@ const session = require("express-session");
 
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 
-//Firebase
-const firebase = require("firebase-admin");
-//const functions = require("firebase-functions");
-
-const serviceAccount = require("../../serviceAccount.json");
-
-firebase.initializeApp({
-  credential: firebase.credential.cert(serviceAccount),
-  databaseURL: "https://personal-project-devmtn.firebaseio.com",
-  storageBucket: "personal-project-devmtn.appspot.com"
-});
-
-const bucket = firebase.storage().bucket();
+//Auth Controller
+const AC = require("./controllers/auth_controller");
+const PC = require("./controllers/post_controller");
 
 const app = express();
 
@@ -37,5 +27,17 @@ app.use(
 );
 
 app.use(express.json());
+
+//Authorization Endpoints
+app.post("/auth/register", AC.register);
+app.post("/auth/login", AC.login);
+app.get("/auth/logout", AC.logout);
+
+//Posts
+app.post("/posts", PC.create);
+app.get("/posts", PC.getAllPosts);
+app.get("/posts/profile", PC.getProfilePosts);
+app.get("/posts/user/:gamertag", PC.getUserPosts);
+app.get("/posts/game/:game", PC.getGamePosts);
 
 app.listen(SERVER_PORT, () => console.log(`Listening on PORT ${SERVER_PORT}`));
