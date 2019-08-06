@@ -9,6 +9,8 @@ const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 const AC = require("./controllers/auth_controller");
 const PC = require("./controllers/post_controller");
 
+//Auth Middleware
+
 const app = express();
 
 massive(CONNECTION_STRING)
@@ -32,6 +34,7 @@ app.use(express.json());
 app.post("/auth/register", AC.register);
 app.post("/auth/login", AC.login);
 app.get("/auth/logout", AC.logout);
+app.get("/auth/user-data", AC.getUserData);
 
 //Posts
 app.post("/posts", PC.create);

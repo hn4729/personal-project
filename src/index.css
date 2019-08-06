@@ -598,9 +598,9 @@ video {
   width: 100%;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 0px) {
   .container {
-    max-width: 640px;
+    max-width: 0px;
   }
 }
 
@@ -4328,7 +4328,7 @@ video {
   * @import "utilities/skew-transforms";
   */
 
-@media (min-width: 640px) {
+@media (min-width: 0px) and (max-width: 767px) {
   .sm\:appearance-none {
     -webkit-appearance: none;
        -moz-appearance: none;
@@ -7996,7 +7996,7 @@ video {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .md\:appearance-none {
     -webkit-appearance: none;
        -moz-appearance: none;
@@ -11664,7 +11664,7 @@ video {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1024px) and (max-width: 1279px) {
   .lg\:appearance-none {
     -webkit-appearance: none;
        -moz-appearance: none;

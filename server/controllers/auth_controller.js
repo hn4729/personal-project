@@ -42,17 +42,13 @@ module.exports = {
     const user = foundUser[0];
 
     if (!user) {
-      res
-        .status(401)
-        .send(
-          "User not found. Please register as a new user before logging in"
-        );
+      res.status(401).send("Incorrect username or password");
     }
 
     const isAuthenticated = await bcrypt.compare(password, user.password);
 
     if (!isAuthenticated) {
-      res.status(403).send("Incorrect Password");
+      res.status(403).send("Incorrect password");
     }
 
     req.session.user = {
@@ -67,6 +63,12 @@ module.exports = {
 
   logout: (req, res) => {
     req.session.destroy();
-    res.sendStatus(200);
+    res.redirect("http://localhost:3000/#/");
+  },
+
+  getUserData: (req, res) => {
+    const { user } = req.session;
+    if (user) return res.status(200).send({ loggedIn: true, user });
+    else return res.sendStatus(401);
   }
 };
