@@ -10,7 +10,7 @@ class Nav extends Component {
 
   render() {
     const { id, username, gamertag, profile_img, loggedIn } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div className="flex flex-col justify-center items-center">
         <img

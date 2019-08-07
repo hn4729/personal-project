@@ -10,7 +10,7 @@ module.exports = {
     const result = await db.get_game([game]);
     let existingGame = result[0];
 
-    if (existingGame == undefined) {
+    if (!existingGame) {
       const result_2 = await db.insert_new_game([game]);
       existingGame = result_2[0];
     }

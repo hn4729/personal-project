@@ -8,6 +8,7 @@ const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 //Auth Controller
 const AC = require("./controllers/auth_controller");
 const PC = require("./controllers/post_controller");
+const GC = require("./controllers/game_controller");
 
 //Auth Middleware
 
@@ -35,6 +36,9 @@ app.post("/auth/register", AC.register);
 app.post("/auth/login", AC.login);
 app.get("/auth/logout", AC.logout);
 app.get("/auth/user-data", AC.getUserData);
+
+//Games
+app.get("/api/games", GC.getGames);
 
 //Posts
 app.post("/posts", PC.create);

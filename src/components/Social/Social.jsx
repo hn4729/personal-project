@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import "./Social.scss";
 import { connect } from "react-redux";
 import firebase from "firebase";
+import axios from 'axios';
 import * as serviceAccount from "../../serviceAccount.json";
 import { fetchAllPosts } from "../../redux/reducers/postReducer";
 import { requestUserData } from "../../redux/reducers/userReducer";
+import { fetchGames } from "../../redux/reducers/gameReducer";
+import CreatableSelect from "react-select/creatable";
 
 firebase.initializeApp({
   apiKey: serviceAccount.api_key,
@@ -13,14 +16,73 @@ firebase.initializeApp({
   storageBucket: "personal-project-devmtn.appspot.com"
 });
 
+const storage = firebase.storage();
+const imagesRef = storage.ref('images');
+
 class Social extends Component {
+  constructor() {
+    super();
+    this.state = {
+      image_url: "",
+      content_text: "",
+      game: '',
+      video_url: ''
+    };
+  }
   componentDidMount() {
+    this.props.fetchAllPosts();
+    this.props.fetchGames();
+  }
+
+  handleImageChange = event => {
+    const file = event.target.files[0];
+    const uploadTask = imagesRef.child(file.name).put(file);
+    uploadTask.then(() => {
+      imagesRef.child(file.name).getDownloadURL().then(url => this.setState({image_url: url}))
+    })
     this.props.fetchAllPosts();
   }
 
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleInputChange = (input, action) => {
+    console.log(input)
+    console.log(action)
+  }
+
+  handleSelectChange = (input, action) => {
+    console.log(input)
+    console.log(action)
+    
+    if (action.action !== 'clear'){
+
+      this.setState({
+        game: input.value
+      })
+    }}
+
+  createOption = label => {
+    return {
+      label,
+      value: label
+    }
+  }
+
+  handlePost = () => {
+    const {image_url, video_url, game, content_text} = this.state;
+    axios.post('/posts', {image_url, video_url, game, content_text})
+  }
+
   render() {
-    const { loading, posts, gamertag } = this.props;
+    const { loading, posts, gamertag, id, games } = this.props;
     console.log(this.props);
+
+    const defaultOptions = games.map(game => {
+      return this.createOption(game.name)
+    })
+
     return (
       <div>
         <div className="border-solid border-2 border-darkgrey flex justify-left items-center mb-5">
@@ -34,15 +96,19 @@ class Social extends Component {
                 <h1 className="m-2">Profile Image</h1>
               </div>
               <div className="textinput flex flex-col flex-grow w-full justify-start items-center leading-normal">
-                <img
-                  src="https://socialmediaacademia.files.wordpress.com/2018/11/poggers.png"
-                  className="h-auto max-w-lg border-solid border-grey border-2"
-                  alt=""
-                />
+                {this.state.image_url.length !== 0 ? (
+                  <img
+                    src={this.state.image_url}
+                    className="h-auto max-w-md mb-3 border-solid border-grey border-2"
+                    alt=""
+                  />
+                ) : null}
                 <textarea
                   className="mb-3 flex-grow bg-white p-2 pr-10 w-11/12 overflow-hidden"
-                  maxlength="255"
+                  maxLength="255"
                   placeholder="What's up bitch..."
+                  name="content_text"
+                  onChange={this.handleChange}
                 />
                 <div className="flex justify-between items-center w-11/12">
                   <div className="flex flex-row">
@@ -56,10 +122,18 @@ class Social extends Component {
                       <i className="material-icons m-2 cursor-pointer">
                         insert_photo
                       </i>
-                      <input type="file" className="hidden" />
+                      <input type="file" accept="image/*" onChange={this.handleImageChange} className="hidden" />
                     </label>
+
+                    <CreatableSelect
+                      isClearable
+                      onChange={this.handleSelectChange}
+                      options={defaultOptions}
+                      className="w-64"
+                    />
+
                   </div>
-                  <button className="bg-grey text-white cursor-pointer font-semibold py-2 px-4 rounded">
+                  <button className="bg-grey text-white cursor-pointer font-semibold py-2 px-4 rounded" onClick={this.handlePost}>
                     Post
                   </button>
                 </div>
@@ -134,11 +208,13 @@ function mapStateToProps(reduxState) {
   return {
     posts: reduxState.postReducer.posts,
     loading: reduxState.postReducer.loading,
-    gamertag: reduxState.user.gamertag
+    gamertag: reduxState.user.gamertag,
+    id: reduxState.user.id,
+    games: reduxState.games.games
   };
 }
 
 export default connect(
   mapStateToProps,
-  { fetchAllPosts, requestUserData }
+  { fetchAllPosts, requestUserData, fetchGames }
 )(Social);
