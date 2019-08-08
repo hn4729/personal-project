@@ -19,7 +19,7 @@ class WelcomeLogin extends Component {
       .then(user => {
         this.setState({ username: "", password: "" });
         console.log(user.data);
-        this.props.history.push("/home");
+        this.props.history.push("/poggers");
       })
       .catch(error => {
         alert(error.response.request.response);

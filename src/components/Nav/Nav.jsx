@@ -2,11 +2,31 @@ import React, { Component } from "react";
 import "./Nav.scss";
 import { connect } from "react-redux";
 import { requestUserData } from "../../redux/reducers/userReducer";
+import axios from "axios";
+import { Redirect, Link } from "react-router-dom";
 
 class Nav extends Component {
+  constructor() {
+    super();
+    this.state = {
+      redirect: false
+    };
+  }
+
   componentDidMount() {
     this.props.requestUserData();
   }
+
+  logout = () => {
+    axios.get("/auth/logout");
+    this.setState({ redirect: true });
+  };
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to="/" />;
+    }
+  };
 
   render() {
     const { id, username, gamertag, profile_img, loggedIn } = this.props;
@@ -19,19 +39,26 @@ class Nav extends Component {
           className="mt-10 mb-10 h-32 w-32"
         />
         <div className="flex flex-col justify-left items-center">
-          <div className="m-5 flex justify-center items-center">
+          <Link to="/poggers" className="m-5 flex justify-center items-center">
             <i className="material-icons mr-2">home</i>
             <h2 className="sm:hidden md:hidden lg:block">Home</h2>
-          </div>
+          </Link>
           <div className="m-5 flex justify-center items-center">
             <i className="material-icons mr-2">search</i>
             <h2 className="sm:hidden md:hidden lg:block">Discovery</h2>
           </div>
-          <div className="m-5 flex justify-center items-center">
+          <Link
+            to={`/poggers/user/${gamertag}`}
+            className="m-5 flex justify-center items-center"
+          >
             <i className="material-icons mr-2">person</i>
             <h2 className="sm:hidden md:hidden lg:block">{gamertag}</h2>
-          </div>
-          <div className="m-5 flex justify-center items-center align-center">
+          </Link>
+          <div
+            className="m-5 flex justify-center items-center align-center cursor-pointer"
+            onClick={this.logout}
+          >
+            {this.renderRedirect()}
             <i className="material-icons mr-2">exit_to_app</i>
             <h2 className="sm:hidden md:hidden lg:block">Logout</h2>
           </div>

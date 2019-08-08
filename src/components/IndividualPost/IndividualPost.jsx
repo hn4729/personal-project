@@ -1,39 +1,43 @@
 import React, { Component } from "react";
-import "./Social.scss";
-// import Modal from "react-awesome-modal";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import {
-  fetchAllPosts,
   deletePost,
   addOrRemoveLike,
-  fetchLikes
+  fetchLikes,
+  fetchIndividualPost,
+  updatePost
 } from "../../redux/reducers/postReducer";
 import { requestUserData } from "../../redux/reducers/userReducer";
-import CreatePost from "../CreatePost/CreatePost";
+
 import UpdatePost from "../UpdatePost/UpdatePost";
 
-class Social extends Component {
+class IndividualPost extends Component {
   componentDidMount() {
-    this.props.fetchAllPosts();
+    this.props.fetchIndividualPost(this.props.match.params.id);
     this.props.fetchLikes();
   }
 
   render() {
-    const { loading, posts, likes } = this.props;
+    const { loading, individualPost, likes } = this.props;
+
     return (
-      <div>
-        <div className="border-solid border-2 border-darkgrey flex justify-left items-center mb-5">
-          <h1 className="m-2 text-2xl font-bold">Personal Feed</h1>
+      <div className="flex flex-col w-7/12 text-white bg-grey overflow-auto sm:w-10/12 md:w-10/12">
+        <div
+          className="border-solid border-2 border-darkgrey flex justify-left items-center mb-5 cursor-pointer"
+          onClick={() => {
+            this.props.history.goBack();
+          }}
+        >
+          <i className="material-icons m-2 text-2xl font-bold">
+            arrow_back_ios
+          </i>
+          <h1 className="m-2 text-2xl font-bold">Feed</h1>
         </div>
-
-        <CreatePost />
-
         <div className="flex flex-col justify-center items-center">
           {loading ? (
             <h1 className="font-bold text-5xl">Loading...</h1>
           ) : (
-            posts.map(post => {
+            individualPost.map(post => {
               const {
                 post_id,
                 gamertag,
@@ -45,11 +49,8 @@ class Social extends Component {
                 user_id,
                 video_url
               } = post;
-
               const postLike = likes.filter(post => post.post_id === post_id);
-
               let likeCount;
-
               if (postLike[0] === undefined) {
                 likeCount = 0;
               } else {
@@ -69,33 +70,26 @@ class Social extends Component {
                       </span>
                     </div>
                     {image_url !== "" ? (
-                      <Link to={`/poggers/post/${post_id}`} className="w-full">
-                        <img
-                          className="w-full"
-                          src={image_url}
-                          alt={`${gamertag} ${post_id}`}
-                        />
-                      </Link>
+                      <img
+                        className="w-full"
+                        src={image_url}
+                        alt={`${gamertag} ${post_id}`}
+                      />
                     ) : null}
 
-                    <Link to={`/poggers/post/${post_id}`}>
-                      <div className="px-6 py-4 bg-white">
-                        <p className="text-grey text-base bg-white">
-                          {content_text}
-                        </p>
-                      </div>
-                    </Link>
+                    <div className="px-6 py-4 bg-white">
+                      <p className="text-grey text-base bg-white">
+                        {content_text}
+                      </p>
+                    </div>
                     <div className="px-6 py-4 bg-white flex justify-between items-center">
                       <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
                         {game}
                       </span>
                       <div className="flex justify-around items-center w-5/12">
-                        <Link
-                          to={`/poggers/post/${post_id}`}
-                          className="material-icons text-grey cursor-pointer"
-                        >
+                        <i className="material-icons text-grey cursor-pointer">
                           mode_comment
-                        </Link>
+                        </i>
                         <div className="flex justify-bottom mr-2">
                           <i
                             className="material-icons text-grey cursor-pointer mr-2"
@@ -119,13 +113,14 @@ class Social extends Component {
                             post_id={post_id}
                             content_text={content_text}
                             game={game}
+                            fetchPostID={this.props.match.params.id}
                           />
 
                           <i
                             className="material-icons text-grey cursor-pointer"
                             onClick={() => {
                               this.props.deletePost(post_id);
-                              this.props.fetchAllPosts();
+                              this.props.history.goBack();
                             }}
                           >
                             delete
@@ -146,7 +141,7 @@ class Social extends Component {
 
 function mapStateToProps(reduxState) {
   return {
-    posts: reduxState.postReducer.posts,
+    individualPost: reduxState.postReducer.individualPost,
     loading: reduxState.postReducer.loading,
     likes: reduxState.postReducer.likes,
     gamertag: reduxState.user.gamertag,
@@ -157,5 +152,12 @@ function mapStateToProps(reduxState) {
 
 export default connect(
   mapStateToProps,
-  { fetchAllPosts, requestUserData, deletePost, addOrRemoveLike, fetchLikes }
-)(Social);
+  {
+    deletePost,
+    addOrRemoveLike,
+    fetchLikes,
+    fetchIndividualPost,
+    updatePost,
+    requestUserData
+  }
+)(IndividualPost);

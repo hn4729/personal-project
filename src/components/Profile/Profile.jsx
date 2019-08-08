@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import "./Social.scss";
 // import Modal from "react-awesome-modal";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import {
-  fetchAllPosts,
+  fetchUserPosts,
   deletePost,
   addOrRemoveLike,
   fetchLikes
@@ -13,18 +12,19 @@ import { requestUserData } from "../../redux/reducers/userReducer";
 import CreatePost from "../CreatePost/CreatePost";
 import UpdatePost from "../UpdatePost/UpdatePost";
 
-class Social extends Component {
+class Profile extends Component {
   componentDidMount() {
-    this.props.fetchAllPosts();
+    this.props.fetchUserPosts(this.props.match.params.gamertag);
     this.props.fetchLikes();
   }
 
   render() {
-    const { loading, posts, likes } = this.props;
+    const { loading, userPosts, likes } = this.props;
+    console.log(this.props);
     return (
-      <div>
+      <div className="flex flex-col w-7/12 text-white bg-grey overflow-auto sm:w-10/12 md:w-10/12">
         <div className="border-solid border-2 border-darkgrey flex justify-left items-center mb-5">
-          <h1 className="m-2 text-2xl font-bold">Personal Feed</h1>
+          <h1 className="m-2 text-2xl font-bold">Profile</h1>
         </div>
 
         <CreatePost />
@@ -33,7 +33,7 @@ class Social extends Component {
           {loading ? (
             <h1 className="font-bold text-5xl">Loading...</h1>
           ) : (
-            posts.map(post => {
+            userPosts.map(post => {
               const {
                 post_id,
                 gamertag,
@@ -69,22 +69,18 @@ class Social extends Component {
                       </span>
                     </div>
                     {image_url !== "" ? (
-                      <Link to={`/poggers/post/${post_id}`} className="w-full">
-                        <img
-                          className="w-full"
-                          src={image_url}
-                          alt={`${gamertag} ${post_id}`}
-                        />
-                      </Link>
+                      <img
+                        className="w-full"
+                        src={image_url}
+                        alt={`${gamertag} ${post_id}`}
+                      />
                     ) : null}
 
-                    <Link to={`/poggers/post/${post_id}`}>
-                      <div className="px-6 py-4 bg-white">
-                        <p className="text-grey text-base bg-white">
-                          {content_text}
-                        </p>
-                      </div>
-                    </Link>
+                    <div className="px-6 py-4 bg-white">
+                      <p className="text-grey text-base bg-white">
+                        {content_text}
+                      </p>
+                    </div>
                     <div className="px-6 py-4 bg-white flex justify-between items-center">
                       <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
                         {game}
@@ -119,6 +115,7 @@ class Social extends Component {
                             post_id={post_id}
                             content_text={content_text}
                             game={game}
+                            fetchGamertag={gamertag}
                           />
 
                           <i
@@ -146,7 +143,7 @@ class Social extends Component {
 
 function mapStateToProps(reduxState) {
   return {
-    posts: reduxState.postReducer.posts,
+    userPosts: reduxState.postReducer.userPosts,
     loading: reduxState.postReducer.loading,
     likes: reduxState.postReducer.likes,
     gamertag: reduxState.user.gamertag,
@@ -157,5 +154,5 @@ function mapStateToProps(reduxState) {
 
 export default connect(
   mapStateToProps,
-  { fetchAllPosts, requestUserData, deletePost, addOrRemoveLike, fetchLikes }
-)(Social);
+  { fetchUserPosts, requestUserData, deletePost, addOrRemoveLike, fetchLikes }
+)(Profile);

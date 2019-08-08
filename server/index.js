@@ -9,8 +9,10 @@ const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 const AC = require("./controllers/auth_controller");
 const PC = require("./controllers/post_controller");
 const GC = require("./controllers/game_controller");
+const LC = require("./controllers/likes_controller");
 
-//Auth Middleware
+//Middleware
+const TM = require("./middleware/timeout_middleware");
 
 const app = express();
 
@@ -39,12 +41,20 @@ app.get("/auth/user-data", AC.getUserData);
 
 //Games
 app.get("/api/games", GC.getGames);
+app.post("/api/games");
 
 //Posts
-app.post("/posts", PC.create);
-app.get("/posts", PC.getAllPosts);
+app.get("/posts", TM.timer, PC.getAllPosts);
 app.get("/posts/profile", PC.getProfilePosts);
 app.get("/posts/user/:gamertag", PC.getUserPosts);
 app.get("/posts/game/:game", PC.getGamePosts);
+app.get("/post/:id", TM.timer, PC.getIndividualPost);
+app.post("/posts", PC.create);
+app.put("/posts/:id", PC.edit);
+app.delete("/posts/:id", PC.delete);
+
+//Likes
+app.post("/like/post/:post_id", LC.addOrRemoveLike);
+app.get("/likes/posts", TM.timer, LC.getLikes);
 
 app.listen(SERVER_PORT, () => console.log(`Listening on PORT ${SERVER_PORT}`));
