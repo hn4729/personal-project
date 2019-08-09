@@ -31,10 +31,11 @@ module.exports = {
   delete: async (req, res) => {
     const { id } = req.params;
     const db = req.app.get("db");
-    db.delete_likes(id);
+    db.delete_likes([id]);
+    db.delete_post_comments([id]);
     setTimeout(() => {
-      db.delete_post(id);
-    }, 100);
+      db.delete_post([id]);
+    }, 150);
 
     res.sendStatus(200);
   },
@@ -81,7 +82,6 @@ module.exports = {
     const db = req.app.get("db");
     const { gamertag } = req.params;
     const result = await db.get_user_posts([gamertag]);
-    console.log(result);
     res.status(200).send(result);
   },
 

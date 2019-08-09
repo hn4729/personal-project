@@ -5,6 +5,7 @@ const initialState = {
   posts: [],
   likes: [],
   individualPost: [],
+  individualPostID: 0,
   userPosts: []
 };
 
@@ -103,7 +104,12 @@ export default function(state = initialState, action) {
     case FETCH_INDIVIDUAL_POST + "_PENDING":
       return { ...state, loading: true };
     case FETCH_INDIVIDUAL_POST + "_FULFILLED":
-      return { ...state, loading: false, individualPost: payload };
+      return {
+        ...state,
+        loading: false,
+        individualPost: payload,
+        individualPostID: payload[0].post_id
+      };
     case FETCH_USER_POSTS + "_PENDING":
       return { ...state, loading: true };
     case FETCH_USER_POSTS + "_FULFILLED":

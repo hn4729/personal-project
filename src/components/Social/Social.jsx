@@ -10,6 +10,7 @@ import {
   fetchLikes
 } from "../../redux/reducers/postReducer";
 import { requestUserData } from "../../redux/reducers/userReducer";
+import { fetchCommentCount } from "../../redux/reducers/commentReducer";
 import CreatePost from "../CreatePost/CreatePost";
 import UpdatePost from "../UpdatePost/UpdatePost";
 
@@ -17,10 +18,11 @@ class Social extends Component {
   componentDidMount() {
     this.props.fetchAllPosts();
     this.props.fetchLikes();
+    this.props.fetchCommentCount();
   }
 
   render() {
-    const { loading, posts, likes } = this.props;
+    const { loading, posts, likes, commentCounts } = this.props;
     return (
       <div>
         <div className="border-solid border-2 border-darkgrey flex justify-left items-center mb-5">
@@ -47,13 +49,21 @@ class Social extends Component {
               } = post;
 
               const postLike = likes.filter(post => post.post_id === post_id);
-
               let likeCount;
-
               if (postLike[0] === undefined) {
                 likeCount = 0;
               } else {
                 likeCount = +postLike[0].count;
+              }
+
+              const postCommentCount = commentCounts.filter(
+                post => post.post_id === post_id
+              );
+              let commentCount;
+              if (postCommentCount[0] === undefined) {
+                commentCount = 0;
+              } else {
+                commentCount = +postCommentCount[0].count;
               }
 
               return (
@@ -90,12 +100,15 @@ class Social extends Component {
                         {game}
                       </span>
                       <div className="flex justify-around items-center w-5/12">
-                        <Link
-                          to={`/poggers/post/${post_id}`}
-                          className="material-icons text-grey cursor-pointer"
-                        >
-                          mode_comment
-                        </Link>
+                        <div className="flex mr-2">
+                          <Link
+                            to={`/poggers/post/${post_id}`}
+                            className="material-icons text-grey cursor-pointer mr-2"
+                          >
+                            mode_comment
+                          </Link>
+                          <span className="text-grey mr-2">{commentCount}</span>
+                        </div>
                         <div className="flex justify-bottom mr-2">
                           <i
                             className="material-icons text-grey cursor-pointer mr-2"
@@ -151,11 +164,19 @@ function mapStateToProps(reduxState) {
     likes: reduxState.postReducer.likes,
     gamertag: reduxState.user.gamertag,
     id: reduxState.user.id,
-    games: reduxState.games.games
+    games: reduxState.games.games,
+    commentCounts: reduxState.commentReducer.commentCounts
   };
 }
 
 export default connect(
   mapStateToProps,
-  { fetchAllPosts, requestUserData, deletePost, addOrRemoveLike, fetchLikes }
+  {
+    fetchAllPosts,
+    requestUserData,
+    deletePost,
+    addOrRemoveLike,
+    fetchLikes,
+    fetchCommentCount
+  }
 )(Social);

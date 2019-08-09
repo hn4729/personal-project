@@ -89,7 +89,6 @@ class UpdatePost extends Component {
           visible={this.state.visible}
           effect="fadeInUp"
           onClickAway={() => this.closeModal()}
-          className="z-0"
         >
           <div className="max-w-xl rounded shadow-lg bg-darkgrey">
             <div className="px-6 py-4 bg-white text-grey flex flex-row justify-center items-center">
@@ -110,7 +109,6 @@ class UpdatePost extends Component {
               <textarea
                 className="w-11/12 bg-white text-grey p-2 pr-10 overflow-hidden resize-none border-solid border-2 border-grey rounded"
                 maxLength="255"
-                placeholder="What's up bitch..."
                 name="content_text"
                 value={this.state.content_text}
                 onChange={this.handleChange}

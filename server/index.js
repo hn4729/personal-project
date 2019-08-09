@@ -10,6 +10,7 @@ const AC = require("./controllers/auth_controller");
 const PC = require("./controllers/post_controller");
 const GC = require("./controllers/game_controller");
 const LC = require("./controllers/likes_controller");
+const CC = require("./controllers/comment_controller");
 
 //Middleware
 const TM = require("./middleware/timeout_middleware");
@@ -56,5 +57,12 @@ app.delete("/posts/:id", PC.delete);
 //Likes
 app.post("/like/post/:post_id", LC.addOrRemoveLike);
 app.get("/likes/posts", TM.timer, LC.getLikes);
+
+//Comments
+app.get("/post/comments/:post_id", TM.timer, CC.getComments);
+app.get("/comments/count", TM.timer, CC.getCommentCount);
+app.post("/post/comment/:post_id", CC.create);
+app.put("/post/comment/:id", CC.updateComment);
+app.delete("/post/comment/:id", CC.deleteComment);
 
 app.listen(SERVER_PORT, () => console.log(`Listening on PORT ${SERVER_PORT}`));
