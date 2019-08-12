@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Modal from "react-awesome-modal";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   deletePost,
@@ -94,7 +94,12 @@ class IndividualPost extends Component {
                   >
                     <div className="max-w-lg rounded overflow-hidden shadow-lg bg-darkgrey">
                       <div className="px-6 py-4 bg-white text-grey flex flex-row justify-center items-center">
-                        <h1 className="font-semibold mr-2">{gamertag}</h1>
+                        <Link
+                          to={`/poggers/user/${gamertag}`}
+                          className="font-semibold mr-2"
+                        >
+                          {gamertag}
+                        </Link>
                         <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
                           {date}
                         </span>
@@ -190,26 +195,34 @@ class IndividualPost extends Component {
                   >
                     <div className="flex flex-row justify-start items-center w-full">
                       <div className="flex flex-col justify-center items-center">
-                        <h1 className="mb-3">Profile Image</h1>
-                        <h1>{gamertag}</h1>
+                        <h1 className="mb-3 ml-3 mr-3">Profile Image</h1>
+                        <Link to={`/poggers/user/${gamertag}`}>{gamertag}</Link>
                       </div>
                       <div className="px-6 py-4 bg-white flex flex-col flex-grow">
-                        <div className="flex flex-row justify-start items-center mb-5">
-                          <p className="text-grey text-base bg-white">
-                            {comment_text}
-                          </p>
-                        </div>
+                        {giphy === "" ? (
+                          <div className="flex flex-row justify-start items-center mb-5">
+                            <p className="text-grey text-base bg-white">
+                              {comment_text}
+                            </p>
+                          </div>
+                        ) : (
+                          <div className="flex flex-row justify-center items-center mb-5">
+                            <img src={giphy} alt={giphy} />
+                          </div>
+                        )}
                         {gamertag === this.props.gamertag ? (
                           <div className="flex justify-end items-center">
-                            <UpdateComment
-                              comment_id={comment_id}
-                              gamertag={gamertag}
-                              comment_text={comment_text}
-                              giphy={giphy}
-                              date={date}
-                              profile_img={profile_img}
-                              post_id={post_id}
-                            />
+                            {giphy === "" ? (
+                              <UpdateComment
+                                comment_id={comment_id}
+                                gamertag={gamertag}
+                                comment_text={comment_text}
+                                giphy={giphy}
+                                date={date}
+                                profile_img={profile_img}
+                                post_id={post_id}
+                              />
+                            ) : null}
                             <i
                               className="material-icons cursor-pointer"
                               onClick={() => {

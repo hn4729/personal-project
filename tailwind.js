@@ -13,6 +13,8 @@ module.exports = {
       xl: { min: "1280px" }
     }
   },
-  variants: {},
+  variants: {
+    outline: ["focus", "responsive", "hover"]
+  },
   plugins: []
 };

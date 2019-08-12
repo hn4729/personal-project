@@ -24,7 +24,7 @@ class Social extends Component {
   render() {
     const { loading, posts, likes, commentCounts } = this.props;
     return (
-      <div>
+      <div className="flex flex-col w-7/12 text-white bg-grey overflow-auto sm:w-10/12 md:w-10/12">
         <div className="border-solid border-2 border-darkgrey flex justify-left items-center mb-5">
           <h1 className="m-2 text-2xl font-bold">Personal Feed</h1>
         </div>
@@ -73,7 +73,12 @@ class Social extends Component {
                 >
                   <div className="max-w-lg rounded overflow-hidden shadow-lg bg-darkgrey">
                     <div className="px-6 py-4 bg-white text-grey flex flex-row justify-center items-center">
-                      <h1 className="font-semibold mr-2">{gamertag}</h1>
+                      <Link
+                        to={`/poggers/user/${gamertag}`}
+                        className="font-semibold mr-2"
+                      >
+                        {gamertag}
+                      </Link>
                       <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
                         {date}
                       </span>

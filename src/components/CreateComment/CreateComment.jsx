@@ -27,66 +27,93 @@ class CreateComment extends Component {
     return (
       <div className="bg-white text-grey w-7/12 rounded justify-center items-center pb-5 pt-5 mb-5 flex flex-col">
         <div className="flex flex-row justify-start w-full">
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-start items-center">
             <h1 className="m-2">Profile Image</h1>
           </div>
           <div className="textinput flex flex-col flex-grow w-full justify-start items-center leading-normal">
-            <textarea
-              className="mb-3 flex-grow bg-white p-2 pr-10 w-11/12 overflow-hidden resize-none"
-              maxLength="255"
-              placeholder="What's up bitch..."
-              name="comment_text"
-              value={this.state.comment_text}
-              onChange={this.handleChange}
-            />
+            {this.state.giphy === "" ? (
+              <textarea
+                className="mb-3 flex-grow bg-white p-2 pr-10 w-11/12 overflow-hidden resize-none"
+                maxLength="255"
+                placeholder="What's up bitch..."
+                name="comment_text"
+                value={this.state.comment_text}
+                onChange={this.handleChange}
+              />
+            ) : (
+              <img
+                src={this.state.giphy}
+                alt={this.state.giphy}
+                className="mb-3 flex-grow bg-white p-2 pr-10"
+              />
+            )}
             {this.state.gifs.length > 0 ? (
-              <div className="flex flex-row mb-3 overflow-auto">
+              <div className="giphy-container h-auto flex flex-row m-3 overflow-auto border-solid border-2 border-grey">
                 {this.state.gifs.map(gif => {
                   return (
-                    <img src={gif.images.fixed_height.url} alt={gif.title} />
+                    <img
+                      src={gif.images.fixed_height_small.url}
+                      alt={gif.title}
+                      key={gif.id}
+                      onClick={() => {
+                        this.setState({ giphy: gif.images.fixed_height.url });
+                        // console.log(this.state);
+                      }}
+                    />
                   );
                 })}
               </div>
             ) : null}
             <div className="flex justify-between items-center w-11/12">
-              <form
-                className="flex justify-center items-center h-10"
-                onSubmit={event => {
-                  event.preventDefault();
-                  axios
-                    .get(
-                      `https://api.giphy.com/v1/gifs/search?api_key=${
-                        serviceAccount.giphy_key
-                      }&q=${
-                        this.state.giphyInput
-                      }&limit=15&offset=0&rating=PG-13&lang=en`
-                    )
-                    .then(res => {
-                      this.setState({ gifs: res.data.data });
-                    })
-                    .catch(error => console.log(error));
-                }}
-              >
-                <input
-                  type="text"
-                  name="giphyInput"
-                  value={this.state.giphyInput}
-                  placeholder="Search GIPHY"
-                  onChange={this.handleChange}
-                  className="h-full flex-grow px-2 rounded"
-                />
-                <button
-                  type="submit"
-                  className="material-icons cursor-pointer text-4xl px-4 bg-grey text-white rounded h-full"
+              <div className="flex justify-center items-center h-auto">
+                <form
+                  className="flex justify-center items-center h-10"
+                  onSubmit={event => {
+                    event.preventDefault();
+                    axios
+                      .get(
+                        `https://api.giphy.com/v1/gifs/search?api_key=${
+                          serviceAccount.giphy_key
+                        }&q=${
+                          this.state.giphyInput
+                        }&limit=20&offset=0&rating=PG-13&lang=en`
+                      )
+                      .then(res => {
+                        this.setState({ gifs: res.data.data });
+                        // console.log(res.data.data);
+                      })
+                      .catch(error => console.log(error));
+                  }}
                 >
-                  gif
+                  <input
+                    type="text"
+                    name="giphyInput"
+                    value={this.state.giphyInput}
+                    placeholder="Search GIPHY"
+                    onChange={this.handleChange}
+                    className="h-full flex-grow px-2 rounded"
+                  />
+                  <button
+                    type="submit"
+                    className="material-icons cursor-pointer text-4xl px-4 bg-grey text-white rounded h-full"
+                  >
+                    gif
+                  </button>
+                </form>
+                <button
+                  className="material-icons cursor-pointer text-xl px-4 bg-grey text-white rounded h-10 ml-1"
+                  onClick={() => {
+                    this.setState({ giphy: "", giphyInput: "", gifs: [] });
+                  }}
+                >
+                  cancel
                 </button>
-              </form>
+              </div>
               <button
                 className="bg-grey text-white cursor-pointer font-semibold py-2 px-4 rounded"
                 onClick={() => {
                   const { comment_text, giphy } = this.state;
-                  if (comment_text === "") {
+                  if (comment_text === "" && giphy === "") {
                     alert("Empty Comment.");
                   } else {
                     this.props.addComment(
@@ -94,13 +121,15 @@ class CreateComment extends Component {
                       comment_text,
                       giphy
                     );
+                    this.setState({
+                      comment_text: "",
+                      giphy: "",
+                      giphyInput: "",
+                      gifs: []
+                    });
+                    this.props.fetchComments(this.props.post_id);
+                    this.props.fetchCommentCount();
                   }
-                  this.setState({
-                    comment_text: "",
-                    giphy: ""
-                  });
-                  this.props.fetchComments(this.props.post_id);
-                  this.props.fetchCommentCount();
                 }}
               >
                 Post

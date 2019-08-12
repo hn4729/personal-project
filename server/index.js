@@ -11,6 +11,7 @@ const PC = require("./controllers/post_controller");
 const GC = require("./controllers/game_controller");
 const LC = require("./controllers/likes_controller");
 const CC = require("./controllers/comment_controller");
+const FC = require("./controllers/follower_controller");
 
 //Middleware
 const TM = require("./middleware/timeout_middleware");
@@ -64,5 +65,8 @@ app.get("/comments/count", TM.timer, CC.getCommentCount);
 app.post("/post/comment/:post_id", CC.create);
 app.put("/post/comment/:id", CC.updateComment);
 app.delete("/post/comment/:id", CC.deleteComment);
+
+app.post("/user/:gamertag", FC.followOrUnfollow);
+app.get("/users/following", TM.timer, FC.getFollows);
 
 app.listen(SERVER_PORT, () => console.log(`Listening on PORT ${SERVER_PORT}`));

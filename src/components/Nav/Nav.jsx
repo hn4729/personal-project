@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { requestUserData } from "../../redux/reducers/userReducer";
 import axios from "axios";
 import { Redirect, Link } from "react-router-dom";
+import { fetchUserPosts, fetchLikes } from "../../redux/reducers/postReducer";
 
 class Nav extends Component {
   constructor() {
@@ -43,13 +44,20 @@ class Nav extends Component {
             <i className="material-icons mr-2">home</i>
             <h2 className="sm:hidden md:hidden lg:block">Home</h2>
           </Link>
-          <div className="m-5 flex justify-center items-center">
+          <Link
+            to="/poggers/discovery"
+            className="m-5 flex justify-center items-center"
+          >
             <i className="material-icons mr-2">search</i>
             <h2 className="sm:hidden md:hidden lg:block">Discovery</h2>
-          </div>
+          </Link>
           <Link
             to={`/poggers/user/${gamertag}`}
             className="m-5 flex justify-center items-center"
+            onClick={() => {
+              this.props.fetchUserPosts(gamertag);
+              this.props.fetchLikes();
+            }}
           >
             <i className="material-icons mr-2">person</i>
             <h2 className="sm:hidden md:hidden lg:block">{gamertag}</h2>
@@ -80,5 +88,5 @@ function mapStateToProps(reduxState) {
 
 export default connect(
   mapStateToProps,
-  { requestUserData }
+  { requestUserData, fetchLikes, fetchUserPosts }
 )(Nav);

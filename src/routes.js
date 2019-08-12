@@ -8,6 +8,7 @@ import EsportsBar from "./components/EsportsBar/EsportsBar";
 import Social from "./components/Social/Social";
 import IndividualPost from "./components/IndividualPost/IndividualPost";
 import Profile from "./components/Profile/Profile";
+import PersonalFeed from "./components/PersonalFeed/PersonalFeed";
 
 export default (
   <>
@@ -22,15 +23,9 @@ export default (
               <Nav />
             </div>
 
-            <Route
-              exact
-              path="/poggers"
-              render={() => (
-                <div className="flex flex-col w-7/12 text-white bg-grey overflow-auto sm:w-10/12 md:w-10/12">
-                  <Social />
-                </div>
-              )}
-            />
+            <Route exact path="/poggers" component={PersonalFeed} />
+
+            <Route exact path="/poggers/discovery" component={Social} />
 
             <Route exact path="/poggers/post/:id" component={IndividualPost} />
             <Route exact path="/poggers/user/:gamertag" component={Profile} />

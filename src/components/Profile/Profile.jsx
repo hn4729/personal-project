@@ -8,7 +8,11 @@ import {
   addOrRemoveLike,
   fetchLikes
 } from "../../redux/reducers/postReducer";
-import { requestUserData } from "../../redux/reducers/userReducer";
+import {
+  requestUserData,
+  fetchFollowing,
+  followOrUnfollow
+} from "../../redux/reducers/userReducer";
 import CreatePost from "../CreatePost/CreatePost";
 import UpdatePost from "../UpdatePost/UpdatePost";
 
@@ -16,18 +20,57 @@ class Profile extends Component {
   componentDidMount() {
     this.props.fetchUserPosts(this.props.match.params.gamertag);
     this.props.fetchLikes();
+    this.props.fetchFollowing();
   }
 
   render() {
     const { loading, userPosts, likes } = this.props;
-    console.log(this.props);
+    // console.log(this.props.following);
+    let isFollowing;
+    if (this.props.following !== undefined) {
+      isFollowing = this.props.following.filter(
+        following => following.gamertag === this.props.match.params.gamertag
+      );
+      // console.log(isFollowing);
+    }
     return (
       <div className="flex flex-col w-7/12 text-white bg-grey overflow-auto sm:w-10/12 md:w-10/12">
         <div className="border-solid border-2 border-darkgrey flex justify-left items-center mb-5">
           <h1 className="m-2 text-2xl font-bold">Profile</h1>
         </div>
 
-        <CreatePost />
+        {this.props.gamertag === this.props.match.params.gamertag ? (
+          <CreatePost />
+        ) : null}
+
+        <div className="flex flex-col justify-center items-center bg-grey text-white mb-5">
+          <h1>{this.props.match.params.gamertag}</h1>
+          {this.props.gamertag !== this.props.match.params.gamertag &&
+          isFollowing !== undefined &&
+          isFollowing.length === 0 ? (
+            <button
+              className="text-grey bg-white w-20"
+              onClick={() => {
+                this.props.followOrUnfollow(this.props.match.params.gamertag);
+                this.props.fetchFollowing();
+              }}
+            >
+              Follow
+            </button>
+          ) : this.props.gamertag !== this.props.match.params.gamertag &&
+            isFollowing !== undefined &&
+            isFollowing.length > 0 ? (
+            <button
+              className="text-grey bg-white w-20"
+              onClick={() => {
+                this.props.followOrUnfollow(this.props.match.params.gamertag);
+                this.props.fetchFollowing();
+              }}
+            >
+              Unfollow
+            </button>
+          ) : null}
+        </div>
 
         <div className="flex flex-col justify-center items-center">
           {loading ? (
@@ -148,11 +191,20 @@ function mapStateToProps(reduxState) {
     likes: reduxState.postReducer.likes,
     gamertag: reduxState.user.gamertag,
     id: reduxState.user.id,
-    games: reduxState.games.games
+    games: reduxState.games.games,
+    following: reduxState.user.following
   };
 }
 
 export default connect(
   mapStateToProps,
-  { fetchUserPosts, requestUserData, deletePost, addOrRemoveLike, fetchLikes }
+  {
+    fetchUserPosts,
+    requestUserData,
+    deletePost,
+    addOrRemoveLike,
+    fetchLikes,
+    fetchFollowing,
+    followOrUnfollow
+  }
 )(Profile);

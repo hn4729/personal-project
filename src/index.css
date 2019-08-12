@@ -2963,6 +2963,10 @@ video {
   outline: 0;
 }
 
+.hover\:outline-none:hover {
+  outline: 0;
+}
+
 .overflow-auto {
   overflow: auto;
 }
@@ -6645,6 +6649,10 @@ video {
     outline: 0;
   }
 
+  .sm\:hover\:outline-none:hover {
+    outline: 0;
+  }
+
   .sm\:overflow-auto {
     overflow: auto;
   }
@@ -10310,6 +10318,10 @@ video {
   }
 
   .md\:focus\:outline-none:focus {
+    outline: 0;
+  }
+
+  .md\:hover\:outline-none:hover {
     outline: 0;
   }
 
@@ -13981,6 +13993,10 @@ video {
     outline: 0;
   }
 
+  .lg\:hover\:outline-none:hover {
+    outline: 0;
+  }
+
   .lg\:overflow-auto {
     overflow: auto;
   }
@@ -17646,6 +17662,10 @@ video {
   }
 
   .xl\:focus\:outline-none:focus {
+    outline: 0;
+  }
+
+  .xl\:hover\:outline-none:hover {
     outline: 0;
   }
 
