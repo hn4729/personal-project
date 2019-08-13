@@ -4,65 +4,23 @@ import { Query } from "react-apollo";
 import { GET_PAST_LEAGUE_MATCHES_SIDEBAR } from "../../Queries";
 import moment from "moment";
 
-export default class LoLSidebar extends Component {
-  constructor() {
-    super();
-    this.state = {
-      league_id: 4198
-    };
-  }
+export default class OWSidebar extends Component {
   render() {
     return (
-      <div className="flex flex-col justify-center items-center mb-2">
+      <div className="flex flex-col justify-center items-center">
         <div className="flex flex-row justify-center items-center mb-3">
           <img
-            src="https://www.macupdate.com/images/icons256/47210.png"
-            alt="LoL"
+            src="https://icon-library.net/images/overwatch-icon-png/overwatch-icon-png-10.jpg"
+            alt="OW"
             className="h5 w-5 mr-2"
           />
-          <h1>League of Legends</h1>
-        </div>
-        <div className="flex flex-row justify-center items-center mb-3 bg-white rounded">
-          <button
-            className="bg-white text-grey px-2 rounded"
-            onClick={() => {
-              this.setState({ league_id: 4198 });
-            }}
-          >
-            NA
-          </button>
-          <button
-            className="bg-white text-grey px-2"
-            onClick={() => {
-              this.setState({ league_id: 4197 });
-            }}
-          >
-            EU
-          </button>
-          <button
-            className="bg-white text-grey px-2"
-            onClick={() => {
-              this.setState({ league_id: 293 });
-            }}
-          >
-            LCK
-          </button>
-          <button
-            className="bg-white text-grey px-2 rounded"
-            onClick={() => {
-              this.setState({ league_id: 294 });
-            }}
-          >
-            LPL
-          </button>
+          <h1>Overwatch</h1>
         </div>
         <Query
           query={GET_PAST_LEAGUE_MATCHES_SIDEBAR}
           fetchPolicy={"network-only"}
           variables={{
-            path: `/leagues/${
-              this.state.league_id
-            }/matches/past?per_page=5&sort=-begin_at&token=${
+            path: `/leagues/${4135}/matches/past?per_page=5&sort=-begin_at&token=${
               serviceAccount.pandascore_key
             }`
           }}

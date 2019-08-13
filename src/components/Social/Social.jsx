@@ -3,6 +3,7 @@ import "./Social.scss";
 // import Modal from "react-awesome-modal";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import {
   fetchAllPosts,
   deletePost,
@@ -80,7 +81,7 @@ class Social extends Component {
                         {gamertag}
                       </Link>
                       <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
-                        {date}
+                        {moment(date).fromNow()}
                       </span>
                     </div>
                     {image_url !== "" ? (

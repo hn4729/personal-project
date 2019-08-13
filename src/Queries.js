@@ -12,9 +12,9 @@ export const GET_LOL_LEAGUES = gql`
   }
 `;
 
-export const GET_PAST_LOL_LEAGUE_MATCHES = gql`
-  query GET_PAST_LOL_LEAGUE_MATCHES($path: String!) {
-    pastLOLLeagueMatches @rest(type: "PastLOLLeagueMatches", path: $path) {
+export const GET_PAST_LEAGUE_MATCHES_SIDEBAR = gql`
+  query GET_PAST_LEAGUE_MATCHES($path: String!) {
+    pastLeagueMatches @rest(type: "PastLeagueMatches", path: $path) {
       league @type(name: "League") {
         name
         image_url
