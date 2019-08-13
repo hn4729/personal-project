@@ -3,14 +3,28 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import * as serviceAccount from "./serviceAccount.json";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { HashRouter as Router } from "react-router-dom";
+import { RestLink } from "apollo-link-rest";
+import { ApolloClient } from "apollo-client";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloProvider } from "react-apollo";
+
+const restLink = new RestLink({ uri: "https://api.pandascore.co" });
+
+const client = new ApolloClient({
+  link: restLink,
+  cache: new InMemoryCache()
+});
 
 ReactDOM.render(
   <Router>
     <Provider store={store}>
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </Provider>
   </Router>,
   document.getElementById("root")

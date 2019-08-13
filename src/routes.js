@@ -30,7 +30,7 @@ export default (
             <Route exact path="/poggers/post/:id" component={IndividualPost} />
             <Route exact path="/poggers/user/:gamertag" component={Profile} />
 
-            <div className="w-3/12 bg-darkgrey text-white sm:hidden md:hidden">
+            <div className="w-3/12 bg-darkgrey text-white sm:hidden md:hidden overflow-y-auto overflow-x-hidden">
               <EsportsBar />
             </div>
           </div>
