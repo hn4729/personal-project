@@ -12,7 +12,7 @@ export default class OWSidebar extends Component {
           <img
             src="https://icon-library.net/images/overwatch-icon-png/overwatch-icon-png-10.jpg"
             alt="OW"
-            className="h5 w-5 mr-2"
+            className="h-auto w-5 mr-2"
           />
           <h1>Overwatch</h1>
         </div>
@@ -28,7 +28,7 @@ export default class OWSidebar extends Component {
           {({ loading, error, data }) => {
             if (loading) return <h1>Loading...</h1>;
             const { pastOWLLeagueMatches } = data;
-            console.log(data);
+            // console.log(data);
             return pastOWLLeagueMatches.map((match, index) => {
               let opponentIndex;
               match.winner.acronym !== match.opponents[0].opponent.acronym
@@ -55,7 +55,7 @@ export default class OWSidebar extends Component {
                           <img
                             src={match.league.image_url}
                             alt="league"
-                            className="h-5 w-5"
+                            className="h-auto w-5"
                           />
                         </a>
                         <h1 className="mr-2">
@@ -69,7 +69,7 @@ export default class OWSidebar extends Component {
                               <img
                                 src={match.winner.image_url}
                                 alt={match.winner.slug}
-                                className="h-5 w-5 mr-2"
+                                className="h-auto w-5 mr-2"
                               />
                               <h1>{match.winner.acronym}</h1>
                             </div>
@@ -86,7 +86,7 @@ export default class OWSidebar extends Component {
                                   .image_url
                               }
                               alt={match.opponents[opponentIndex].opponent.slug}
-                              className="h-5 w-5 mr-2"
+                              className="h-auto w-5 mr-2"
                             />
                             <h1>
                               {match.opponents[opponentIndex].opponent.acronym}

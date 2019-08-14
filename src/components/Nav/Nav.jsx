@@ -5,12 +5,21 @@ import { requestUserData } from "../../redux/reducers/userReducer";
 import axios from "axios";
 import { Redirect, Link } from "react-router-dom";
 import { fetchUserPosts, fetchLikes } from "../../redux/reducers/postReducer";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionItemButton,
+  AccordionItemHeading,
+  AccordionItemState,
+  AccordionItemPanel
+} from "react-accessible-accordion";
 
 class Nav extends Component {
   constructor() {
     super();
     this.state = {
-      redirect: false
+      redirect: false,
+      expand: false
     };
   }
 
@@ -26,6 +35,14 @@ class Nav extends Component {
   renderRedirect = () => {
     if (this.state.redirect) {
       return <Redirect to="/" />;
+    }
+  };
+
+  handleExpand = () => {
+    if (this.state.expand) {
+      this.setState({ expand: false });
+    } else {
+      this.setState({ expand: true });
     }
   };
 
@@ -51,6 +68,44 @@ class Nav extends Component {
             <i className="material-icons mr-2">search</i>
             <h2 className="sm:hidden md:hidden lg:block">Discovery</h2>
           </Link>
+
+          <Accordion className="container" allowZeroExpanded={true}>
+            <AccordionItem>
+              <AccordionItemHeading>
+                <AccordionItemButton>
+                  <div className="m-5 flex flex-row justify-center items-center">
+                    <img
+                      src="https://www.macupdate.com/images/icons256/47210.png"
+                      alt="LoL"
+                      className="h-6 w-auto mr-2"
+                    />
+                    <h2 className="sm:hidden md:hidden lg:block lg:mr-2">
+                      League of Legends
+                    </h2>
+                    <div
+                      className="flex justify-center items-center"
+                      onClick={() => {
+                        this.handleExpand();
+                      }}
+                    >
+                      {!this.state.expand ? (
+                        <i className="material-icons">expand_more</i>
+                      ) : (
+                        <i className="material-icons">expand_less</i>
+                      )}
+                    </div>
+                  </div>
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <Link to="/poggers/lol/champions">Champions</Link>
+              </AccordionItemPanel>
+              <AccordionItemPanel>
+                <Link to="/poggers/lol/leagues">Esports Leagues</Link>
+              </AccordionItemPanel>
+            </AccordionItem>
+          </Accordion>
+
           <Link
             to={`/poggers/user/${gamertag}`}
             className="m-5 flex justify-center items-center"

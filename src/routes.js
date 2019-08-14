@@ -9,6 +9,8 @@ import Social from "./components/Social/Social";
 import IndividualPost from "./components/IndividualPost/IndividualPost";
 import Profile from "./components/Profile/Profile";
 import PersonalFeed from "./components/PersonalFeed/PersonalFeed";
+import LoLChamps from "./components/LoLChamps/LoLChamps";
+import LoLLeagues from "./components/LoLLeagues/LoLLeagues";
 
 export default (
   <>
@@ -29,6 +31,8 @@ export default (
 
             <Route exact path="/poggers/post/:id" component={IndividualPost} />
             <Route exact path="/poggers/user/:gamertag" component={Profile} />
+            <Route exact path="/poggers/lol/champions" component={LoLChamps} />
+            <Route exact path="/poggers/lol/leagues" component={LoLLeagues} />
 
             <div className="w-3/12 bg-darkgrey text-white sm:hidden md:hidden overflow-y-auto overflow-x-hidden">
               <EsportsBar />

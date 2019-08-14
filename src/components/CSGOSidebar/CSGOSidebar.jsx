@@ -1,78 +1,37 @@
 import React, { Component } from "react";
 import * as serviceAccount from "../../serviceAccount.json";
 import { Query } from "react-apollo";
-import { GET_PAST_LOL_LEAGUE_MATCHES_SIDEBAR } from "../../Queries";
+import { GET_PAST_CSGO_MATCHES_SIDEBAR } from "../../Queries";
 import moment from "moment";
 
-export default class LoLSidebar extends Component {
-  constructor() {
-    super();
-    this.state = {
-      league_id: 4198
-    };
-  }
+export default class CSGOSidebar extends Component {
   render() {
     return (
-      <div className="flex flex-col justify-center items-center mb-2">
+      <div className="flex flex-col justify-center items-center">
         <div className="flex flex-row justify-center items-center mb-3">
           <img
-            src="https://www.macupdate.com/images/icons256/47210.png"
-            alt="LoL"
-            className="h-auto w-5 mr-2"
+            src="https://discordemoji.com/assets/emoji/csgo.png"
+            alt="CSGO"
+            className="h-auto w-10 mr-2"
           />
-          <h1>League of Legends</h1>
-        </div>
-        <div className="flex flex-row justify-center items-center mb-3 bg-white rounded">
-          <button
-            className="bg-white text-grey px-2 rounded"
-            onClick={() => {
-              this.setState({ league_id: 4198 });
-            }}
-          >
-            NA
-          </button>
-          <button
-            className="bg-white text-grey px-2"
-            onClick={() => {
-              this.setState({ league_id: 4197 });
-            }}
-          >
-            EU
-          </button>
-          <button
-            className="bg-white text-grey px-2"
-            onClick={() => {
-              this.setState({ league_id: 293 });
-            }}
-          >
-            LCK
-          </button>
-          <button
-            className="bg-white text-grey px-2 rounded"
-            onClick={() => {
-              this.setState({ league_id: 294 });
-            }}
-          >
-            LPL
-          </button>
+          <h1>CS:GO</h1>
         </div>
         <Query
-          query={GET_PAST_LOL_LEAGUE_MATCHES_SIDEBAR}
+          query={GET_PAST_CSGO_MATCHES_SIDEBAR}
           fetchPolicy={"network-only"}
           variables={{
-            path: `/leagues/${
-              this.state.league_id
-            }/matches/past?per_page=5&sort=-begin_at&token=${
+            path: `/csgo/matches/past?per_page=10&sort=-begin_at&token=${
               serviceAccount.pandascore_key
             }`
           }}
         >
           {({ loading, error, data }) => {
             if (loading) return <h1>Loading...</h1>;
-            const { pastLOLLeagueMatches } = data;
-            return pastLOLLeagueMatches.map((match, index) => {
+            const { pastCSGOMatchesSidebar } = data;
+            // console.log(data);
+            return pastCSGOMatchesSidebar.map((match, index) => {
               let opponentIndex;
-              match.winner.acronym !== match.opponents[0].opponent.acronym
+              match.winner.name !== match.opponents[0].opponent.name
                 ? (opponentIndex = 0)
                 : (opponentIndex = 1);
               const monthDayDate = moment(match.begin_at).format("MMM DD");
@@ -112,7 +71,11 @@ export default class LoLSidebar extends Component {
                                 alt={match.winner.slug}
                                 className="h-auto w-5 mr-2"
                               />
-                              <h1>{match.winner.acronym}</h1>
+                              {match.winner.acronym ? (
+                                <h1>{match.winner.acronym}</h1>
+                              ) : (
+                                <h1>{match.winner.name}</h1>
+                              )}
                             </div>
                             <h1>{match.results[0].score}</h1>
                           </div>
@@ -129,9 +92,18 @@ export default class LoLSidebar extends Component {
                               alt={match.opponents[opponentIndex].opponent.slug}
                               className="h-auto w-5 mr-2"
                             />
-                            <h1>
-                              {match.opponents[opponentIndex].opponent.acronym}
-                            </h1>
+                            {match.opponents[opponentIndex].opponent.acronym ? (
+                              <h1>
+                                {
+                                  match.opponents[opponentIndex].opponent
+                                    .acronym
+                                }
+                              </h1>
+                            ) : (
+                              <h1>
+                                {match.opponents[opponentIndex].opponent.name}
+                              </h1>
+                            )}
                           </div>
                           <h1>{match.results[1].score}</h1>
                         </div>
