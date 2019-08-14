@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as serviceAccount from "../../serviceAccount.json";
 import { Query } from "react-apollo";
-import { GET_PAST_LEAGUE_MATCHES_SIDEBAR } from "../../Queries";
+import { GET_PAST_OWL_LEAGUE_MATCHES_SIDEBAR } from "../../Queries";
 import moment from "moment";
 
 export default class OWSidebar extends Component {
@@ -17,7 +17,7 @@ export default class OWSidebar extends Component {
           <h1>Overwatch</h1>
         </div>
         <Query
-          query={GET_PAST_LEAGUE_MATCHES_SIDEBAR}
+          query={GET_PAST_OWL_LEAGUE_MATCHES_SIDEBAR}
           fetchPolicy={"network-only"}
           variables={{
             path: `/leagues/${4135}/matches/past?per_page=5&sort=-begin_at&token=${
@@ -27,9 +27,9 @@ export default class OWSidebar extends Component {
         >
           {({ loading, error, data }) => {
             if (loading) return <h1>Loading...</h1>;
-            const { pastLeagueMatches } = data;
+            const { pastOWLLeagueMatches } = data;
             console.log(data);
-            return pastLeagueMatches.map((match, index) => {
+            return pastOWLLeagueMatches.map((match, index) => {
               let opponentIndex;
               match.winner.acronym !== match.opponents[0].opponent.acronym
                 ? (opponentIndex = 0)

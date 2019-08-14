@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as serviceAccount from "../../serviceAccount.json";
 import { Query } from "react-apollo";
-import { GET_PAST_LEAGUE_MATCHES_SIDEBAR } from "../../Queries";
+import { GET_PAST_LOL_LEAGUE_MATCHES_SIDEBAR } from "../../Queries";
 import moment from "moment";
 
 export default class LoLSidebar extends Component {
@@ -57,7 +57,7 @@ export default class LoLSidebar extends Component {
           </button>
         </div>
         <Query
-          query={GET_PAST_LEAGUE_MATCHES_SIDEBAR}
+          query={GET_PAST_LOL_LEAGUE_MATCHES_SIDEBAR}
           fetchPolicy={"network-only"}
           variables={{
             path: `/leagues/${
@@ -69,9 +69,8 @@ export default class LoLSidebar extends Component {
         >
           {({ loading, error, data }) => {
             if (loading) return <h1>Loading...</h1>;
-            const { pastLeagueMatches } = data;
-            console.log(data);
-            return pastLeagueMatches.map((match, index) => {
+            const { pastLOLLeagueMatches } = data;
+            return pastLOLLeagueMatches.map((match, index) => {
               let opponentIndex;
               match.winner.acronym !== match.opponents[0].opponent.acronym
                 ? (opponentIndex = 0)
