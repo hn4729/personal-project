@@ -10,7 +10,6 @@ import {
   AccordionItem,
   AccordionItemButton,
   AccordionItemHeading,
-  AccordionItemState,
   AccordionItemPanel
 } from "react-accessible-accordion";
 
@@ -50,7 +49,7 @@ class Nav extends Component {
     const { id, username, gamertag, profile_img, loggedIn } = this.props;
     // console.log(this.props);
     return (
-      <div className="flex flex-col justify-center items-center">
+      <div className="w-full flex flex-col justify-center items-center">
         <img
           src="https://socialmediaacademia.files.wordpress.com/2018/11/poggers.png"
           alt="poggers"
@@ -58,30 +57,33 @@ class Nav extends Component {
         />
         <div className="flex flex-col justify-left items-center">
           <Link to="/poggers" className="m-5 flex justify-center items-center">
-            <i className="material-icons mr-2">home</i>
-            <h2 className="sm:hidden md:hidden lg:block">Home</h2>
+            <i className="material-icons lg:mr-2">home</i>
+            <h2 className="sm:hidden md:hidden lg:block ml-2">Home</h2>
           </Link>
           <Link
             to="/poggers/discovery"
             className="m-5 flex justify-center items-center"
           >
-            <i className="material-icons mr-2">search</i>
-            <h2 className="sm:hidden md:hidden lg:block">Discovery</h2>
+            <i className="material-icons lg:mr-2">search</i>
+            <h2 className="sm:hidden md:hidden lg:block ml-2">Discovery</h2>
           </Link>
 
-          <Accordion className="container" allowZeroExpanded={true}>
-            <AccordionItem>
-              <AccordionItemHeading>
-                <AccordionItemButton>
-                  <div className="m-5 flex flex-row justify-center items-center">
+          <Accordion className="w-full" allowZeroExpanded={true}>
+            <AccordionItem className="block">
+              <AccordionItemHeading className="flex justify-center items-center">
+                <AccordionItemButton className="flex justify-center items-center">
+                  <div className="flex flex-row justify-center items-center">
                     <img
-                      src="https://www.macupdate.com/images/icons256/47210.png"
-                      alt="LoL"
-                      className="h-6 w-auto mr-2"
+                      src="http://pluspng.com/img-png/league-of-legends-png-should-riot-update-the-icon-256.png"
+                      alt="LoLSmall"
+                      className=" h-8 w-auto block md:mr-2 lg:hidden xl:hidden"
                     />
-                    <h2 className="sm:hidden md:hidden lg:block lg:mr-2">
-                      League of Legends
-                    </h2>
+                    <img
+                      src="https://www.riotgames.com/darkroom/800/6e3cb0c1ef68c36917c0ebc60e134f69:27e118b555199ad4738eaa74561e3e79/blank-uml-page-2.png"
+                      alt="LoL"
+                      className="sm:hidden md:hidden lg:block h-20 w-auto mr-2"
+                    />
+
                     <div
                       className="flex justify-center items-center"
                       onClick={() => {
@@ -97,10 +99,10 @@ class Nav extends Component {
                   </div>
                 </AccordionItemButton>
               </AccordionItemHeading>
-              <AccordionItemPanel>
+              <AccordionItemPanel className="mt-5 sm:text-xs">
                 <Link to="/poggers/lol/champions">Champions</Link>
               </AccordionItemPanel>
-              <AccordionItemPanel>
+              <AccordionItemPanel className="mt-5 sm:text-xs">
                 <Link to="/poggers/lol/leagues">Esports Leagues</Link>
               </AccordionItemPanel>
             </AccordionItem>
@@ -114,16 +116,16 @@ class Nav extends Component {
               this.props.fetchLikes();
             }}
           >
-            <i className="material-icons mr-2">person</i>
-            <h2 className="sm:hidden md:hidden lg:block">{gamertag}</h2>
+            <i className="material-icons lg:mr-2">person</i>
+            <h2 className="sm:hidden md:hidden lg:block ml-2">{gamertag}</h2>
           </Link>
           <div
             className="m-5 flex justify-center items-center align-center cursor-pointer"
             onClick={this.logout}
           >
             {this.renderRedirect()}
-            <i className="material-icons mr-2">exit_to_app</i>
-            <h2 className="sm:hidden md:hidden lg:block">Logout</h2>
+            <i className="material-icons lg:mr-2">exit_to_app</i>
+            <h2 className="sm:hidden md:hidden lg:block ml-2">Logout</h2>
           </div>
         </div>
       </div>
