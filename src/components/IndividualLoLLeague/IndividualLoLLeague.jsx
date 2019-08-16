@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import * as serviceAccount from "../../serviceAccount.json";
+import moment from "moment";
 import { Query } from "react-apollo";
-import { GET_LOL_SERIES, GET_LOL_TEAMS_SERIE } from "../../Queries";
+import {
+  GET_LOL_SERIES,
+  GET_LOL_TEAMS_SERIE,
+  GET_LOL_UPCOMING_MATCHES,
+  GET_LOL_PAST_MATCHES
+} from "../../Queries";
 import {
   Accordion,
   AccordionItem,
@@ -48,9 +54,9 @@ class IndividiualLoLLeague extends Component {
                   return (
                     <div
                       key={index}
-                      className="flex flex-col justify-center items-center mb-5"
+                      className="flex flex-col justify-center items-center mb-5 w-full"
                     >
-                      <div className="text-6xl">
+                      <div className="text-6xl md:text-xl sm:text-base xs:text-base">
                         {serie.description ? (
                           <h1>{serie.description}</h1>
                         ) : (
@@ -60,7 +66,7 @@ class IndividiualLoLLeague extends Component {
                       <Accordion allowZeroExpanded={true}>
                         <AccordionItem>
                           <AccordionItemHeading>
-                            <AccordionItemButton className="text-xl">
+                            <AccordionItemButton className="text-xl outline-none">
                               Teams
                             </AccordionItemButton>
                           </AccordionItemHeading>
@@ -85,16 +91,16 @@ class IndividiualLoLLeague extends Component {
                                     return (
                                       <div
                                         key={index}
-                                        className="flex flex-col justify-center items-center m-5"
+                                        className="flex flex-col justify-center items-center m-5 h-1/2 w-auto"
                                       >
                                         <Accordion allowZeroExpanded={true}>
                                           <AccordionItem>
                                             <AccordionItemHeading>
-                                              <AccordionItemButton className="flex flex-col justify-center items-center text-lg">
+                                              <AccordionItemButton className="flex flex-col justify-center items-center">
                                                 <img
                                                   src={team.image_url}
                                                   alt={serie.id}
-                                                  className="h-auto w-56"
+                                                  className="h-auto w-20 mb-3"
                                                 />
                                                 <h1>{team.name}</h1>
                                               </AccordionItemButton>
@@ -148,6 +154,188 @@ class IndividiualLoLLeague extends Component {
                           </AccordionItemPanel>
                         </AccordionItem>
                       </Accordion>
+
+                      <h1 className="mt-10">Upcoming Matches</h1>
+                      <div className="flex flex-col justify-center items-center lg:w-3/5 xl:w-3/5 md:w-11/12 sm:w-full">
+                        <Query
+                          query={GET_LOL_UPCOMING_MATCHES}
+                          fetchPolicy="network-only"
+                          variables={{
+                            path: `/lol/matches/upcoming?filter[serie_id]=${
+                              serie.id
+                            }&per_page=5&sort=begin_at&token=${
+                              serviceAccount.pandascore_key
+                            }`
+                          }}
+                        >
+                          {({ loading, data, error }) => {
+                            if (loading) return <></>;
+                            const { getLOLUpcomingMatches } = data;
+                            console.log(getLOLUpcomingMatches);
+                            return getLOLUpcomingMatches.map((match, index) => {
+                              return (
+                                <div
+                                  key={index}
+                                  className="flex flex-row items-center justify-around w-full mb-2"
+                                >
+                                  <div>
+                                    <i className="fab fa-twitch" />
+                                  </div>
+                                  <div className="flex flex-col justify-center items-center sm:text-sm">
+                                    <h1>
+                                      {`${moment(match.begin_at).format(
+                                        "ddd"
+                                      )} ${moment(match.begin_at).format(
+                                        "h:mm A"
+                                      )}`}
+                                    </h1>
+                                    <h1>
+                                      {moment(match.begin_at).format("MMM DD")}
+                                    </h1>
+                                  </div>
+                                  <div className="flex flex-col justify-center items-center w-1/2">
+                                    <div className="sm:text-sm">
+                                      {match.name}
+                                    </div>
+                                    {match.opponents.length > 0 ? (
+                                      <div className="flex justify-center items-center w-full">
+                                        <img
+                                          src={
+                                            match.opponents[0].opponent
+                                              .image_url
+                                          }
+                                          alt={
+                                            match.opponents[0].opponent.acronym
+                                          }
+                                          className="h-auto w-10 mr-2"
+                                        />
+                                        <h1 className="mr-2">VS</h1>
+                                        <img
+                                          src={
+                                            match.opponents[1].opponent
+                                              .image_url
+                                          }
+                                          alt={
+                                            match.opponents[1].opponent.acronym
+                                          }
+                                          className="h-auto w-10"
+                                        />
+                                      </div>
+                                    ) : null}
+                                  </div>
+                                </div>
+                              );
+                            });
+                          }}
+                        </Query>
+                      </div>
+
+                      <h1 className="mt-10">Past Matches</h1>
+                      <div className="flex flex-col justify-center items-center lg:w-3/5 xl:w-3/5 md:w-11/12 sm:w-full">
+                        <Query
+                          query={GET_LOL_PAST_MATCHES}
+                          fetchPolicy="network-only"
+                          variables={{
+                            path: `/lol/matches/past?filter[serie_id]=${
+                              serie.id
+                            }&per_page=10&sort=-begin_at&token=${
+                              serviceAccount.pandascore_key
+                            }`
+                          }}
+                        >
+                          {({ loading, data, error }) => {
+                            if (loading) return <></>;
+                            const { getLOLPastMatches } = data;
+                            console.log(getLOLPastMatches);
+                            return getLOLPastMatches.map((match, index) => {
+                              return (
+                                <div
+                                  key={index}
+                                  className="flex flex-row items-center justify-around w-full mb-3"
+                                >
+                                  <div className="flex flex-col justify-center items-center sm:text-sm mb-1">
+                                    <h1>
+                                      {`${moment(match.begin_at).format(
+                                        "ddd"
+                                      )}`}
+                                    </h1>
+                                    <h1>
+                                      {moment(match.begin_at).format("MMM DD")}
+                                    </h1>
+                                  </div>
+                                  <div className="flex flex-col justify-center items-center w-1/2 sm:w-3/5">
+                                    <div className="sm:text-sm">
+                                      {match.name}
+                                    </div>
+                                    {match.opponents.length > 0 ? (
+                                      <div className="flex flex-col justify-around items-center w-full mb-1">
+                                        <div className="flex justify-between items-center w-full">
+                                          <div className="flex justify-center items-center">
+                                            <img
+                                              src={
+                                                match.opponents[0].opponent
+                                                  .image_url
+                                              }
+                                              alt={
+                                                match.opponents[0].opponent
+                                                  .acronym
+                                              }
+                                              className="h-auto w-10 mr-1"
+                                            />
+                                            <h1>
+                                              {
+                                                match.opponents[0].opponent
+                                                  .acronym
+                                              }
+                                            </h1>
+                                          </div>
+                                          <div className="mr-5">
+                                            {match.opponents[0].opponent.id ===
+                                            match.results[0].team_id ? (
+                                              <h1>{match.results[0].score}</h1>
+                                            ) : (
+                                              <h1>{match.results[1].score}</h1>
+                                            )}
+                                          </div>
+                                        </div>
+                                        <div className="flex justify-between items-center w-full">
+                                          <div className="flex justify-center items-center">
+                                            <img
+                                              src={
+                                                match.opponents[1].opponent
+                                                  .image_url
+                                              }
+                                              alt={
+                                                match.opponents[1].opponent
+                                                  .acronym
+                                              }
+                                              className="h-auto w-10 mr-1"
+                                            />
+                                            <h1>
+                                              {
+                                                match.opponents[1].opponent
+                                                  .acronym
+                                              }
+                                            </h1>
+                                          </div>
+                                          <div className="mr-5">
+                                            {match.opponents[1].opponent.id ===
+                                            match.results[0].team_id ? (
+                                              <h1>{match.results[0].score}</h1>
+                                            ) : (
+                                              <h1>{match.results[1].score}</h1>
+                                            )}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    ) : null}
+                                  </div>
+                                </div>
+                              );
+                            });
+                          }}
+                        </Query>
+                      </div>
                     </div>
                   );
                 });

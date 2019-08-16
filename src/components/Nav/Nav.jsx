@@ -18,7 +18,8 @@ class Nav extends Component {
     super();
     this.state = {
       redirect: false,
-      expand: false
+      expand: false,
+      expand_two: false
     };
   }
 
@@ -40,8 +41,13 @@ class Nav extends Component {
   handleExpand = () => {
     if (this.state.expand) {
       this.setState({ expand: false });
-    } else {
+    } else if (!this.state.expand) {
       this.setState({ expand: true });
+    }
+    if (this.state.expand_two) {
+      this.setState({ expand_two: false });
+    } else if (!this.state.expand_two) {
+      this.setState({ expand_two: true });
     }
   };
 
@@ -68,7 +74,7 @@ class Nav extends Component {
             <h2 className="sm:hidden md:hidden lg:block ml-2">Discovery</h2>
           </Link>
 
-          <Accordion className="w-full" allowZeroExpanded={true}>
+          <Accordion className="w-full mb-5" allowZeroExpanded={true}>
             <AccordionItem className="block">
               <AccordionItemHeading className="flex justify-center items-center">
                 <AccordionItemButton className="flex justify-center items-center">
@@ -81,10 +87,10 @@ class Nav extends Component {
                     <img
                       src="https://www.riotgames.com/darkroom/800/6e3cb0c1ef68c36917c0ebc60e134f69:27e118b555199ad4738eaa74561e3e79/blank-uml-page-2.png"
                       alt="LoL"
-                      className="sm:hidden md:hidden lg:block h-20 w-auto mr-2"
+                      className="sm:hidden md:hidden lg:block h-20 w-auto"
                     />
 
-                    <div
+                    {/* <div
                       className="flex justify-center items-center"
                       onClick={() => {
                         this.handleExpand();
@@ -95,15 +101,68 @@ class Nav extends Component {
                       ) : (
                         <i className="material-icons">expand_less</i>
                       )}
-                    </div>
+                    </div> */}
                   </div>
                 </AccordionItemButton>
               </AccordionItemHeading>
-              <AccordionItemPanel className="mt-5 sm:text-xs">
+              <AccordionItemPanel className="mt-1 sm:text-xs">
                 <Link to="/poggers/lol/champions">Champions</Link>
               </AccordionItemPanel>
-              <AccordionItemPanel className="mt-5 sm:text-xs">
+              <AccordionItemPanel className="mt-2 sm:text-xs">
                 <Link to="/poggers/lol/leagues">Esports Leagues</Link>
+              </AccordionItemPanel>
+            </AccordionItem>
+          </Accordion>
+
+          <Accordion className="w-full" allowZeroExpanded={true}>
+            <AccordionItem className="block">
+              <AccordionItemHeading className="flex justify-center items-center">
+                <AccordionItemButton className="flex justify-center items-center">
+                  <div className="flex flex-row justify-center items-center">
+                    <img
+                      src="https://icon-library.net/images/overwatch-icon-png/overwatch-icon-png-10.jpg"
+                      alt="OWSmall"
+                      className=" h-8 w-auto block md:mr-2 lg:hidden xl:hidden"
+                    />
+                    <img
+                      src="https://www.sccpre.cat/png/big/0/8839_overwatch-logo-png.png"
+                      alt="OW"
+                      className="sm:hidden md:hidden lg:block h-20 w-auto"
+                    />
+
+                    {/* <div
+                      className="flex justify-center items-center"
+                      onClick={() => {
+                        this.handleExpand();
+                      }}
+                    >
+                      {!this.state.expand_two ? (
+                        <i className="material-icons">expand_more</i>
+                      ) : (
+                        <i className="material-icons">expand_less</i>
+                      )}
+                    </div> */}
+                  </div>
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel className="mt-1 sm:text-xs">
+                <Link to="/poggers/ow/heroes">Heroes</Link>
+              </AccordionItemPanel>
+              <AccordionItemPanel className="mt-1 sm:text-xs">
+                <Link to="/poggers/ow/maps">Maps</Link>
+              </AccordionItemPanel>
+              <AccordionItemPanel className="mt-2 sm:text-xs">
+                <Link
+                  to="/poggers/owl"
+                  className="flex justify-center items-center"
+                >
+                  <img
+                    src="https://az571148.vo.msecnd.net/propressroom/Content/Artwork/Eva/BlizzardLive/artwork/2016/11/01231618-6b42da5a-f988-4dac-822d-823140a3c47b/OW_League_Logo_Lockup_light_bkg.png?lightbox=y&ex=2019-08-14+03%3A00%3A00&sky=e4a8e05b9e094f41323539c6eb183c3569e99e41f47eb61f2a447f5a6f67f495"
+                    alt="OWL"
+                    className="h-auto w-10"
+                  />
+                  <h1 className="sm:hidden">Overwatch League</h1>
+                </Link>
               </AccordionItemPanel>
             </AccordionItem>
           </Accordion>

@@ -30,9 +30,13 @@ class LoLChamps extends Component {
                 return (
                   <div
                     key={index}
-                    className="flex flex-col justify-center items-center"
+                    className="flex flex-col justify-center items-center m-2"
                   >
-                    <img src={champ.image_url} alt={champ.name} />
+                    <img
+                      src={champ.image_url}
+                      alt={champ.name}
+                      className="rounded"
+                    />
                     <h1>{champ.name}</h1>
                   </div>
                 );
@@ -54,9 +58,13 @@ class LoLChamps extends Component {
                 return (
                   <div
                     key={index}
-                    className="flex flex-col justify-center items-center"
+                    className="flex flex-col justify-center items-center m-2"
                   >
-                    <img src={champ.image_url} alt={champ.name} />
+                    <img
+                      src={champ.image_url}
+                      alt={champ.name}
+                      className="rounded"
+                    />
                     <h1>{champ.name}</h1>
                   </div>
                 );

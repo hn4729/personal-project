@@ -12,6 +12,10 @@ import PersonalFeed from "./components/PersonalFeed/PersonalFeed";
 import LoLChamps from "./components/LoLChamps/LoLChamps";
 import LoLLeagues from "./components/LoLLeagues/LoLLeagues";
 import IndividualLoLLeague from "./components/IndividualLoLLeague/IndividualLoLLeague";
+import OWHeroes from "./components/OWHeroes/OWHeroes";
+import OWMaps from "./components/OWMaps/OWMaps";
+import OWLeague from "./components/OWLeague/OWLeague";
+import OWLTournament from "./components/OWLTournament/OWLTournament";
 
 export default (
   <>
@@ -38,6 +42,14 @@ export default (
               exact
               path="/poggers/lol/leagues/:league_id"
               component={IndividualLoLLeague}
+            />
+            <Route exact path="/poggers/ow/heroes" component={OWHeroes} />
+            <Route exact path="/poggers/ow/maps" component={OWMaps} />
+            <Route exact path="/poggers/owl" component={OWLeague} />
+            <Route
+              exact
+              path="/poggers/owl/:tournament_id"
+              component={OWLTournament}
             />
 
             <div className="w-3/12 bg-darkgrey text-white sm:hidden md:hidden overflow-y-auto overflow-x-hidden mx-h-screen">
