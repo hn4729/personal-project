@@ -294,17 +294,20 @@ export const GET_CSGO_WEAPONS = gql`
   }
 `;
 
-export const GET_CSGO_TOURNAMENTS = gql`
-  query GET_CSGO_TOURNAMENTS($path: String!) {
-    getCSGOTournaments @rest(type: "GetCSGOTournaments", path: $path) {
+export const GET_CSGO_SERIES = gql`
+  query GET_CSGO_SERIES($path: String!) {
+    getCSGOSeries @rest(type: "GetCSGOSeries", path: $path) {
       begin_at
-      id
+      description
+      full_name
       league
       league_id
       name
-      serie
-      serie_id
-      teams
+      season
+      slug
+      tournaments
+      winner_id
+      year
     }
   }
 `;

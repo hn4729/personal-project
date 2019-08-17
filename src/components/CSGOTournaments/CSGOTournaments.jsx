@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as serviceAccount from "../../serviceAccount.json";
 import { Query } from "react-apollo";
-import { GET_CSGO_TOURNAMENTS } from "../../Queries";
+import { GET_CSGO_SERIES } from "../../Queries";
 
 class CSGOTournaments extends Component {
   render() {
@@ -12,25 +12,22 @@ class CSGOTournaments extends Component {
         </div>
         <div className="flex justify-center items-center w-full">
           <Query
-            query={GET_CSGO_TOURNAMENTS}
+            query={GET_CSGO_SERIES}
             fetchPolicy="network-only"
             variables={{
-              path: `/csgo/tournaments/past?sort=-begin_at&per_page=5&token=${
+              path: `/csgo/series/running?sort=-begin_at&per_page=10&token=${
                 serviceAccount.pandascore_key
               }`
             }}
           >
             {({ loading, data, error }) => {
               if (loading) return <h1>Loading...</h1>;
-              const { getCSGOTournaments } = data;
-              console.log(getCSGOTournaments);
-              return getCSGOTournaments.map((tournament, index) => {
+              const { getCSGOSeries } = data;
+              console.log(getCSGOSeries);
+              return getCSGOSeries.map((serie, index) => {
                 return (
                   <div key={index}>
-                    <img
-                      src={tournament.league.image_url}
-                      alt={tournament.league.slug}
-                    />
+                    <img src={serie.league.image_url} alt={serie.league.slug} />
                   </div>
                 );
               });
