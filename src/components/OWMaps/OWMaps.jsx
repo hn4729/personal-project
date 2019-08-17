@@ -25,7 +25,10 @@ class OWMaps extends Component {
               console.log(getOWMaps);
               return getOWMaps.map((map, index) => {
                 return (
-                  <div className="flex flex-col justify-center items-center m-2">
+                  <div
+                    className="flex flex-col justify-center items-center m-2"
+                    key={index}
+                  >
                     <img
                       src={map.image_url}
                       alt={map.slug}

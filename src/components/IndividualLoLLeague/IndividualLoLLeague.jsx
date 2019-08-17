@@ -106,7 +106,7 @@ class IndividiualLoLLeague extends Component {
                                               </AccordionItemButton>
                                             </AccordionItemHeading>
                                             <AccordionItemPanel>
-                                              <div className="flex flex-wrap justify-start text-lg">
+                                              <div className="flex flex-wrap justify-center sm:text-lg text-base">
                                                 {team.players.map(
                                                   (player, index) => {
                                                     return (

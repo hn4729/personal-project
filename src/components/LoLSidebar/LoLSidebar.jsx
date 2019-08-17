@@ -70,6 +70,7 @@ export default class LoLSidebar extends Component {
           {({ loading, error, data }) => {
             if (loading) return <h1>Loading...</h1>;
             const { pastLOLLeagueMatches } = data;
+            if (!pastLOLLeagueMatches) return <></>;
             return pastLOLLeagueMatches.map((match, index) => {
               let opponentIndex;
               match.winner.acronym !== match.opponents[0].opponent.acronym

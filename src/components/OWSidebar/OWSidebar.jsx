@@ -29,6 +29,7 @@ export default class OWSidebar extends Component {
             if (loading) return <h1>Loading...</h1>;
             const { pastOWLLeagueMatches } = data;
             // console.log(data);
+            if (!pastOWLLeagueMatches) return <></>;
             return pastOWLLeagueMatches.map((match, index) => {
               let opponentIndex;
               match.winner.acronym !== match.opponents[0].opponent.acronym

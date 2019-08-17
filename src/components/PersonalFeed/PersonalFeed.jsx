@@ -32,7 +32,7 @@ class PersonalFeed extends Component {
     if (following) {
       isFollowing = following.map(follow => follow.gamertag);
       const uniqueSet = new Set(isFollowing);
-      isFollowing = [...uniqueSet];
+      isFollowing = [...uniqueSet, this.props.gamertag];
       // console.log(isFollowing);
     }
     return (

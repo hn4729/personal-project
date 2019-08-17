@@ -16,6 +16,9 @@ import OWHeroes from "./components/OWHeroes/OWHeroes";
 import OWMaps from "./components/OWMaps/OWMaps";
 import OWLeague from "./components/OWLeague/OWLeague";
 import OWLTournament from "./components/OWLTournament/OWLTournament";
+import CSGOMaps from "./components/CSGOMaps/CSGOMaps";
+import CSGOWeapons from "./components/CSGOWeapons/CSGOWeapons";
+import CSGOTournaments from "./components/CSGOTournaments/CSGOTournaments";
 
 export default (
   <>
@@ -50,6 +53,13 @@ export default (
               exact
               path="/poggers/owl/:tournament_id"
               component={OWLTournament}
+            />
+            <Route exact path="/poggers/csgo/maps" component={CSGOMaps} />
+            <Route exact path="/poggers/csgo/weapons" component={CSGOWeapons} />
+            <Route
+              exact
+              path="/poggers/csgo/tournaments"
+              component={CSGOTournaments}
             />
 
             <div className="w-3/12 bg-darkgrey text-white sm:hidden md:hidden overflow-y-auto overflow-x-hidden mx-h-screen">

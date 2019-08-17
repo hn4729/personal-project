@@ -82,7 +82,7 @@ class Nav extends Component {
                     <img
                       src="http://pluspng.com/img-png/league-of-legends-png-should-riot-update-the-icon-256.png"
                       alt="LoLSmall"
-                      className=" h-8 w-auto block md:mr-2 lg:hidden xl:hidden"
+                      className=" h-8 w-auto block lg:hidden xl:hidden"
                     />
                     <img
                       src="https://www.riotgames.com/darkroom/800/6e3cb0c1ef68c36917c0ebc60e134f69:27e118b555199ad4738eaa74561e3e79/blank-uml-page-2.png"
@@ -114,7 +114,7 @@ class Nav extends Component {
             </AccordionItem>
           </Accordion>
 
-          <Accordion className="w-full" allowZeroExpanded={true}>
+          <Accordion className="w-full mb-5" allowZeroExpanded={true}>
             <AccordionItem className="block">
               <AccordionItemHeading className="flex justify-center items-center">
                 <AccordionItemButton className="flex justify-center items-center">
@@ -122,12 +122,12 @@ class Nav extends Component {
                     <img
                       src="https://icon-library.net/images/overwatch-icon-png/overwatch-icon-png-10.jpg"
                       alt="OWSmall"
-                      className=" h-8 w-auto block md:mr-2 lg:hidden xl:hidden"
+                      className=" h-8 w-auto block lg:hidden xl:hidden"
                     />
                     <img
                       src="https://www.sccpre.cat/png/big/0/8839_overwatch-logo-png.png"
                       alt="OW"
-                      className="sm:hidden md:hidden lg:block h-20 w-auto"
+                      className="sm:hidden md:hidden lg:block h-16 w-auto"
                     />
 
                     {/* <div
@@ -163,6 +163,49 @@ class Nav extends Component {
                   />
                   <h1 className="sm:hidden">Overwatch League</h1>
                 </Link>
+              </AccordionItemPanel>
+            </AccordionItem>
+          </Accordion>
+
+          <Accordion className="w-full" allowZeroExpanded={true}>
+            <AccordionItem className="block">
+              <AccordionItemHeading className="flex justify-center items-center">
+                <AccordionItemButton className="flex justify-center items-center">
+                  <div className="flex flex-row justify-center items-center">
+                    <img
+                      src="https://tchol.org/images/counter-strike-global-offensive-logo-png-6.png"
+                      alt="CSSmall"
+                      className=" h-10 w-auto block lg:hidden xl:hidden"
+                    />
+                    <img
+                      src="https://www.freepnglogos.com/uploads/counter-strike-png-logo/counter-strike-global-offensive-full-version-png-logo-3.png"
+                      alt="CS"
+                      className="sm:hidden md:hidden lg:block h-12 w-auto"
+                    />
+
+                    {/* <div
+                      className="flex justify-center items-center"
+                      onClick={() => {
+                        this.handleExpand();
+                      }}
+                    >
+                      {!this.state.expand_two ? (
+                        <i className="material-icons">expand_more</i>
+                      ) : (
+                        <i className="material-icons">expand_less</i>
+                      )}
+                    </div> */}
+                  </div>
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel className="mt-1 sm:text-xs">
+                <Link to="/poggers/csgo/maps">Maps</Link>
+              </AccordionItemPanel>
+              <AccordionItemPanel className="mt-1 sm:text-xs">
+                <Link to="/poggers/csgo/weapons">Weapons</Link>
+              </AccordionItemPanel>
+              <AccordionItemPanel className="mt-1 sm:text-xs">
+                <Link to="/poggers/csgo/tournaments">Tournaments</Link>
               </AccordionItemPanel>
             </AccordionItem>
           </Accordion>

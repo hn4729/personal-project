@@ -221,6 +221,7 @@ export const GET_OWL_SERIES = gql`
 export const GET_OWL_TOURNAMENT = gql`
   query GET_OWL_TOURNAMENT($path: String!) {
     getOWLTournament @rest(type: "GetOWLTournament", path: $path) {
+      id
       begin_at
       end_at
       name
@@ -230,6 +231,80 @@ export const GET_OWL_TOURNAMENT = gql`
       league
       league_id
       matches
+    }
+  }
+`;
+
+export const GET_OWL_UPCOMING_MATCHES = gql`
+  query GET_OWL_UPCOMING_MATCHES($path: String!) {
+    getOWLUpcomingMatches @rest(type: "GetOWLUpcomingMatches", path: $path) {
+      begin_at
+      scheduled_at
+      live
+      live_url
+      league
+      name
+      opponents
+      status
+      tournament
+    }
+  }
+`;
+
+export const GET_OWL_PAST_MATCHES = gql`
+  query GET_OWL_PAST_MATCHES($path: String!) {
+    getOWLPastMatches @rest(type: "GetOWLPastMatches", path: $path) {
+      id
+      begin_at
+      detailed_stats
+      games
+      league
+      match_type
+      name
+      number_of_games
+      opponents
+      results
+      tournament
+      winner
+      video_url
+    }
+  }
+`;
+
+export const GET_CSGO_MAPS = gql`
+  query GET_CSGO_MAPS($path: String!) {
+    getCSGOMaps @rest(type: "GetCSGOMaps", path: $path) {
+      id
+      image_url
+      name
+    }
+  }
+`;
+
+export const GET_CSGO_WEAPONS = gql`
+  query GET_CSGO_WEAPONS($path: String!) {
+    getCSGOWeapons @rest(type: "GetCSGOWeapons", path: $path) {
+      id
+      image_url
+      kind
+      name
+      slug
+      cost
+    }
+  }
+`;
+
+export const GET_CSGO_TOURNAMENTS = gql`
+  query GET_CSGO_TOURNAMENTS($path: String!) {
+    getCSGOTournaments @rest(type: "GetCSGOTournaments", path: $path) {
+      begin_at
+      id
+      league
+      league_id
+      name
+      serie
+      serie_id
+      teams
     }
   }
 `;

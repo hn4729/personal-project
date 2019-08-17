@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import firebase from "firebase";
 import * as serviceAccount from "../../serviceAccount.json";
-import { fetchAllPosts, createPost } from "../../redux/reducers/postReducer";
+import {
+  fetchAllPosts,
+  createPost,
+  fetchUserPosts
+} from "../../redux/reducers/postReducer";
 import { fetchGames } from "../../redux/reducers/gameReducer";
 import CreatableSelect from "react-select/creatable";
 
@@ -151,6 +155,7 @@ class CreatePost extends Component {
                         video_url: ""
                       });
                       this.props.fetchAllPosts();
+                      this.props.fetchUserPosts(this.props.profileGamertag);
                     }
                   }}
                 >
@@ -177,5 +182,5 @@ function mapStateToProps(reduxState) {
 
 export default connect(
   mapStateToProps,
-  { fetchAllPosts, fetchGames, createPost }
+  { fetchAllPosts, fetchGames, createPost, fetchUserPosts }
 )(CreatePost);

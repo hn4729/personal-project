@@ -48,7 +48,7 @@ app.post("/api/games");
 //Posts
 app.get("/posts", TM.timer, PC.getAllPosts);
 app.get("/posts/profile", PC.getProfilePosts);
-app.get("/posts/user/:gamertag", PC.getUserPosts);
+app.get("/posts/user/:gamertag", TM.timer, PC.getUserPosts);
 app.get("/posts/game/:game", PC.getGamePosts);
 app.get("/post/:id", TM.timer, PC.getIndividualPost);
 app.post("/posts", PC.create);

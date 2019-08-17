@@ -15,6 +15,7 @@ import {
 } from "../../redux/reducers/userReducer";
 import CreatePost from "../CreatePost/CreatePost";
 import UpdatePost from "../UpdatePost/UpdatePost";
+import moment from "moment";
 
 class Profile extends Component {
   componentDidMount() {
@@ -40,7 +41,7 @@ class Profile extends Component {
         </div>
 
         {this.props.gamertag === this.props.match.params.gamertag ? (
-          <CreatePost />
+          <CreatePost profileGamertag={this.props.match.params.gamertag} />
         ) : null}
 
         <div className="flex flex-col justify-center items-center bg-grey text-white mb-5">
@@ -108,7 +109,7 @@ class Profile extends Component {
                     <div className="px-6 py-4 bg-white text-grey flex flex-row justify-center items-center">
                       <h1 className="font-semibold mr-2">{gamertag}</h1>
                       <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
-                        {date}
+                        {moment(date).fromNow()}
                       </span>
                     </div>
                     {image_url !== "" ? (
@@ -165,7 +166,9 @@ class Profile extends Component {
                             className="material-icons text-grey cursor-pointer"
                             onClick={() => {
                               this.props.deletePost(post_id);
-                              this.props.fetchAllPosts();
+                              this.props.fetchUserPosts(
+                                this.props.match.params.gamertag
+                              );
                             }}
                           >
                             delete
