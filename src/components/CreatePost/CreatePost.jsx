@@ -19,6 +19,7 @@ firebase.initializeApp({
 
 const storage = firebase.storage();
 const imagesRef = storage.ref("images");
+const videosRef = storage.ref("videos");
 
 class CreatePost extends Component {
   constructor() {
@@ -43,6 +44,17 @@ class CreatePost extends Component {
         .child(file.name)
         .getDownloadURL()
         .then(url => this.setState({ image_url: url }));
+    });
+  };
+
+  handleVideoChange = event => {
+    const file = event.target.files[0];
+    const uploadTask = videosRef.child(file.name).put(file);
+    uploadTask.then(() => {
+      videosRef
+        .child(file.name)
+        .getDownloadURL()
+        .then(url => this.setState({ video_url: url }));
     });
   };
 
@@ -75,7 +87,6 @@ class CreatePost extends Component {
 
   render() {
     const { games } = this.props;
-
     const defaultOptions = games.map(game => {
       return this.createOption(game.name);
     });
@@ -109,7 +120,12 @@ class CreatePost extends Component {
                     <i className="material-icons m-2 cursor-pointer">
                       video_library
                     </i>
-                    <input type="file" accept="video/*" className="hidden" />
+                    <input
+                      type="file"
+                      accept="video/*"
+                      onChange={this.handleVideoChange}
+                      className="hidden"
+                    />
                   </label>
                   <label>
                     <i className="material-icons m-2 cursor-pointer">

@@ -20,10 +20,6 @@ const TM = require("./middleware/timeout_middleware");
 
 const app = express();
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../build/index.html"));
-});
-
 massive(CONNECTION_STRING)
   .then(db => {
     app.set("db", db);
@@ -74,5 +70,9 @@ app.delete("/post/comment/:id", CC.deleteComment);
 
 app.post("/user/:gamertag", FC.followOrUnfollow);
 app.get("/users/following", TM.timer, FC.getFollows);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
+});
 
 app.listen(SERVER_PORT, () => console.log(`Listening on PORT ${SERVER_PORT}`));
