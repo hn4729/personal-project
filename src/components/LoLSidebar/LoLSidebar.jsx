@@ -58,7 +58,8 @@ export default class LoLSidebar extends Component {
         </div>
         <Query
           query={GET_PAST_LOL_LEAGUE_MATCHES_SIDEBAR}
-          fetchPolicy={"network-only"}
+          fetchPolicy="network-only"
+          errorPolicy="ignore"
           variables={{
             path: `/leagues/${
               this.state.league_id

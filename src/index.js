@@ -12,10 +12,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloProvider } from "react-apollo";
 
 const restLink = new RestLink({
-  uri: "https://api.pandascore.co",
-  fetchOptions: {
-    mode: "no-cors"
-  }
+  uri: "https://api.pandascore.co"
 });
 
 const client = new ApolloClient({
