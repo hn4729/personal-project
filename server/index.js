@@ -5,6 +5,8 @@ const session = require("express-session");
 
 const { SERVER_PORT, SESSION_SECRET, CONNECTION_STRING } = process.env;
 
+const path = require("path"); // Usually moved to the start of file
+
 //Auth Controller
 const AC = require("./controllers/auth_controller");
 const PC = require("./controllers/post_controller");
@@ -17,6 +19,10 @@ const FC = require("./controllers/follower_controller");
 const TM = require("./middleware/timeout_middleware");
 
 const app = express();
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
+});
 
 massive(CONNECTION_STRING)
   .then(db => {
