@@ -294,20 +294,45 @@ export const GET_CSGO_WEAPONS = gql`
   }
 `;
 
-export const GET_CSGO_SERIES = gql`
-  query GET_CSGO_SERIES($path: String!) {
-    getCSGOSeries @rest(type: "GetCSGOSeries", path: $path) {
+export const GET_CSGO_PAST_MATCHES = gql`
+  query GET_CSGO_PAST_MATCHES($path: String!) {
+    getCSGOPastMatches @rest(type: "GetCSGOPastMatches", path: $path) {
       begin_at
-      description
-      full_name
+      games
+      id
       league
       league_id
+      match_type
       name
-      season
-      slug
-      tournaments
+      number_of_games
+      opponents
+      results
+      serie
+      serie_id
+      tournament
+      tournament_id
+      winner
       winner_id
-      year
+    }
+  }
+`;
+
+export const GET_CSGO_UPCOMING_MATCHES = gql`
+  query GET_CSGO_UPCOMING_MATCHES($path: String!) {
+    getCSGOUpcomingMatches @rest(type: "GetCSGOUpcomingMatches", path: $path) {
+      begin_at
+      games
+      id
+      league
+      league_id
+      match_type
+      name
+      number_of_games
+      opponents
+      serie
+      serie_id
+      tournament
+      tournament_id
     }
   }
 `;

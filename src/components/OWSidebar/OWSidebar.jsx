@@ -32,6 +32,7 @@ export default class OWSidebar extends Component {
             if (!pastOWLLeagueMatches) return <></>;
             return pastOWLLeagueMatches.map((match, index) => {
               let opponentIndex;
+              match.winner &&
               match.winner.acronym !== match.opponents[0].opponent.acronym
                 ? (opponentIndex = 0)
                 : (opponentIndex = 1);
@@ -67,12 +68,14 @@ export default class OWSidebar extends Component {
                         <div className="flex flex-row justify-center items-center w-full">
                           <div className="flex flex-row justify-between items-center w-full">
                             <div className="flex justify-center items-center">
-                              <img
-                                src={match.winner.image_url}
-                                alt={match.winner.slug}
-                                className="h-auto w-5 mr-2"
-                              />
-                              <h1>{match.winner.acronym}</h1>
+                              {match.winner && (
+                                <img
+                                  src={match.winner.image_url}
+                                  alt={match.winner.slug}
+                                  className="h-auto w-5 mr-2"
+                                />
+                              )}
+                              {match.winner && <h1>{match.winner.acronym}</h1>}
                             </div>
                             <h1>{match.results[0].score}</h1>
                           </div>

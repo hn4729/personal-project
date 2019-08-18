@@ -210,16 +210,19 @@ class IndividiualLoLLeague extends Component {
                                           className="h-auto w-10 mr-2"
                                         />
                                         <h1 className="mr-2">VS</h1>
-                                        <img
-                                          src={
-                                            match.opponents[1].opponent
-                                              .image_url
-                                          }
-                                          alt={
-                                            match.opponents[1].opponent.acronym
-                                          }
-                                          className="h-auto w-10"
-                                        />
+                                        {match.opponenents && (
+                                          <img
+                                            src={
+                                              match.opponents[1].opponent
+                                                .image_url
+                                            }
+                                            alt={
+                                              match.opponents[1].opponent
+                                                .acronym
+                                            }
+                                            className="h-auto w-10"
+                                          />
+                                        )}
                                       </div>
                                     ) : null}
                                   </div>

@@ -205,7 +205,7 @@ class Nav extends Component {
                 <Link to="/poggers/csgo/weapons">Weapons</Link>
               </AccordionItemPanel>
               <AccordionItemPanel className="mt-1 sm:text-xs">
-                <Link to="/poggers/csgo/tournaments">Tournaments</Link>
+                <Link to="/poggers/csgo/matches">Matches</Link>
               </AccordionItemPanel>
             </AccordionItem>
           </Accordion>

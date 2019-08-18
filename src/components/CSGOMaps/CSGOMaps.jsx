@@ -14,7 +14,9 @@ class CSGOMaps extends Component {
           <Query
             query={GET_CSGO_MAPS}
             variables={{
-              path: `/csgo/maps?token=${serviceAccount.pandascore_key}`
+              path: `/csgo/maps?per_page=100&token=${
+                serviceAccount.pandascore_key
+              }`
             }}
           >
             {({ loading, error, data }) => {

@@ -58,7 +58,7 @@ export default (
             <Route exact path="/poggers/csgo/weapons" component={CSGOWeapons} />
             <Route
               exact
-              path="/poggers/csgo/tournaments"
+              path="/poggers/csgo/matches"
               component={CSGOTournaments}
             />
 
