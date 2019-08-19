@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import Modal from "react-awesome-modal";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import ReactPlayer from "react-player";
 import {
   fetchUserPosts,
   deletePost,
@@ -117,6 +118,15 @@ class Profile extends Component {
                         className="w-full"
                         src={image_url}
                         alt={`${gamertag} ${post_id}`}
+                      />
+                    ) : null}
+                    {video_url !== "" ? (
+                      <ReactPlayer
+                        controls
+                        playing={false}
+                        url={video_url}
+                        width="100%"
+                        height="auto"
                       />
                     ) : null}
 

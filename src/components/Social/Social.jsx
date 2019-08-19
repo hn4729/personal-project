@@ -4,6 +4,8 @@ import "./Social.scss";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import moment from "moment";
+import ReactPlayer from "react-player";
+
 import {
   fetchAllPosts,
   deletePost,
@@ -92,6 +94,15 @@ class Social extends Component {
                           alt={`${gamertag} ${post_id}`}
                         />
                       </Link>
+                    ) : null}
+                    {video_url !== "" ? (
+                      <ReactPlayer
+                        controls
+                        playing={false}
+                        url={video_url}
+                        width="100%"
+                        height="auto"
+                      />
                     ) : null}
 
                     <Link to={`/poggers/post/${post_id}`}>

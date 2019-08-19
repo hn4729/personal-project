@@ -17,7 +17,10 @@ const restLink = new RestLink({
 
 const client = new ApolloClient({
   link: restLink,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  fetchOptions: {
+    mode: "no-cors"
+  }
 });
 
 ReactDOM.render(
