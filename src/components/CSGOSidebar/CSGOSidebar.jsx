@@ -20,9 +20,7 @@ export default class CSGOSidebar extends Component {
           query={GET_PAST_CSGO_MATCHES_SIDEBAR}
           fetchPolicy={"network-only"}
           variables={{
-            path: `/csgo/matches/past?per_page=5&sort=-begin_at&token=${
-              serviceAccount.pandascore_key
-            }`
+            path: `/csgo/matches/past?per_page=5&sort=-begin_at`
           }}
         >
           {({ loading, error, data }) => {

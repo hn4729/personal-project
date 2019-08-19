@@ -63,9 +63,7 @@ export default class LoLSidebar extends Component {
           variables={{
             path: `/leagues/${
               this.state.league_id
-            }/matches/past?per_page=5&sort=-begin_at&token=${
-              serviceAccount.pandascore_key
-            }`
+            }/matches/past?per_page=5&sort=-begin_at`
           }}
         >
           {({ loading, error, data }) => {

@@ -20,9 +20,7 @@ export default class OWSidebar extends Component {
           query={GET_PAST_OWL_LEAGUE_MATCHES_SIDEBAR}
           fetchPolicy={"network-only"}
           variables={{
-            path: `/leagues/${4135}/matches/past?per_page=5&sort=-begin_at&token=${
-              serviceAccount.pandascore_key
-            }`
+            path: `/leagues/${4135}/matches/past?per_page=5&sort=-begin_at`
           }}
         >
           {({ loading, error, data }) => {
