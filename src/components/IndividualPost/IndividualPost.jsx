@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import ReactPlayer from "react-player";
+import moment from "moment";
 import {
   deletePost,
   addOrRemoveLike,
@@ -93,16 +94,36 @@ class IndividualPost extends Component {
                     className="flex flex-col justify-center items-center mb-5"
                     key={post_id}
                   >
-                    <div className="max-w-lg rounded overflow-hidden shadow-lg bg-darkgrey">
-                      <div className="px-6 py-4 bg-white text-grey flex flex-row justify-center items-center">
-                        <Link
-                          to={`/poggers/user/${gamertag}`}
-                          className="font-semibold mr-2"
-                        >
-                          {gamertag}
-                        </Link>
+                    <div className="max-w-lg sm:w-11/12 rounded overflow-hidden shadow-lg bg-darkgrey">
+                      <div className="px-6 py-4 bg-white text-grey flex flex-row justify-between items-center">
+                        <div className="flex justify-center items-center">
+                          <Link
+                            to={`/poggers/user/${gamertag}`}
+                            className="mr-2"
+                          >
+                            {profile_img ? (
+                              <img
+                                src={profile_img}
+                                alt="profile_image"
+                                className="w-16 h-auto rounded-full bg-white"
+                              />
+                            ) : (
+                              <img
+                                src="https://i.imgur.com/aSVjtu7.png"
+                                alt="feelsbadman"
+                                className="w-16 h-auto rounded-full bg-white"
+                              />
+                            )}
+                          </Link>
+                          <Link
+                            to={`/poggers/user/${gamertag}`}
+                            className="font-semibold mr-2"
+                          >
+                            {gamertag}
+                          </Link>
+                        </div>
                         <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
-                          {date}
+                          {moment(date).fromNow()}
                         </span>
                       </div>
                       {image_url !== "" ? (
@@ -127,11 +148,11 @@ class IndividualPost extends Component {
                           {content_text}
                         </p>
                       </div>
-                      <div className="px-6 py-4 bg-white flex justify-between items-center">
-                        <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
+                      <div className="px-6 py-4 bg-white flex sm:flex-col justify-between items-center">
+                        <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 sm:mb-2">
                           {game}
                         </span>
-                        <div className="flex justify-around items-center w-5/12">
+                        <div className="flex justify-around items-center w-5/12 sm:mb-2">
                           <div className="flex mr-2">
                             <i className="material-icons text-grey cursor-pointer mr-2">
                               mode_comment
@@ -163,6 +184,7 @@ class IndividualPost extends Component {
                               post_id={post_id}
                               content_text={content_text}
                               game={game}
+                              profile_img={profile_img}
                               fetchPostID={this.props.match.params.id}
                             />
 
@@ -200,15 +222,34 @@ class IndividualPost extends Component {
                 } = comment;
                 return (
                   <div
-                    className="bg-white text-grey rounded justify-center items-center pb-2 pt-2 mb-5 w-1/2"
+                    className="bg-white text-grey rounded justify-center items-center py-4 px-4 mb-5 w-1/2 sm:w-11/12"
                     key={comment_id}
                   >
                     <div className="flex flex-row justify-start items-center w-full">
-                      <div className="flex flex-col justify-center items-center">
-                        <h1 className="mb-3 ml-3 mr-3">Profile Image</h1>
-                        <Link to={`/poggers/user/${gamertag}`}>{gamertag}</Link>
+                      <div className="flex flex-col justify-start items-center">
+                        <Link to={`/poggers/user/${gamertag}`} className="mb-2">
+                          {profile_img ? (
+                            <img
+                              src={profile_img}
+                              alt="profile_image"
+                              className="w-16 h-auto rounded-full bg-white"
+                            />
+                          ) : (
+                            <img
+                              src="https://i.imgur.com/aSVjtu7.png"
+                              alt="feelsbadman"
+                              className="w-16 h-auto rounded-full bg-white"
+                            />
+                          )}
+                        </Link>
+                        <Link
+                          to={`/poggers/user/${gamertag}`}
+                          className="font-semibold"
+                        >
+                          {gamertag}
+                        </Link>
                       </div>
-                      <div className="px-6 py-4 bg-white flex flex-col flex-grow">
+                      <div className="px-2 bg-white flex flex-col flex-grow">
                         {giphy === "" ? (
                           <div className="flex flex-row justify-start items-center mb-5">
                             <p className="text-grey text-base bg-white">

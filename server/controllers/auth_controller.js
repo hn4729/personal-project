@@ -69,5 +69,20 @@ module.exports = {
     const { user } = req.session;
     if (user) return res.status(200).send({ loggedIn: true, user });
     else return res.sendStatus(401);
+  },
+
+  getUsers: async (req, res) => {
+    const db = req.app.get("db");
+    const results = await db.get_all_users();
+    res.status(200).send(results);
+  },
+
+  editProfileImage: async (req, res) => {
+    const { profile_img } = req.body;
+    const { user } = req.session;
+    const db = req.app.get("db");
+
+    db.update_profile_img([user.id, profile_img]);
+    res.sendStatus(200);
   }
 };

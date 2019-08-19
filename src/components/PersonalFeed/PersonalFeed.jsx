@@ -65,7 +65,6 @@ class PersonalFeed extends Component {
                   game,
                   content_text,
                   image_url,
-                  user_id,
                   video_url
                 } = post;
 
@@ -92,14 +91,34 @@ class PersonalFeed extends Component {
                     className="flex flex-col justify-center items-center mb-5"
                     key={post_id}
                   >
-                    <div className="max-w-lg rounded overflow-hidden shadow-lg bg-darkgrey">
-                      <div className="px-6 py-4 bg-white text-grey flex flex-row justify-center items-center">
-                        <Link
-                          to={`/poggers/user/${gamertag}`}
-                          className="font-semibold mr-2"
-                        >
-                          {gamertag}
-                        </Link>
+                    <div className="max-w-lg sm:w-11/12 rounded overflow-hidden shadow-lg bg-darkgrey">
+                      <div className="px-6 py-4 bg-white text-grey flex flex-row justify-between items-center">
+                        <div className="flex justify-center items-center">
+                          <Link
+                            to={`/poggers/user/${gamertag}`}
+                            className="mr-2"
+                          >
+                            {profile_img ? (
+                              <img
+                                src={profile_img}
+                                alt="profile_image"
+                                className="w-16 h-auto rounded-full bg-white"
+                              />
+                            ) : (
+                              <img
+                                src="https://i.imgur.com/aSVjtu7.png"
+                                alt="feelsbadman"
+                                className="w-16 h-auto rounded-full bg-white"
+                              />
+                            )}
+                          </Link>
+                          <Link
+                            to={`/poggers/user/${gamertag}`}
+                            className="font-semibold mr-2"
+                          >
+                            {gamertag}
+                          </Link>
+                        </div>
                         <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
                           {moment(date).fromNow()}
                         </span>
@@ -173,6 +192,7 @@ class PersonalFeed extends Component {
                               post_id={post_id}
                               content_text={content_text}
                               game={game}
+                              profile_img={profile_img}
                             />
 
                             <i

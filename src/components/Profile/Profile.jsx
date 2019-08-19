@@ -12,21 +12,67 @@ import {
 import {
   requestUserData,
   fetchFollowing,
-  followOrUnfollow
+  followOrUnfollow,
+  fetchAllUsers,
+  editProfileImage
 } from "../../redux/reducers/userReducer";
 import CreatePost from "../CreatePost/CreatePost";
 import UpdatePost from "../UpdatePost/UpdatePost";
 import moment from "moment";
+import firebase from "firebase";
+import * as serviceAccount from "../../serviceAccount.json";
+
+const storage = firebase.storage();
+const profileRef = storage.ref("profile_images");
 
 class Profile extends Component {
+  constructor() {
+    super();
+    this.state = {
+      profile_img: ""
+    };
+  }
+
   componentDidMount() {
     this.props.fetchUserPosts(this.props.match.params.gamertag);
     this.props.fetchLikes();
     this.props.fetchFollowing();
+    this.props.fetchAllUsers();
   }
 
+  handleProfileChange = event => {
+    const file = event.target.files[0];
+    const uploadTask = profileRef.child(file.name).put(file);
+    uploadTask.then(() => {
+      profileRef
+        .child(file.name)
+        .getDownloadURL()
+        .then(url => this.setState({ profile_img: url }));
+    });
+  };
+
+  checkUploadResult = resultEvent => {
+    if (resultEvent.event === "success") {
+      this.setState({ profile_img: resultEvent.info.secure_url });
+      this.props.editProfileImage(resultEvent.info.secure_url);
+      this.props.fetchAllUsers();
+      this.props.requestUserData();
+    }
+  };
+
   render() {
-    const { loading, userPosts, likes } = this.props;
+    let widget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: serviceAccount.cloud_name,
+        uploadPreset: serviceAccount.upload_preset,
+        sources: ["local", "url", "dropbox", "facebook", "instagram"]
+      },
+      (error, result) => {
+        this.checkUploadResult(result);
+      }
+    );
+
+    const { loading, userPosts, likes, users } = this.props;
     // console.log(this.props.following);
     let isFollowing;
     if (this.props.following !== undefined) {
@@ -35,18 +81,58 @@ class Profile extends Component {
       );
       // console.log(isFollowing);
     }
+
+    let user;
+    if (users !== undefined && users.length > 0) {
+      user = users.filter(
+        user => user.gamertag === this.props.match.params.gamertag
+      );
+    }
+
     return (
       <div className="flex flex-col w-7/12 text-white bg-grey overflow-auto sm:w-10/12 md:w-10/12">
         <div className="border-solid border-2 border-darkgrey flex justify-left items-center mb-5">
-          <h1 className="m-2 text-2xl font-bold">Profile</h1>
+          <h1 className="m-2 text-2xl font-bold">
+            {this.props.match.params.gamertag}
+          </h1>
         </div>
 
+        {user && !user[0].profile_img && (
+          <div className="flex justify-center items-center">
+            <img
+              src="https://i.imgur.com/aSVjtu7.png"
+              alt="poggers"
+              className="h-auto w-32 mb-3 rounded-full bg-white"
+            />
+          </div>
+        )}
+
+        {user && user[0].profile_img && (
+          <div className="flex justify-center items-center">
+            <img
+              src={user[0].profile_img}
+              alt="profile_image"
+              className="mb-3 border-solid border-grey border-2 bg-white rounded-full w-40 h-40 sm:w-32 sm:h-32"
+            />
+          </div>
+        )}
+
         {this.props.gamertag === this.props.match.params.gamertag ? (
-          <CreatePost profileGamertag={this.props.match.params.gamertag} />
+          <div className="flex flex-col justify-center items-center">
+            <label>
+              <i
+                className="material-icons m-2 cursor-pointer"
+                onClick={() => {
+                  widget.open();
+                }}
+              >
+                insert_photo
+              </i>
+            </label>
+          </div>
         ) : null}
 
         <div className="flex flex-col justify-center items-center bg-grey text-white mb-5">
-          <h1>{this.props.match.params.gamertag}</h1>
           {this.props.gamertag !== this.props.match.params.gamertag &&
           isFollowing !== undefined &&
           isFollowing.length === 0 ? (
@@ -73,6 +159,9 @@ class Profile extends Component {
             </button>
           ) : null}
         </div>
+        {this.props.gamertag === this.props.match.params.gamertag ? (
+          <CreatePost profileGamertag={this.props.match.params.gamertag} />
+        ) : null}
 
         <div className="flex flex-col justify-center items-center">
           {loading ? (
@@ -107,8 +196,30 @@ class Profile extends Component {
                   key={post_id}
                 >
                   <div className="max-w-lg rounded overflow-hidden shadow-lg bg-darkgrey">
-                    <div className="px-6 py-4 bg-white text-grey flex flex-row justify-center items-center">
-                      <h1 className="font-semibold mr-2">{gamertag}</h1>
+                    <div className="px-6 py-4 bg-white text-grey flex flex-row justify-between items-center">
+                      <div className="flex justify-center items-center">
+                        <Link to={`/poggers/user/${gamertag}`} className="mr-2">
+                          {profile_img ? (
+                            <img
+                              src={profile_img}
+                              alt="profile_image"
+                              className="w-16 h-auto rounded-full bg-white"
+                            />
+                          ) : (
+                            <img
+                              src="https://i.imgur.com/aSVjtu7.png"
+                              alt="feelsbadman"
+                              className="w-16 h-auto rounded-full bg-white"
+                            />
+                          )}
+                        </Link>
+                        <Link
+                          to={`/poggers/user/${gamertag}`}
+                          className="font-semibold mr-2"
+                        >
+                          {gamertag}
+                        </Link>
+                      </div>
                       <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
                         {moment(date).fromNow()}
                       </span>
@@ -205,7 +316,8 @@ function mapStateToProps(reduxState) {
     gamertag: reduxState.user.gamertag,
     id: reduxState.user.id,
     games: reduxState.games.games,
-    following: reduxState.user.following
+    following: reduxState.user.following,
+    users: reduxState.user.users
   };
 }
 
@@ -218,6 +330,8 @@ export default connect(
     addOrRemoveLike,
     fetchLikes,
     fetchFollowing,
-    followOrUnfollow
+    followOrUnfollow,
+    fetchAllUsers,
+    editProfileImage
   }
 )(Profile);

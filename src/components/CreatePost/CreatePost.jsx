@@ -94,11 +94,6 @@ class CreatePost extends Component {
       return this.createOption(game.name);
     });
 
-    const videoStyle = {
-      width: "65%",
-      height: "auto"
-    };
-
     return (
       <div className="mb-5 border-solid border-1 border-darkgrey flex justify-center items-center h-auto">
         <div className="bg-white text-grey w-5/6 rounded justify-center items-center pb-5 pt-5">

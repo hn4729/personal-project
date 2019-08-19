@@ -45,6 +45,9 @@ app.post("/auth/login", AC.login);
 app.get("/auth/logout", AC.logout);
 app.get("/auth/user-data", AC.getUserData);
 
+//Users
+app.get("/poggers/users", TM.timer, AC.getUsers);
+app.put("/poggers/user/profile_image", AC.editProfileImage);
 //Games
 app.get("/api/games", GC.getGames);
 app.post("/api/games");

@@ -10,6 +10,7 @@ import {
 } from "../../redux/reducers/postReducer";
 import { fetchGames } from "../../redux/reducers/gameReducer";
 import CreatableSelect from "react-select/creatable";
+import moment from "moment";
 
 class UpdatePost extends Component {
   constructor() {
@@ -71,7 +72,15 @@ class UpdatePost extends Component {
   };
 
   render() {
-    const { gamertag, date, image_url, video_url, post_id, games } = this.props;
+    const {
+      gamertag,
+      date,
+      image_url,
+      video_url,
+      post_id,
+      games,
+      profile_img
+    } = this.props;
     const { content_text, game } = this.state;
     const defaultOptions = games.map(game => {
       return this.createOption(game.name);
@@ -80,7 +89,7 @@ class UpdatePost extends Component {
     return (
       <div className="mr-5 flex justify-center">
         <i
-          className="material-icons text-grey cursor-pointer "
+          className="material-icons text-grey cursor-pointer"
           onClick={() => this.openModal()}
         >
           edit
@@ -91,11 +100,37 @@ class UpdatePost extends Component {
           onClickAway={() => this.closeModal()}
         >
           <div className="max-w-xl rounded shadow-lg bg-darkgrey">
-            <div className="px-6 py-4 bg-white text-grey flex flex-row justify-center items-center">
-              <h1 className="font-semibold mr-2">{gamertag}</h1>
-              <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
-                {date}
-              </span>
+            <div className="px-6 py-4 bg-white text-grey flex flex-row justify-between items-center">
+              <div className="flex justify-center items-center">
+                {profile_img ? (
+                  <img
+                    src={profile_img}
+                    alt="profile_image"
+                    className="w-16 h-auto rounded-full bg-white mr-2"
+                  />
+                ) : (
+                  <img
+                    src="https://i.imgur.com/aSVjtu7.png"
+                    alt="feelsbadman"
+                    className="w-16 h-auto rounded-full bg-white mr-2"
+                  />
+                )}
+                <h1 className="font-semibold mr-2">{gamertag}</h1>
+              </div>
+              <div className="flex justify-center items-center">
+                <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
+                  {moment(date).fromNow()}
+                </span>
+                <button
+                  className="text-grey px-3 py-1 font-semibold material-icons"
+                  onClick={() => {
+                    this.closeModal();
+                    this.setState({ content_text: "", game: "" });
+                  }}
+                >
+                  cancel
+                </button>
+              </div>
             </div>
             {image_url !== "" ? (
               <img
@@ -114,28 +149,19 @@ class UpdatePost extends Component {
                 onChange={this.handleChange}
               />
             </div>
-            <div className="px-6 py-4 bg-white flex justify-between items-center">
-              <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white">
+            <div className="px-2 py-4 bg-white flex flex-col justify-center items-center w-full">
+              <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mb-2">
                 {game}
               </span>
               <CreatableSelect
                 isClearable
                 onChange={this.handleSelectChange}
                 options={defaultOptions}
-                className="w-64 text-grey css-263qy-menu leedle"
+                className="w-64 text-grey css-263qy-menu leedle mb-2"
               />
               <div>
                 <button
-                  className="bg-grey text-white px-3 py-1 font-semibold rounded-full mr-2"
-                  onClick={() => {
-                    this.closeModal();
-                    this.setState({ content_text: "", game: "" });
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  className="bg-grey text-white px-3 py-1 font-semibold rounded-full mr-2"
+                  className="bg-grey text-white px-3 py-1 font-semibold rounded"
                   onClick={() => {
                     this.props.updatePost(
                       this.state.game,

@@ -33,11 +33,7 @@ const client = new ApolloClient({
   link: authLink.concat(restLink),
   cache: new InMemoryCache(),
   fetchOptions: {
-    mode: "no-cors",
-    cors: false
-  },
-  headers: {
-    "Acess-Control-Allow-Origin": "*"
+    mode: "no-cors"
   }
 });
 

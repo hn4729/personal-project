@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import "./Nav.scss";
 import { connect } from "react-redux";
-import { requestUserData } from "../../redux/reducers/userReducer";
+import {
+  requestUserData,
+  fetchAllUsers
+} from "../../redux/reducers/userReducer";
 import axios from "axios";
 import { Redirect, Link } from "react-router-dom";
 import { fetchUserPosts, fetchLikes } from "../../redux/reducers/postReducer";
@@ -19,12 +22,15 @@ class Nav extends Component {
     this.state = {
       redirect: false,
       expand: false,
-      expand_two: false
+      expand_two: false,
+      searchStatus: "search-close",
+      searchInput: ""
     };
   }
 
   componentDidMount() {
     this.props.requestUserData();
+    this.props.fetchAllUsers();
   }
 
   logout = () => {
@@ -51,15 +57,67 @@ class Nav extends Component {
     }
   };
 
+  toggleSearch = () => {
+    if (this.state.searchStatus === "search-open") {
+      this.setState({ searchStatus: "search-close", searchInput: "" });
+    } else {
+      this.setState({ searchStatus: "search-open" });
+    }
+  };
+
+  handleSearchInput = event => {
+    this.setState({ searchInput: event.target.value });
+  };
+
   render() {
-    const { id, username, gamertag, profile_img, loggedIn } = this.props;
+    const { id, username, gamertag, profile_img, loggedIn, users } = this.props;
     // console.log(this.props);
+    let user;
+    if (users !== undefined && users.length > 0) {
+      user = users.filter(user => user.gamertag === gamertag);
+    }
     return (
       <div className="w-full flex flex-col justify-center items-center">
+        {user && (
+          <div className={this.state.searchStatus}>
+            <div className="flex justify-center items-center">
+              <input
+                type="text"
+                value={this.state.searchInput}
+                onChange={this.handleSearchInput}
+                placeholder="Search..."
+                className="rounded px-1 h-10 ml-2 my-2 w-5/6 text-grey"
+              />
+              <i className="mx-1 material-icons" onClick={this.toggleSearch}>
+                cancel
+              </i>
+            </div>
+            {this.state.searchInput !== ""
+              ? users
+                  .filter(user =>
+                    user.gamertag.toLowerCase().includes(this.state.searchInput)
+                  )
+                  .map((user, index) => {
+                    return (
+                      <Link
+                        to={`/poggers/user/${user.gamertag}`}
+                        onClick={() => {
+                          this.props.fetchUserPosts(user.gamertag);
+                          this.toggleSearch();
+                        }}
+                        className="m-2 font-semibold"
+                      >
+                        {user.gamertag}
+                      </Link>
+                    );
+                  })
+              : null}
+          </div>
+        )}
         <img
           src="https://socialmediaacademia.files.wordpress.com/2018/11/poggers.png"
           alt="poggers"
-          className="mt-10 mb-10 h-32 w-32"
+          className="m-10 h-32 w-32 sm:w-12 sm:h-12"
         />
         <div className="flex flex-col justify-left items-center">
           <Link to="/poggers" className="m-5 flex justify-center items-center">
@@ -70,9 +128,17 @@ class Nav extends Component {
             to="/poggers/discovery"
             className="m-5 flex justify-center items-center"
           >
-            <i className="material-icons lg:mr-2">search</i>
+            <i className="material-icons lg:mr-2">star</i>
             <h2 className="sm:hidden md:hidden lg:block ml-2">Discovery</h2>
           </Link>
+
+          <div
+            className="m-5 flex justify-center items-center"
+            onClick={this.toggleSearch}
+          >
+            <i className="material-icons lg:mr-2">search</i>
+            <h2 className="sm:hidden md:hidden lg:block ml-2">Search</h2>
+          </div>
 
           <Accordion className="w-full mb-5" allowZeroExpanded={true}>
             <AccordionItem className="block">
@@ -218,7 +284,19 @@ class Nav extends Component {
               this.props.fetchLikes();
             }}
           >
-            <i className="material-icons lg:mr-2">person</i>
+            {user && user[0].profile_img ? (
+              <img
+                src={user[0].profile_img}
+                alt="profile_image"
+                className="w-10 h-10 rounded-full bg-white lg:mr-2 md:mr-2"
+              />
+            ) : (
+              <img
+                src="https://i.imgur.com/aSVjtu7.png"
+                alt="feelsbadman"
+                className="w-10 h-auto rounded-full bg-white lg:mr-2 md:mr-2"
+              />
+            )}
             <h2 className="sm:hidden md:hidden lg:block ml-2">{gamertag}</h2>
           </Link>
           <div
@@ -241,11 +319,12 @@ function mapStateToProps(reduxState) {
     username: reduxState.user.username,
     gamertag: reduxState.user.gamertag,
     profile_img: reduxState.user.profile_img,
-    loggedIn: reduxState.user.loggedIn
+    loggedIn: reduxState.user.loggedIn,
+    users: reduxState.user.users
   };
 }
 
 export default connect(
   mapStateToProps,
-  { requestUserData, fetchLikes, fetchUserPosts }
+  { requestUserData, fetchLikes, fetchUserPosts, fetchAllUsers }
 )(Nav);
