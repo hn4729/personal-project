@@ -18,7 +18,8 @@ export default class CSGOSidebar extends Component {
         </div>
         <Query
           query={GET_PAST_CSGO_MATCHES_SIDEBAR}
-          fetchPolicy={"network-only"}
+          fetchPolicy="network-only"
+          errorPolicy="all"
           variables={{
             path: `/csgo/matches/past?per_page=5&sort=-begin_at`
           }}
