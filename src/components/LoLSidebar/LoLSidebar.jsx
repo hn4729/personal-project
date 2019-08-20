@@ -67,7 +67,14 @@ export default class LoLSidebar extends Component {
           }}
         >
           {({ loading, error, data }) => {
-            if (loading) return <h1>Loading...</h1>;
+            if (loading)
+              return (
+                <img
+                  src="https://66.media.tumblr.com/272c919c22e3122bced152a8487c1ad8/tumblr_o51rkmjmjp1ujw6zko1_400.gif"
+                  alt="pepe"
+                  className="h-40 w-auto"
+                />
+              );
             const { pastLOLLeagueMatches } = data;
             if (!pastLOLLeagueMatches) return <></>;
             return pastLOLLeagueMatches.map((match, index) => {

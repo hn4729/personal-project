@@ -29,7 +29,7 @@ export default (
         path="/poggers"
         render={() => (
           <div className="Website flex text-center">
-            <div className="Nav w-2/12 bg-darkgrey text-white mx-h-screen overflow-y-auto overflow-x-hidden">
+            <div className="Nav w-2/12 bg-white text-grey mx-h-screen overflow-y-auto overflow-x-hidden">
               <Nav />
             </div>
 
@@ -62,7 +62,7 @@ export default (
               component={CSGOTournaments}
             />
 
-            <div className="w-3/12 bg-darkgrey text-white sm:hidden md:hidden overflow-y-auto overflow-x-hidden mx-h-screen">
+            <div className="w-3/12 bg-white text-grey sm:hidden md:hidden overflow-y-auto overflow-x-hidden mx-h-screen">
               <EsportsBar />
             </div>
           </div>

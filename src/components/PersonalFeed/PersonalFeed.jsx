@@ -37,7 +37,7 @@ class PersonalFeed extends Component {
       // console.log(isFollowing);
     }
     return (
-      <div className="flex flex-col w-7/12 text-white bg-grey overflow-auto sm:w-10/12 md:w-10/12">
+      <div className="flex flex-col w-7/12 text-grey bg-white overflow-auto sm:w-10/12 md:w-10/12">
         <div className="border-solid border-2 border-darkgrey flex justify-left items-center mb-5">
           <h1 className="m-2 text-2xl font-bold">Personal Feed</h1>
         </div>
@@ -46,7 +46,11 @@ class PersonalFeed extends Component {
 
         <div className="flex flex-col justify-center items-center">
           {loading ? (
-            <h1 className="font-bold text-5xl">Loading...</h1>
+            // <h1 className="font-bold text-5xl">Loading...</h1>
+            <img
+              src="https://66.media.tumblr.com/272c919c22e3122bced152a8487c1ad8/tumblr_o51rkmjmjp1ujw6zko1_400.gif"
+              alt="pepe"
+            />
           ) : (
             posts
               .filter(post => {
@@ -91,7 +95,7 @@ class PersonalFeed extends Component {
                     className="flex flex-col justify-center items-center mb-5"
                     key={post_id}
                   >
-                    <div className="max-w-lg sm:w-11/12 rounded overflow-hidden shadow-lg bg-darkgrey">
+                    <div className="max-w-lg sm:w-11/12 rounded-lg overflow-hidden shadow-xl bg-darkgrey">
                       <div className="px-6 py-4 bg-white text-grey flex flex-row justify-between items-center">
                         <div className="flex justify-center items-center">
                           <Link

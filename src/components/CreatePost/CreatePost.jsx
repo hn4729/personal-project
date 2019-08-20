@@ -29,7 +29,8 @@ class CreatePost extends Component {
       image_url: "",
       content_text: "",
       game: "",
-      video_url: ""
+      video_url: "",
+      gifLoading: false
     };
   }
 
@@ -50,14 +51,14 @@ class CreatePost extends Component {
   };
 
   handleVideoChange = event => {
-    this.setState({ image_url: "" });
+    this.setState({ image_url: "", gifLoading: true, video_url: "" });
     const file = event.target.files[0];
     const uploadTask = videosRef.child(file.name).put(file);
     uploadTask.then(() => {
       videosRef
         .child(file.name)
         .getDownloadURL()
-        .then(url => this.setState({ video_url: url }));
+        .then(url => this.setState({ video_url: url, gifLoading: false }));
     });
   };
 
@@ -95,9 +96,16 @@ class CreatePost extends Component {
     });
 
     return (
-      <div className="mb-5 border-solid border-1 border-darkgrey flex justify-center items-center h-auto">
-        <div className="bg-white text-grey w-5/6 rounded justify-center items-center pb-5 pt-5">
+      <div className="mb-5 border-solid border-1 border-grey flex justify-center items-center h-auto">
+        <div className="bg-white text-grey w-5/6 rounded-lg justify-center items-center pb-5 pt-5 shadow-xl">
           <div className="flex flex-col flex-grow w-full justify-center items-center">
+            {this.state.gifLoading && (
+              <img
+                src="https://66.media.tumblr.com/272c919c22e3122bced152a8487c1ad8/tumblr_o51rkmjmjp1ujw6zko1_400.gif"
+                alt="pepe"
+                className="h-40 w-auto"
+              />
+            )}
             {this.state.image_url.length !== 0 ? (
               <img
                 src={this.state.image_url}
@@ -118,7 +126,7 @@ class CreatePost extends Component {
             <textarea
               className="mb-3 mt-3 flex-grow bg-white p-2 pr-10 w-11/12 overflow-hidden resize-none"
               maxLength="255"
-              placeholder="What's up bitch..."
+              placeholder="POGGERS..."
               name="content_text"
               value={this.state.content_text}
               onChange={this.handleChange}

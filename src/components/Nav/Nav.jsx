@@ -284,17 +284,17 @@ class Nav extends Component {
               this.props.fetchLikes();
             }}
           >
-            {user && user[0].profile_img ? (
-              <img
-                src={user[0].profile_img}
-                alt="profile_image"
-                className="w-10 h-10 rounded-full bg-white lg:mr-2 md:mr-2"
-              />
-            ) : (
+            {user === undefined ? (
               <img
                 src="https://i.imgur.com/aSVjtu7.png"
                 alt="feelsbadman"
                 className="w-10 h-auto rounded-full bg-white lg:mr-2 md:mr-2"
+              />
+            ) : (
+              <img
+                src={user[0].profile_img}
+                alt="profile_image"
+                className="w-10 h-10 rounded-full bg-white lg:mr-2 md:mr-2"
               />
             )}
             <h2 className="sm:hidden md:hidden lg:block ml-2">{gamertag}</h2>

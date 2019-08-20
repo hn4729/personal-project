@@ -55,7 +55,12 @@ class IndividualPost extends Component {
           </div>
           <div className="flex flex-col justify-center items-center">
             {loading ? (
-              <h1 className="font-bold text-5xl">Loading...</h1>
+              // <h1 className="font-bold text-5xl">Loading...</h1>
+              <img
+                src="https://66.media.tumblr.com/272c919c22e3122bced152a8487c1ad8/tumblr_o51rkmjmjp1ujw6zko1_400.gif"
+                alt="pepe"
+                className="h-64 w-auto m-5"
+              />
             ) : (
               individualPost.map(post => {
                 const {
