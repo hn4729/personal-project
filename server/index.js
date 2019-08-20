@@ -19,6 +19,8 @@ const FC = require("./controllers/follower_controller");
 const TM = require("./middleware/timeout_middleware");
 
 const app = express();
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
 
 app.use(express.static(`${__dirname}/../build`));
 
@@ -76,8 +78,19 @@ app.delete("/post/comment/:id", CC.deleteComment);
 app.post("/user/:gamertag", FC.followOrUnfollow);
 app.get("/users/following", TM.timer, FC.getFollows);
 
+io.on("connection", socket => {
+  console.log("User connected");
+  socket.on("chat message", data => {
+    const { message, gamertag } = data;
+    console.log(`${gamertag}: ${message}`);
+    io.emit("chat message", data);
+  });
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
-app.listen(SERVER_PORT, () => console.log(`Listening on PORT ${SERVER_PORT}`));
+http.listen(SERVER_PORT, () => console.log(`Listening on PORT ${SERVER_PORT}`));

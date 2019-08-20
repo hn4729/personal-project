@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Nav.scss";
+import "../../App.scss";
 import { connect } from "react-redux";
 import {
   requestUserData,
@@ -120,25 +121,36 @@ class Nav extends Component {
           className="m-10 h-32 w-32 sm:w-12 sm:h-12"
         />
         <div className="flex flex-col justify-left items-center">
-          <Link to="/poggers" className="m-5 flex justify-center items-center">
+          <Link
+            to="/poggers"
+            className="m-5 sm:m-3 md:m-3 flex justify-center items-center"
+          >
             <i className="material-icons lg:mr-2">home</i>
             <h2 className="sm:hidden md:hidden lg:block ml-2">Home</h2>
           </Link>
           <Link
             to="/poggers/discovery"
-            className="m-5 flex justify-center items-center"
+            className="m-5 sm:m-3 md:m-3 flex justify-center items-center"
           >
             <i className="material-icons lg:mr-2">star</i>
             <h2 className="sm:hidden md:hidden lg:block ml-2">Discovery</h2>
           </Link>
 
           <div
-            className="m-5 flex justify-center items-center"
+            className="m-5 sm:m-3 md:m-3 flex justify-center items-center"
             onClick={this.toggleSearch}
           >
             <i className="material-icons lg:mr-2">search</i>
             <h2 className="sm:hidden md:hidden lg:block ml-2">Search</h2>
           </div>
+
+          <Link
+            to="/poggers/chatroom"
+            className="m-5 sm:m-3 md:m-3 flex justify-center items-center"
+          >
+            <i className="material-icons lg:mr-2">chat</i>
+            <h2 className="sm:hidden md:hidden lg:block ml-2">Chat Room</h2>
+          </Link>
 
           <Accordion className="w-full mb-5" allowZeroExpanded={true}>
             <AccordionItem className="block">
@@ -278,7 +290,7 @@ class Nav extends Component {
 
           <Link
             to={`/poggers/user/${gamertag}`}
-            className="m-5 flex justify-center items-center"
+            className="m-5 sm:m-3 md:m-3 flex justify-center items-center"
             onClick={() => {
               this.props.fetchUserPosts(gamertag);
               this.props.fetchLikes();
@@ -288,7 +300,7 @@ class Nav extends Component {
               <img
                 src="https://i.imgur.com/aSVjtu7.png"
                 alt="feelsbadman"
-                className="w-10 h-auto rounded-full bg-white lg:mr-2 md:mr-2"
+                className="w-10 h-auto rounded-full bg-white lg:mr-2 md:mr-2 "
               />
             ) : (
               <img
@@ -300,7 +312,7 @@ class Nav extends Component {
             <h2 className="sm:hidden md:hidden lg:block ml-2">{gamertag}</h2>
           </Link>
           <div
-            className="m-5 flex justify-center items-center align-center cursor-pointer"
+            className="m-5 sm:m-3 md:m-3 flex justify-center items-center align-center cursor-pointer"
             onClick={this.logout}
           >
             {this.renderRedirect()}
