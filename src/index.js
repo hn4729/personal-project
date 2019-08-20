@@ -14,8 +14,7 @@ import { ApolloProvider } from "react-apollo";
 import { setContext } from "apollo-link-context";
 
 const restLink = new RestLink({
-  uri: "https://api.pandascore.co",
-  credentials: "same-origin"
+  uri: "https://hidden-cove-37487.herokuapp.com/https://api.pandascore.co"
 });
 
 const authLink = setContext((_, { headers }) => {
