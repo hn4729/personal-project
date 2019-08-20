@@ -15,6 +15,11 @@
   border-bottom: 3px solid #a0aec0;
 }
 
+.feed {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .feed::-webkit-scrollbar {
   width: 3px;
 }
