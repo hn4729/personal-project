@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import "../../App.scss";
+
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import ReactPlayer from "react-player";
@@ -40,10 +42,10 @@ class IndividualPost extends Component {
     } = this.props;
 
     return (
-      <div className="flex flex-col w-7/12 text-white bg-grey overflow-auto sm:w-10/12 md:w-10/12">
+      <div className="feed flex flex-col w-7/12 text-grey bg-gray-400 overflow-auto sm:w-10/12 md:w-10/12">
         <div>
           <div
-            className="border-solid border-2 border-darkgrey flex justify-left items-center mb-5 cursor-pointer"
+            className="title flex justify-left items-center mb-5 cursor-pointer"
             onClick={() => {
               this.props.history.goBack();
             }}

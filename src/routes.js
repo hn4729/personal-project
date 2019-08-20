@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import "./App.scss";
 import WelcomeLogin from "./components/WelcomeLogin/WelcomeLogin";
 import Register from "./components/Register/Register";
 import WebsiteContainer from "./components/WebsiteContainer/WebsiteContainer";
@@ -29,7 +30,7 @@ export default (
         path="/poggers"
         render={() => (
           <div className="Website flex text-center">
-            <div className="Nav w-2/12 bg-white text-grey mx-h-screen overflow-y-auto overflow-x-hidden">
+            <div className="nav-menu Nav w-2/12 bg-gray-400 text-grey mx-h-screen overflow-y-auto overflow-x-hidden">
               <Nav />
             </div>
 
@@ -62,7 +63,7 @@ export default (
               component={CSGOTournaments}
             />
 
-            <div className="w-3/12 bg-white text-grey sm:hidden md:hidden overflow-y-auto overflow-x-hidden mx-h-screen">
+            <div className="esports-bar w-3/12 bg-gray-400 text-grey sm:hidden md:hidden overflow-y-auto overflow-x-hidden mx-h-screen">
               <EsportsBar />
             </div>
           </div>

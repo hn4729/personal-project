@@ -8,8 +8,8 @@ import { fetchChamps } from "../../redux/reducers/lolReducer";
 class LoLChamps extends Component {
   render() {
     return (
-      <div className="flex flex-col w-7/12 text-white bg-grey overflow-auto sm:w-10/12 md:w-10/12">
-        <div className="border-solid border-2 border-darkgrey flex justify-left items-center mb-5">
+      <div className="feed flex flex-col w-7/12 text-grey bg-gray-400 overflow-auto sm:w-10/12 md:w-10/12">
+        <div className="title flex justify-left items-center mb-5">
           <h1 className="m-2 text-2xl font-bold">
             League of Legends Champions
           </h1>
