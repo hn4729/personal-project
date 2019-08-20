@@ -18,7 +18,7 @@ class WelcomeLogin extends Component {
       .post("/auth/login", { username, password })
       .then(user => {
         this.setState({ username: "", password: "" });
-        console.log(user.data);
+        // console.log(user.data);
         this.props.history.push("/poggers");
       })
       .catch(error => {

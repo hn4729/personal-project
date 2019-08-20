@@ -14,7 +14,8 @@ import { ApolloProvider } from "react-apollo";
 import { setContext } from "apollo-link-context";
 
 const restLink = new RestLink({
-  uri: "https://api.pandascore.co"
+  uri: "https://api.pandascore.co",
+  credentials: "same-origin"
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -34,7 +35,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   fetchOptions: {
     mode: "no-cors"
-  }
+  },
+  credentials: "include"
 });
 
 ReactDOM.render(
