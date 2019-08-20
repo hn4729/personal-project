@@ -26,6 +26,10 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : ""
+      // "Access-Control-Allow-Origin": "http://localhost:3000",
+      // "Access-Control-Allow-Credentials": true,
+      // "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+      // "Access-Control-Allow-Headers": "Origin, Content-Type, Accept"
     }
   };
 });
@@ -34,7 +38,8 @@ const client = new ApolloClient({
   link: authLink.concat(restLink),
   cache: new InMemoryCache(),
   fetchOptions: {
-    mode: "no-cors"
+    mode: "no-cors",
+    method: "GET"
   },
   credentials: "include"
 });
