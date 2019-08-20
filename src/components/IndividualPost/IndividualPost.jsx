@@ -53,7 +53,7 @@ class IndividualPost extends Component {
             <i className="material-icons m-2 text-2xl font-bold">
               arrow_back_ios
             </i>
-            <h1 className="m-2 text-2xl font-bold">Feed</h1>
+            <h1 className="text-2xl font-bold">Go Back</h1>
           </div>
           <div className="flex flex-col justify-center items-center">
             {loading ? (
@@ -129,7 +129,7 @@ class IndividualPost extends Component {
                             {gamertag}
                           </Link>
                         </div>
-                        <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
+                        <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white sm:text-xs">
                           {moment(date).fromNow()}
                         </span>
                       </div>
@@ -156,7 +156,7 @@ class IndividualPost extends Component {
                         </p>
                       </div>
                       <div className="px-6 py-4 bg-white flex sm:flex-col justify-between items-center">
-                        <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 sm:mb-2">
+                        <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white md:mr-2 lg:mr-2 sm:mb-2">
                           {game}
                         </span>
                         <div className="flex justify-around items-center w-5/12 sm:mb-2">
@@ -168,7 +168,7 @@ class IndividualPost extends Component {
                               {commentCount}
                             </span>
                           </div>
-                          <div className="flex justify-bottom mr-2">
+                          <div className="flex justify-bottom md:mr-2 lg:mr-2">
                             <i
                               className="material-icons text-grey cursor-pointer mr-2"
                               onClick={() => {
@@ -178,7 +178,9 @@ class IndividualPost extends Component {
                             >
                               thumb_up
                             </i>
-                            <span className="text-grey mr-2">{likeCount}</span>
+                            <span className="text-grey md:mr-2 lg:mr-2">
+                              {likeCount}
+                            </span>
                           </div>
                         </div>
 
@@ -268,31 +270,36 @@ class IndividualPost extends Component {
                             <img src={giphy} alt={giphy} />
                           </div>
                         )}
-                        {gamertag === this.props.gamertag ? (
-                          <div className="flex justify-end items-center">
-                            {giphy === "" ? (
-                              <UpdateComment
-                                comment_id={comment_id}
-                                gamertag={gamertag}
-                                comment_text={comment_text}
-                                giphy={giphy}
-                                date={date}
-                                profile_img={profile_img}
-                                post_id={post_id}
-                              />
-                            ) : null}
-                            <i
-                              className="material-icons cursor-pointer"
-                              onClick={() => {
-                                this.props.deleteComment(comment_id);
-                                this.props.fetchComments(post_id);
-                                this.props.fetchCommentCount();
-                              }}
-                            >
-                              delete
-                            </i>
-                          </div>
-                        ) : null}
+                        <div className="flex justify-end items-center">
+                          <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white sm:text-xs">
+                            {moment(date).fromNow()}
+                          </span>{" "}
+                          {gamertag === this.props.gamertag ? (
+                            <div className="flex justify-end items-center ml-2">
+                              {giphy === "" ? (
+                                <UpdateComment
+                                  comment_id={comment_id}
+                                  gamertag={gamertag}
+                                  comment_text={comment_text}
+                                  giphy={giphy}
+                                  date={date}
+                                  profile_img={profile_img}
+                                  post_id={post_id}
+                                />
+                              ) : null}
+                              <i
+                                className="material-icons cursor-pointer"
+                                onClick={() => {
+                                  this.props.deleteComment(comment_id);
+                                  this.props.fetchComments(post_id);
+                                  this.props.fetchCommentCount();
+                                }}
+                              >
+                                delete
+                              </i>
+                            </div>
+                          ) : null}
+                        </div>
                       </div>
                     </div>
                   </div>

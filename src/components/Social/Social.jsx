@@ -103,7 +103,7 @@ class Social extends Component {
                           {gamertag}
                         </Link>
                       </div>
-                      <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
+                      <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white sm:text-xs">
                         {moment(date).fromNow()}
                       </span>
                     </div>
@@ -133,11 +133,11 @@ class Social extends Component {
                         </p>
                       </div>
                     </Link>
-                    <div className="px-6 py-4 bg-white flex justify-between items-center">
-                      <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
+                    <div className="px-6 py-4 bg-white flex sm:flex-col justify-between items-center">
+                      <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white md:mr-2 lg:mr-2 sm:mb-2">
                         {game}
                       </span>
-                      <div className="flex justify-around items-center w-5/12">
+                      <div className="flex justify-around items-center w-5/12 sm:mb-2">
                         <div className="flex mr-2">
                           <Link
                             to={`/poggers/post/${post_id}`}
@@ -147,7 +147,7 @@ class Social extends Component {
                           </Link>
                           <span className="text-grey mr-2">{commentCount}</span>
                         </div>
-                        <div className="flex justify-bottom mr-2">
+                        <div className="flex justify-bottom md:mr-2 lg:mr-2">
                           <i
                             className="material-icons text-grey cursor-pointer mr-2"
                             onClick={() => {
@@ -157,7 +157,9 @@ class Social extends Component {
                           >
                             thumb_up
                           </i>
-                          <span className="text-grey mr-2">{likeCount}</span>
+                          <span className="text-grey md:mr-2 lg:mr-2">
+                            {likeCount}
+                          </span>
                         </div>
                       </div>
 

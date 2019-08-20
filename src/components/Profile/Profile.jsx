@@ -16,6 +16,7 @@ import {
   fetchAllUsers,
   editProfileImage
 } from "../../redux/reducers/userReducer";
+import { fetchCommentCount } from "../../redux/reducers/commentReducer";
 import CreatePost from "../CreatePost/CreatePost";
 import UpdatePost from "../UpdatePost/UpdatePost";
 import moment from "moment";
@@ -39,6 +40,7 @@ class Profile extends Component {
     this.props.fetchLikes();
     this.props.fetchFollowing();
     this.props.fetchAllUsers();
+    this.props.fetchCommentCount();
   }
 
   handleProfileChange = event => {
@@ -73,7 +75,7 @@ class Profile extends Component {
       }
     );
 
-    const { loading, userPosts, likes, users } = this.props;
+    const { loading, userPosts, likes, users, commentCounts } = this.props;
     // console.log(this.props.following);
     let isFollowing;
     if (this.props.following !== undefined) {
@@ -113,7 +115,7 @@ class Profile extends Component {
             <img
               src={user[0].profile_img}
               alt="profile_image"
-              className="mb-3 border-solid border-grey border-2 bg-white rounded-full w-40 h-40 sm:w-32 sm:h-32"
+              className="mb-3 shadow-xl bg-white rounded-full w-40 h-40 sm:w-32 sm:h-32"
             />
           </div>
         )}
@@ -133,7 +135,7 @@ class Profile extends Component {
           </div>
         ) : null}
 
-        <div className="flex flex-col justify-center items-center bg-grey text-white mb-5">
+        <div className="flex flex-col justify-center items-center text-grey mb-5">
           {this.props.gamertag !== this.props.match.params.gamertag &&
           isFollowing !== undefined &&
           isFollowing.length === 0 ? (
@@ -196,6 +198,16 @@ class Profile extends Component {
                 likeCount = +postLike[0].count;
               }
 
+              const postCommentCount = commentCounts.filter(
+                post => post.post_id === post_id
+              );
+              let commentCount;
+              if (postCommentCount[0] === undefined) {
+                commentCount = 0;
+              } else {
+                commentCount = +postCommentCount[0].count;
+              }
+
               return (
                 <div
                   className="flex flex-col justify-center items-center mb-5"
@@ -226,7 +238,7 @@ class Profile extends Component {
                           {gamertag}
                         </Link>
                       </div>
-                      <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
+                      <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white sm:text-xs">
                         {moment(date).fromNow()}
                       </span>
                     </div>
@@ -252,18 +264,21 @@ class Profile extends Component {
                         {content_text}
                       </p>
                     </div>
-                    <div className="px-6 py-4 bg-white flex justify-between items-center">
-                      <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white mr-2">
+                    <div className="px-6 py-4 bg-white flex sm:flex-col justify-between items-center">
+                      <span className="bg-grey rounded-full px-3 py-1 text-sm font-semibold text-white md:mr-2 lg:mr-2 sm:mb-2">
                         {game}
                       </span>
-                      <div className="flex justify-around items-center w-5/12">
-                        <Link
-                          to={`/poggers/post/${post_id}`}
-                          className="material-icons text-grey cursor-pointer"
-                        >
-                          mode_comment
-                        </Link>
-                        <div className="flex justify-bottom mr-2">
+                      <div className="flex justify-around items-center w-5/12 sm:mb-2">
+                        <div className="flex mr-2">
+                          <Link
+                            to={`/poggers/post/${post_id}`}
+                            className="material-icons text-grey cursor-pointer mr-2"
+                          >
+                            mode_comment
+                          </Link>
+                          <span className="text-grey mr-2">{commentCount}</span>
+                        </div>
+                        <div className="flex justify-bottom md:mr-2 lg:mr-2">
                           <i
                             className="material-icons text-grey cursor-pointer mr-2"
                             onClick={() => {
@@ -273,7 +288,9 @@ class Profile extends Component {
                           >
                             thumb_up
                           </i>
-                          <span className="text-grey mr-2">{likeCount}</span>
+                          <span className="text-grey md:mr-2 lg:mr-2">
+                            {likeCount}
+                          </span>
                         </div>
                       </div>
 
@@ -323,7 +340,8 @@ function mapStateToProps(reduxState) {
     id: reduxState.user.id,
     games: reduxState.games.games,
     following: reduxState.user.following,
-    users: reduxState.user.users
+    users: reduxState.user.users,
+    commentCounts: reduxState.commentReducer.commentCounts
   };
 }
 
@@ -338,6 +356,7 @@ export default connect(
     fetchFollowing,
     followOrUnfollow,
     fetchAllUsers,
-    editProfileImage
+    editProfileImage,
+    fetchCommentCount
   }
 )(Profile);
