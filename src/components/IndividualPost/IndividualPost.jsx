@@ -194,6 +194,7 @@ class IndividualPost extends Component {
                               content_text={content_text}
                               game={game}
                               profile_img={profile_img}
+                              video_url={video_url}
                               fetchPostID={this.props.match.params.id}
                             />
 

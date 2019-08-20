@@ -6,7 +6,8 @@ import {
   fetchAllPosts,
   deletePost,
   updatePost,
-  fetchIndividualPost
+  fetchIndividualPost,
+  fetchUserPosts
 } from "../../redux/reducers/postReducer";
 import { fetchGames } from "../../redux/reducers/gameReducer";
 import CreatableSelect from "react-select/creatable";
@@ -173,7 +174,7 @@ class UpdatePost extends Component {
                     if (this.props.fetchPostID) {
                       this.props.fetchIndividualPost(this.props.fetchPostID);
                     } else if (this.props.fetchGamertag) {
-                      this.props.fetchIndividualPost(this.props.fetchGamertag);
+                      this.props.fetchUserPosts(this.props.fetchGamertag);
                     } else {
                       this.props.fetchAllPosts();
                     }
@@ -200,5 +201,12 @@ function mapStateToProps(reduxState) {
 
 export default connect(
   mapStateToProps,
-  { fetchAllPosts, fetchGames, deletePost, updatePost, fetchIndividualPost }
+  {
+    fetchAllPosts,
+    fetchGames,
+    deletePost,
+    updatePost,
+    fetchIndividualPost,
+    fetchUserPosts
+  }
 )(UpdatePost);

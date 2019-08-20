@@ -303,6 +303,7 @@ class Profile extends Component {
                             post_id={post_id}
                             content_text={content_text}
                             game={game}
+                            video_url={video_url}
                             fetchGamertag={gamertag}
                           />
 

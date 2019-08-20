@@ -171,6 +171,7 @@ class Social extends Component {
                             image_url={image_url}
                             post_id={post_id}
                             content_text={content_text}
+                            video_url={video_url}
                             game={game}
                           />
 

@@ -199,6 +199,7 @@ class PersonalFeed extends Component {
                               post_id={post_id}
                               content_text={content_text}
                               game={game}
+                              video_url={video_url}
                               profile_img={profile_img}
                             />
 
