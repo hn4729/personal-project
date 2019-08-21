@@ -40,7 +40,7 @@ class OWLTournament extends Component {
     return (
       <div className="feed flex flex-col w-7/12 text-grey bg-gray-400 overflow-auto sm:w-10/12 md:w-10/12 mx-h-screen">
         <div
-          className="title flex justify-left items-center mb-5"
+          className="title hover:text-green-400 flex justify-left items-center mb-5 cursor-pointer"
           onClick={() => {
             this.props.history.goBack();
           }}
@@ -74,14 +74,14 @@ class OWLTournament extends Component {
                       className="objet-contain"
                     />
                   </div>
-                  <div className="capitalize text-4xl sm:text-2xl">
+                  <div className="capitalize text-4xl sm:text-2xl rounded-full bg-green-400 font-bold text-4xl py-2 px-4 shadow-lg mb-4">
                     {tournament.name}
                   </div>
                   <div className="flex flex-col justify-center items-center">
                     <Accordion allowZeroExpanded={true}>
                       <AccordionItem>
                         <AccordionItemHeading>
-                          <AccordionItemButton className="text-xl outline-none">
+                          <AccordionItemButton className="mb-5 text-xl outline-none hover:bg-green-200 bg-green-400 rounded-full px-4 py-2 shadow-lg font-semibold">
                             Teams
                           </AccordionItemButton>
                         </AccordionItemHeading>
@@ -96,7 +96,7 @@ class OWLTournament extends Component {
                                   <Accordion allowZeroExpanded={true}>
                                     <AccordionItem>
                                       <AccordionItemHeading>
-                                        <AccordionItemButton className="flex flex-col justify-center items-center">
+                                        <AccordionItemButton className="flex flex-col justify-center items-center p-2 bg-green-400 hover:bg-green-200 rounded-lg shadow-lg font-semibold">
                                           <img
                                             src={team.image_url}
                                             alt={team.id}
@@ -122,7 +122,7 @@ class OWLTournament extends Component {
                                                       return (
                                                         <div
                                                           key={player.id}
-                                                          className="flex flex-col justify-center items-center h-full m-2"
+                                                          className="flex flex-col justify-center items-center h-full m-2 bg-green-600 rounded-lg p-2 shadow-lg font-semibold"
                                                         >
                                                           <div className="flex flex-col justify-end items-center h-24 w-24 bg-white rounded-full">
                                                             {player.image_url ? (
@@ -133,7 +133,7 @@ class OWLTournament extends Component {
                                                                 alt={
                                                                   player.slug
                                                                 }
-                                                                className="h-20 w-auto mb-1 rounded-full"
+                                                                className="h-20 w-auto mb-2 rounded-full"
                                                               />
                                                             ) : (
                                                               <img
@@ -188,15 +188,17 @@ class OWLTournament extends Component {
                       } else {
                         return (
                           <div className="flex flex-col justify-center items-center lg:w-3/5 xl:w-3/5 md:w-11/12 sm:w-full">
-                            <h1>Upcoming Matches</h1>
+                            <h1 className="mt-10 font-semibold bg-green-400 rounded-full py-2 px-4 shadow-md mb-4">
+                              Upcoming Matches
+                            </h1>
                             {getOWLUpcomingMatches.map((match, index) => {
                               return (
                                 <div
                                   key={index}
-                                  className="flex flex-row items-center justify-around w-full mb-2"
+                                  className="flex flex-row items-center justify-around w-full mb-2 font-semibold bg-white rounded-lg shadow p-2"
                                 >
                                   <div>
-                                    <i className="fab fa-twitch" />
+                                    <i className="fab fa-twitch hover:text-green-400" />
                                   </div>
                                   <div className="flex flex-col justify-center items-center sm:text-sm">
                                     <h1>
@@ -249,7 +251,9 @@ class OWLTournament extends Component {
                     }}
                   </Query>
 
-                  <h1 className="mt-10">Past Matches</h1>
+                  <h1 className="mt-10 font-semibold bg-green-400 rounded-full py-2 px-4 shadow-md mb-4">
+                    Past Matches
+                  </h1>
                   <div className="flex flex-col justify-center items-center lg:w-3/5 xl:w-3/5 md:w-11/12 sm:w-full">
                     <Query
                       query={GET_OWL_PAST_MATCHES}
@@ -268,7 +272,7 @@ class OWLTournament extends Component {
                           return (
                             <div
                               key={index}
-                              className="flex flex-row items-center justify-around w-full mb-3"
+                              className="flex flex-row items-center justify-around w-full mb-2 font-semibold bg-white rounded-lg shadow p-2"
                             >
                               <div className="flex flex-col justify-center items-center sm:text-sm mb-1">
                                 <h1>

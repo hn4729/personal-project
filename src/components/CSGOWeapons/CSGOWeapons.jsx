@@ -27,7 +27,7 @@ class CSGOMaps extends Component {
               return getCSGOWeapons.map((weapon, index) => {
                 return (
                   <div
-                    className="flex flex-col justify-center items-center m-2"
+                    className="flex flex-col justify-center items-center m-2 bg-green-400 rounded-lg shadow-md p-2 font-semibold"
                     key={index}
                   >
                     <img

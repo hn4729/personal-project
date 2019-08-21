@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../../App.scss";
 import { connect } from "react-redux";
 import axios from "axios";
 import {
@@ -26,7 +27,7 @@ class CreateComment extends Component {
   render() {
     const { profile_img } = this.props;
     return (
-      <div className="bg-white text-grey w-3/4 sm:w-11/12 md:11/12 rounded justify-center items-center px-4 py-4 mb-5 flex flex-col">
+      <div className="bg-white text-grey w-3/4 sm:w-11/12 md:11/12 rounded justify-center items-center px-4 py-4 mb-5 flex flex-col shadow-md">
         <div className="flex flex-col justify-start items-center w-full">
           <div className="flex justify-start items-center w-full mb-2">
             {profile_img ? (
@@ -52,31 +53,35 @@ class CreateComment extends Component {
                 onChange={this.handleChange}
               />
             ) : (
-              <img
-                src={this.state.giphy}
-                alt={this.state.giphy}
-                className="mb-3 flex-grow bg-white p-2 pr-10"
-              />
+              <div className="flex flex-grow justify-center items-center">
+                <img
+                  src={this.state.giphy}
+                  alt={this.state.giphy}
+                  className="mb-3 bg-white p-2 rounded shadow"
+                />
+              </div>
             )}
           </div>
+
+          {this.state.gifs.length > 0 ? (
+            <div className="giphy-container h-auto flex flex-row mb-2 overflow-auto border-solid border-2 border-grey selector">
+              {this.state.gifs.map(gif => {
+                return (
+                  <img
+                    src={gif.images.fixed_height_small.url}
+                    alt={gif.title}
+                    key={gif.id}
+                    onClick={() => {
+                      this.setState({ giphy: gif.images.fixed_height.url });
+                      // console.log(this.state);
+                    }}
+                  />
+                );
+              })}
+            </div>
+          ) : null}
+
           <div className="textinput flex sm:flex-col w-full justify-center items-center">
-            {this.state.gifs.length > 0 ? (
-              <div className="giphy-container h-auto flex flex-row mb-2 overflow-auto border-solid border-2 border-grey">
-                {this.state.gifs.map(gif => {
-                  return (
-                    <img
-                      src={gif.images.fixed_height_small.url}
-                      alt={gif.title}
-                      key={gif.id}
-                      onClick={() => {
-                        this.setState({ giphy: gif.images.fixed_height.url });
-                        // console.log(this.state);
-                      }}
-                    />
-                  );
-                })}
-              </div>
-            ) : null}
             <div className="flex justify-center items-center h-auto w-full">
               <form
                 className="flex justify-center items-center h-10 lg:mr-2 md:mr-2 sm:mb-2 w-full"
@@ -107,7 +112,7 @@ class CreateComment extends Component {
                 />
                 <button
                   type="submit"
-                  className="material-icons cursor-pointer text-4xl px-4 bg-grey text-white rounded h-full"
+                  className="material-icons cursor-pointer text-4xl px-4 bg-grey text-white rounded h-full hover:bg-green-400 focus:outline-none focus:shadow-outline"
                 >
                   gif
                 </button>
@@ -115,7 +120,7 @@ class CreateComment extends Component {
             </div>
             <div className="flex justify-center items-center">
               <button
-                className="material-icons cursor-pointer text-xl px-4 bg-grey text-white rounded h-10 mr-2"
+                className="material-icons cursor-pointer text-xl px-4 bg-grey text-white rounded h-10 mr-2 hover:bg-green-400 focus:outline-none focus:shadow-outline"
                 onClick={() => {
                   this.setState({ giphy: "", giphyInput: "", gifs: [] });
                 }}
@@ -123,7 +128,7 @@ class CreateComment extends Component {
                 cancel
               </button>
               <button
-                className="bg-grey text-white cursor-pointer font-semibold py-2 px-4 rounded"
+                className="bg-grey text-white cursor-pointer font-semibold py-2 px-4 rounded hover:bg-green-400 focus:outline-none focus:shadow-outline"
                 onClick={() => {
                   const { comment_text, giphy } = this.state;
                   if (comment_text === "" && giphy === "") {

@@ -65,7 +65,7 @@ export default (
             />
             <Route exact path="/poggers/chatroom" component={ChatRoom} />
 
-            <div className="esports-bar w-3/12 bg-gray-400 text-grey sm:hidden md:hidden overflow-y-auto overflow-x-hidden mx-h-screen">
+            <div className="feed esports-bar w-3/12 bg-gray-400 text-grey sm:hidden md:hidden overflow-y-auto overflow-x-hidden mx-h-screen">
               <EsportsBar />
             </div>
           </div>

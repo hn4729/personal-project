@@ -37,3 +37,15 @@
   text-align: left;
   word-wrap: break-word;
 }
+
+.selector::-webkit-scroll {
+  width: 3px;
+}
+
+.selector::-webkit-scrollbar-track {
+  background: #a0aec0;
+}
+
+.selector::-webkit-scrollbar-thumb {
+  background-color: #68d391;
+}

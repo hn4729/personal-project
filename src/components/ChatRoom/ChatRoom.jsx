@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { requestUserData } from "../../redux/reducers/userReducer";
 import "../../App.scss";
 import io from "socket.io-client";
@@ -41,7 +42,12 @@ class ChatRoom extends Component {
                   key={index}
                 >
                   <div className="flex justify-start w-full">
-                    <p className="mr-2">{message.gamertag}:</p>
+                    <Link
+                      to={`/poggers/user/${gamertag}`}
+                      className="mr-2 hover:text-green-400 focus:outline-none focus:shadow-outline font-semibold"
+                    >
+                      {message.gamertag}:
+                    </Link>
                     <p className="text-message mr-2">{message.message}</p>
                   </div>
                 </div>
@@ -72,7 +78,7 @@ class ChatRoom extends Component {
             />
             <button
               type="submit"
-              className="material-icons text-white bg-grey rounded px-2 py-1 rounded"
+              className="material-icons text-white bg-grey rounded px-2 py-1 rounded hover:bg-green-400 focus:outline-none focus:shadow-outline"
             >
               send
             </button>

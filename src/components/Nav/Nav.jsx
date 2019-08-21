@@ -32,6 +32,11 @@ class Nav extends Component {
   componentDidMount() {
     this.props.requestUserData();
     this.props.fetchAllUsers();
+    console.log(this.props.loggedIn);
+    if (!this.props.loggedIn) {
+      this.setState({ redirect: true });
+      this.renderRedirect();
+    }
   }
 
   logout = () => {
@@ -73,12 +78,13 @@ class Nav extends Component {
   render() {
     const { id, username, gamertag, profile_img, loggedIn, users } = this.props;
     // console.log(this.props);
+
     let user;
     if (users !== undefined && users.length > 0) {
       user = users.filter(user => user.gamertag === gamertag);
     }
     return (
-      <div className="w-full flex flex-col justify-center items-center">
+      <div className="w-full flex flex-col justify-center items-center font-semibold">
         {user && (
           <div className={this.state.searchStatus}>
             <div className="flex justify-center items-center">
@@ -89,7 +95,10 @@ class Nav extends Component {
                 placeholder="Search..."
                 className="rounded px-1 h-10 ml-2 my-2 w-5/6 text-grey"
               />
-              <i className="ml-5 material-icons" onClick={this.toggleSearch}>
+              <i
+                className="ml-5 material-icons hover:text-green-400 focus:outline-none focus:shadow-outline cursor-pointer"
+                onClick={this.toggleSearch}
+              >
                 cancel
               </i>
             </div>
@@ -109,7 +118,7 @@ class Nav extends Component {
                             this.props.fetchUserPosts(user.gamertag);
                             this.toggleSearch();
                           }}
-                          className="m-2 font-semibold"
+                          className="m-2 font-semibold hover:text-green-400 focus:outline-none focus:shadow-outline"
                         >
                           {user.gamertag}
                         </Link>
@@ -127,21 +136,21 @@ class Nav extends Component {
         <div className="flex flex-col justify-left items-center">
           <Link
             to="/poggers"
-            className="m-5 sm:m-3 md:m-3 flex justify-center items-center"
+            className="m-2 sm:m-2 md:m-2 flex justify-center items-center rounded-full bg-green-400 w-full py-2 shadow-lg"
           >
             <i className="material-icons lg:mr-2">home</i>
             <h2 className="sm:hidden md:hidden lg:block ml-2">Home</h2>
           </Link>
           <Link
             to="/poggers/discovery"
-            className="m-5 sm:m-3 md:m-3 flex justify-center items-center"
+            className="m-2 sm:m-2 md:m-2 flex justify-center items-center rounded-full bg-green-400 w-full py-2 shadow-lg"
           >
             <i className="material-icons lg:mr-2">star</i>
             <h2 className="sm:hidden md:hidden lg:block ml-2">Discovery</h2>
           </Link>
 
           <div
-            className="m-5 sm:m-3 md:m-3 flex justify-center items-center"
+            className="m-2 sm:m-2 md:m-2 flex justify-center items-center rounded-full bg-green-400 w-full py-2 shadow-lg cursor-pointer"
             onClick={this.toggleSearch}
           >
             <i className="material-icons lg:mr-2">search</i>
@@ -150,7 +159,7 @@ class Nav extends Component {
 
           <Link
             to="/poggers/chatroom"
-            className="m-5 sm:m-3 md:m-3 flex justify-center items-center"
+            className="m-2 sm:m-2 md:m-2 flex justify-center items-center rounded-full bg-green-400 w-full py-2 shadow-lg"
           >
             <i className="material-icons lg:mr-2">chat</i>
             <h2 className="sm:hidden md:hidden lg:block ml-2">Chat Room</h2>
@@ -187,10 +196,10 @@ class Nav extends Component {
                   </div>
                 </AccordionItemButton>
               </AccordionItemHeading>
-              <AccordionItemPanel className="mt-1 sm:text-xs">
+              <AccordionItemPanel className="mt-1 sm:text-xs rounded-full bg-green-400 w-full py-2 shadow-lg">
                 <Link to="/poggers/lol/champions">Champions</Link>
               </AccordionItemPanel>
-              <AccordionItemPanel className="mt-2 sm:text-xs">
+              <AccordionItemPanel className="mt-2 sm:text-xs rounded-full bg-green-400 w-full py-2 shadow-lg">
                 <Link to="/poggers/lol/leagues">Esports Leagues</Link>
               </AccordionItemPanel>
             </AccordionItem>
@@ -227,13 +236,13 @@ class Nav extends Component {
                   </div>
                 </AccordionItemButton>
               </AccordionItemHeading>
-              <AccordionItemPanel className="mt-1 sm:text-xs">
+              <AccordionItemPanel className="mt-1 sm:text-xs rounded-full bg-green-400 w-full py-2 shadow-lg">
                 <Link to="/poggers/ow/heroes">Heroes</Link>
               </AccordionItemPanel>
-              <AccordionItemPanel className="mt-1 sm:text-xs">
+              <AccordionItemPanel className="mt-1 sm:text-xs rounded-full bg-green-400 w-full py-2 shadow-lg">
                 <Link to="/poggers/ow/maps">Maps</Link>
               </AccordionItemPanel>
-              <AccordionItemPanel className="mt-2 sm:text-xs">
+              <AccordionItemPanel className="mt-2 sm:text-xs rounded-full bg-green-400 w-full py-2 px-2 shadow-lg">
                 <Link
                   to="/poggers/owl"
                   className="flex justify-center items-center"
@@ -280,13 +289,13 @@ class Nav extends Component {
                   </div>
                 </AccordionItemButton>
               </AccordionItemHeading>
-              <AccordionItemPanel className="mt-1 sm:text-xs">
+              <AccordionItemPanel className="mt-1 sm:text-xs rounded-full bg-green-400 w-full py-2 shadow-lg">
                 <Link to="/poggers/csgo/maps">Maps</Link>
               </AccordionItemPanel>
-              <AccordionItemPanel className="mt-1 sm:text-xs">
+              <AccordionItemPanel className="mt-1 sm:text-xs rounded-full bg-green-400 w-full py-2 shadow-lg">
                 <Link to="/poggers/csgo/weapons">Weapons</Link>
               </AccordionItemPanel>
-              <AccordionItemPanel className="mt-1 sm:text-xs">
+              <AccordionItemPanel className="mt-1 sm:text-xs rounded-full bg-green-400 w-full py-2 shadow-lg">
                 <Link to="/poggers/csgo/matches">Matches</Link>
               </AccordionItemPanel>
             </AccordionItem>
@@ -294,7 +303,7 @@ class Nav extends Component {
 
           <Link
             to={`/poggers/user/${gamertag}`}
-            className="m-5 sm:m-3 md:m-3 flex justify-center items-center"
+            className="m-2 sm:m-2 md:m-2 flex justify-center items-center rounded-full bg-green-400 w-full py-2 shadow-lg"
             onClick={() => {
               this.props.fetchUserPosts(gamertag);
               this.props.fetchLikes();
@@ -320,12 +329,12 @@ class Nav extends Component {
             <h2 className="sm:hidden md:hidden lg:block ml-2">{gamertag}</h2>
           </Link>
           <div
-            className="m-5 sm:m-3 md:m-3 flex justify-center items-center align-center cursor-pointer"
+            className="m-2 sm:m-2 md:m-2 flex justify-center items-center align-center cursor-pointer rounded-full bg-red-400 w-full py-2 shadow-lg"
             onClick={this.logout}
           >
-            {this.renderRedirect()}
             <i className="material-icons lg:mr-2">exit_to_app</i>
             <h2 className="sm:hidden md:hidden lg:block ml-2">Logout</h2>
+            {this.renderRedirect()}
           </div>
         </div>
       </div>

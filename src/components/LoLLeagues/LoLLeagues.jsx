@@ -33,12 +33,12 @@ class LoLLeagues extends Component {
                     <Link
                       to={`/poggers/lol/leagues/${league.id}`}
                       key={index}
-                      className="flex flex-col justify-center items-center m-5"
+                      className="flex flex-col justify-center items-center m-5 p-2 bg-green-400 rounded-lg shadow-lg font-semibold"
                     >
                       <img
                         src={league.image_url}
                         alt={league.slug}
-                        className="h-auto w-56"
+                        className="h-56 w-56 mb-2"
                       />
                       <h1>{league.name}</h1>
                     </Link>

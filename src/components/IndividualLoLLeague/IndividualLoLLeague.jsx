@@ -22,7 +22,7 @@ class IndividiualLoLLeague extends Component {
     return (
       <div className="feed flex flex-col w-7/12 text-grey bg-gray-400 overflow-auto sm:w-10/12 md:w-10/12">
         <div
-          className="title border-solid border-2 border-darkgrey flex justify-left items-center mb-5"
+          className="title flex justify-left items-center mb-5 hover:text-green-400"
           onClick={() => {
             this.props.history.goBack();
           }}
@@ -57,7 +57,7 @@ class IndividiualLoLLeague extends Component {
                       key={index}
                       className="flex flex-col justify-center items-center mb-5 w-full"
                     >
-                      <div className="text-6xl md:text-xl sm:text-base xs:text-base">
+                      <div className="text-6xl md:text-xl sm:text-base xs:text-base bg-green-400 rounded-full px-2 shadow-lg font-bold mb-5">
                         {serie.description ? (
                           <h1>{serie.description}</h1>
                         ) : (
@@ -67,7 +67,7 @@ class IndividiualLoLLeague extends Component {
                       <Accordion allowZeroExpanded={true}>
                         <AccordionItem>
                           <AccordionItemHeading>
-                            <AccordionItemButton className="text-xl outline-none">
+                            <AccordionItemButton className="text-xl outline-none hover:bg-green-200 bg-green-400 rounded-full px-4 py-2 shadow-lg font-semibold">
                               Teams
                             </AccordionItemButton>
                           </AccordionItemHeading>
@@ -97,7 +97,7 @@ class IndividiualLoLLeague extends Component {
                                         <Accordion allowZeroExpanded={true}>
                                           <AccordionItem>
                                             <AccordionItemHeading>
-                                              <AccordionItemButton className="flex flex-col justify-center items-center">
+                                              <AccordionItemButton className="flex flex-col justify-center items-center p-2 bg-green-400 hover:bg-green-200 rounded-lg shadow-lg font-semibold">
                                                 <img
                                                   src={team.image_url}
                                                   alt={serie.id}
@@ -113,7 +113,7 @@ class IndividiualLoLLeague extends Component {
                                                     return (
                                                       <div
                                                         key={index}
-                                                        className="flex flex-col justify-center items-center h-full m-2"
+                                                        className="flex flex-col justify-center items-center h-full m-2 bg-green-600 rounded-lg p-2 shadow-lg font-semibold"
                                                       >
                                                         <div className="flex flex-col justify-end items-center h-24 w-24 bg-white rounded-full">
                                                           {player.image_url ? (
@@ -122,7 +122,7 @@ class IndividiualLoLLeague extends Component {
                                                                 player.image_url
                                                               }
                                                               alt={player.slug}
-                                                              className="h-20 w-auto mb-1 rounded-full"
+                                                              className="h-20 w-auto mb-2 rounded-full"
                                                             />
                                                           ) : (
                                                             <img
@@ -156,7 +156,9 @@ class IndividiualLoLLeague extends Component {
                         </AccordionItem>
                       </Accordion>
 
-                      <h1 className="mt-10">Upcoming Matches</h1>
+                      <h1 className="mt-10 font-semibold bg-green-400 rounded-full py-2 px-4 shadow-md mb-4">
+                        Upcoming Matches
+                      </h1>
                       <div className="flex flex-col justify-center items-center lg:w-3/5 xl:w-3/5 md:w-11/12 sm:w-full">
                         <Query
                           query={GET_LOL_UPCOMING_MATCHES}
@@ -177,10 +179,10 @@ class IndividiualLoLLeague extends Component {
                               return (
                                 <div
                                   key={index}
-                                  className="flex flex-row items-center justify-around w-full mb-2"
+                                  className="flex flex-row items-center justify-around w-full mb-2 font-semibold bg-white rounded-lg shadow p-2"
                                 >
                                   <div>
-                                    <i className="fab fa-twitch" />
+                                    <i className="fab fa-twitch hover:text-green-400" />
                                   </div>
                                   <div className="flex flex-col justify-center items-center sm:text-sm">
                                     <h1>
@@ -234,7 +236,9 @@ class IndividiualLoLLeague extends Component {
                         </Query>
                       </div>
 
-                      <h1 className="mt-10">Past Matches</h1>
+                      <h1 className="mt-10 font-semibold bg-green-400 py-2 px-4 rounded-full shadow-md mb-4">
+                        Past Matches
+                      </h1>
                       <div className="flex flex-col justify-center items-center lg:w-3/5 xl:w-3/5 md:w-11/12 sm:w-full">
                         <Query
                           query={GET_LOL_PAST_MATCHES}
@@ -255,7 +259,7 @@ class IndividiualLoLLeague extends Component {
                               return (
                                 <div
                                   key={index}
-                                  className="flex flex-row items-center justify-around w-full mb-3"
+                                  className="flex flex-row items-center justify-around w-full mb-2 font-semibold bg-white rounded-lg shadow p-2"
                                 >
                                   <div className="flex flex-col justify-center items-center sm:text-sm mb-1">
                                     <h1>

@@ -38,15 +38,17 @@ class OWLeague extends Component {
                         className="objet-contain"
                       />
                     </div>
-                    <h1 className="mb-2">{serie.full_name}</h1>
+                    <h1 className="mb-3 rounded-full bg-green-400 font-bold text-4xl py-2 px-4 shadow-lg">
+                      {serie.full_name}
+                    </h1>
                     {serie.tournaments.map((tournament, index) => {
                       return (
                         <div
                           key={index}
-                          className="flex flex-col justify-center items-center mb-2"
+                          className="flex flex-col justify-center items-center mb-4 w-full"
                         >
                           <Link to={`/poggers/owl/${tournament.id}`}>
-                            <button className="bg-white text-grey rounded-lg px-2 py-1 capitalize">
+                            <button className="w-64 bg-green-400 hover:bg-green-200 font-semibold text-grey rounded-full shadow-md px-2 py-1 capitalize">
                               {tournament.name}
                             </button>
                           </Link>

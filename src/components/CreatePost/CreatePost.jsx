@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../../App.scss";
 import { connect } from "react-redux";
 import firebase from "firebase";
 import * as serviceAccount from "../../serviceAccount.json";
@@ -134,7 +135,7 @@ class CreatePost extends Component {
             <div className="flex sm:flex-col justify-between items-center w-11/12">
               <div className="flex justify-center items-center">
                 <label>
-                  <i className="material-icons m-2 cursor-pointer">
+                  <i className="material-icons m-2 cursor-pointer hover:text-green-400 focus:outline-none focus:shadow-outline">
                     video_library
                   </i>
                   <input
@@ -145,7 +146,7 @@ class CreatePost extends Component {
                   />
                 </label>
                 <label>
-                  <i className="material-icons m-2 cursor-pointer">
+                  <i className="material-icons m-2 cursor-pointer hover:text-green-400 focus:outline-none focus:shadow-outline">
                     insert_photo
                   </i>
                   <input
@@ -160,10 +161,10 @@ class CreatePost extends Component {
                 isClearable
                 onChange={this.handleSelectChange}
                 options={defaultOptions}
-                className="w-64 sm:w-56 mb-2"
+                className="w-64 sm:w-56 mb-2 selector"
               />
               <button
-                className="bg-grey text-white cursor-pointer font-semibold py-2 px-4 rounded"
+                className="bg-grey text-white cursor-pointer font-semibold py-2 px-4 rounded hover:bg-green-400 focus:outline-none focus:shadow-outline"
                 onClick={() => {
                   const {
                     image_url,

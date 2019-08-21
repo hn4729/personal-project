@@ -74,7 +74,11 @@ class Social extends Component {
               let findTwitch = "";
               let arr;
               if (content_text && content_text.includes("twitch.tv")) {
-                arr = content_text.split("/");
+                arr = content_text
+                  .split(" ")
+                  .filter(word => word.includes("twitch.tv"))
+                  .join("");
+                arr = arr.split("twitch.tv/");
                 findTwitch = arr[arr.length - 1];
               }
 
@@ -106,7 +110,7 @@ class Social extends Component {
                         </Link>
                         <Link
                           to={`/poggers/user/${gamertag}`}
-                          className="font-semibold mr-2"
+                          className="font-semibold mr-2 hover:text-green-400 focus:outline-none focus:shadow-outline"
                         >
                           {gamertag}
                         </Link>
@@ -157,7 +161,7 @@ class Social extends Component {
                         <div className="flex mr-2">
                           <Link
                             to={`/poggers/post/${post_id}`}
-                            className="material-icons text-grey cursor-pointer mr-2"
+                            className="material-icons text-grey cursor-pointer mr-2 hover:text-green-400 focus:outline-none focus:shadow-outline"
                           >
                             mode_comment
                           </Link>
@@ -165,7 +169,7 @@ class Social extends Component {
                         </div>
                         <div className="flex justify-bottom md:mr-2 lg:mr-2">
                           <i
-                            className="material-icons text-grey cursor-pointer mr-2"
+                            className="material-icons text-grey cursor-pointer mr-2 hover:text-green-400 focus:outline-none focus:shadow-outline"
                             onClick={() => {
                               this.props.addOrRemoveLike(post_id);
                               this.props.fetchLikes();
@@ -192,7 +196,7 @@ class Social extends Component {
                           />
 
                           <i
-                            className="material-icons text-grey cursor-pointer"
+                            className="material-icons text-grey cursor-pointer hover:text-green-400 focus:outline-none focus:shadow-outline"
                             onClick={() => {
                               this.props.deletePost(post_id);
                               this.props.fetchAllPosts();

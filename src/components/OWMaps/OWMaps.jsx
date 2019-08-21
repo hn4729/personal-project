@@ -27,13 +27,13 @@ class OWMaps extends Component {
               return getOWMaps.map((map, index) => {
                 return (
                   <div
-                    className="flex flex-col justify-center items-center m-2"
+                    className="flex flex-col justify-center items-center m-2 bg-green-400 rounded-lg shadow-md p-2 font-semibold"
                     key={index}
                   >
                     <img
                       src={map.image_url}
                       alt={map.slug}
-                      className="w-64 h-auto rounded"
+                      className="w-64 h-auto rounded-lg mb-2 shadow-md"
                     />
                     <h1>{map.game_mode}</h1>
                     <h1>{map.name}</h1>

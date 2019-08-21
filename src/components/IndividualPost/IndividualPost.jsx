@@ -46,7 +46,7 @@ class IndividualPost extends Component {
       <div className="feed flex flex-col w-7/12 text-grey bg-gray-400 overflow-auto sm:w-10/12 md:w-10/12">
         <div>
           <div
-            className="title flex justify-left items-center mb-5 cursor-pointer"
+            className="title flex justify-left items-center mb-5 cursor-pointer hover:text-green-400 focus:outline-none focus:shadow-outline"
             onClick={() => {
               this.props.history.goBack();
             }}
@@ -100,7 +100,11 @@ class IndividualPost extends Component {
                 let findTwitch = "";
                 let arr;
                 if (content_text && content_text.includes("twitch.tv")) {
-                  arr = content_text.split("/");
+                  arr = content_text
+                    .split(" ")
+                    .filter(word => word.includes("twitch.tv"))
+                    .join("");
+                  arr = arr.split("twitch.tv/");
                   findTwitch = arr[arr.length - 1];
                 }
 
@@ -114,7 +118,7 @@ class IndividualPost extends Component {
                         <div className="flex justify-center items-center">
                           <Link
                             to={`/poggers/user/${gamertag}`}
-                            className="mr-2"
+                            className="mr-2 hover:text-green-400 focus:outline-none focus:shadow-outline"
                           >
                             {profile_img ? (
                               <img
@@ -177,7 +181,7 @@ class IndividualPost extends Component {
                         </span>
                         <div className="flex justify-around items-center w-5/12 sm:mb-2">
                           <div className="flex mr-2">
-                            <i className="material-icons text-grey cursor-pointer mr-2">
+                            <i className="material-icons text-grey mr-2">
                               mode_comment
                             </i>
                             <span className="text-grey mr-2">
@@ -186,7 +190,7 @@ class IndividualPost extends Component {
                           </div>
                           <div className="flex justify-bottom md:mr-2 lg:mr-2">
                             <i
-                              className="material-icons text-grey cursor-pointer mr-2"
+                              className="material-icons text-grey cursor-pointer mr-2 hover:text-green-400 focus:outline-none focus:shadow-outline"
                               onClick={() => {
                                 this.props.addOrRemoveLike(post_id);
                                 this.props.fetchLikes();
@@ -215,7 +219,7 @@ class IndividualPost extends Component {
                             />
 
                             <i
-                              className="material-icons text-grey cursor-pointer"
+                              className="material-icons text-grey cursor-pointer hover:text-green-400 focus:outline-none focus:shadow-outline"
                               onClick={() => {
                                 this.props.deletePost(post_id);
                                 this.props.history.goBack();
@@ -270,7 +274,7 @@ class IndividualPost extends Component {
                         </Link>
                         <Link
                           to={`/poggers/user/${gamertag}`}
-                          className="font-semibold"
+                          className="font-semibold hover:text-green-400 focus:outline-none focus:shadow-outline"
                         >
                           {gamertag}
                         </Link>
@@ -305,7 +309,7 @@ class IndividualPost extends Component {
                                 />
                               ) : null}
                               <i
-                                className="material-icons cursor-pointer"
+                                className="material-icons cursor-pointer hover:text-green-400 focus:outline-none focus:shadow-outline"
                                 onClick={() => {
                                   this.props.deleteComment(comment_id);
                                   this.props.fetchComments(post_id);

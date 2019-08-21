@@ -49,7 +49,7 @@ class UpdateComment extends Component {
     return (
       <div className="mr-5 flex justify-center">
         <i
-          className="material-icons cursor-pointer mr-2"
+          className="material-icons cursor-pointer mr-2 hover:text-green-400 focus:outline-none focus:shadow-outline"
           onClick={() => {
             this.openModal();
           }}
@@ -83,7 +83,7 @@ class UpdateComment extends Component {
           <div className="max-w-full px-6 py-4 bg-white flex justify-end items-center">
             <div>
               <button
-                className="bg-grey text-white px-3 py-1 font-semibold rounded mr-2"
+                className="bg-grey text-white px-3 py-1 font-semibold rounded mr-2 hover:text-green-400 focus:outline-none focus:shadow-outline"
                 onClick={() => {
                   this.closeModal();
                   this.setState({
@@ -95,7 +95,7 @@ class UpdateComment extends Component {
                 Cancel
               </button>
               <button
-                className="bg-grey text-white px-3 py-1 font-semibold rounded mr-2"
+                className="bg-grey text-white px-3 py-1 font-semibold rounded mr-2 hover:text-green-400 focus:outline-none focus:shadow-outline"
                 onClick={() => {
                   this.props.updateComment(comment_id, comment_text, giphy);
                   this.props.fetchComments(this.props.post_id);

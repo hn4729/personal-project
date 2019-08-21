@@ -68,8 +68,7 @@ export default function(state = initialState, action) {
         id,
         username,
         gamertag,
-        profile_img,
-        loggedIn: true
+        profile_img
       };
     case FETCH_FOLLOWING + "_FULFILLED":
       return { ...state, following: payload };
@@ -79,6 +78,8 @@ export default function(state = initialState, action) {
       return { ...state, users: payload };
     case EDIT_PROFILE_IMG + "_FULFILLED":
       return { ...state };
+    case IS_LOGGED_IN:
+      return { ...state, loggedIn: true };
     default:
       return state;
   }

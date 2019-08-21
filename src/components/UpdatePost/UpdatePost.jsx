@@ -90,7 +90,7 @@ class UpdatePost extends Component {
     return (
       <div className="mr-5 flex justify-center">
         <i
-          className="material-icons text-grey cursor-pointer"
+          className="material-icons text-grey cursor-pointer hover:text-green-400 focus:outline-none focus:shadow-outline"
           onClick={() => this.openModal()}
         >
           edit
@@ -123,7 +123,7 @@ class UpdatePost extends Component {
                   {moment(date).fromNow()}
                 </span>
                 <button
-                  className="text-grey px-3 py-1 font-semibold material-icons"
+                  className="text-grey px-3 py-1 font-semibold material-icons hover:text-green-400 focus:outline-none focus:shadow-outline"
                   onClick={() => {
                     this.closeModal();
                     this.setState({ content_text: "", game: "" });
@@ -162,7 +162,7 @@ class UpdatePost extends Component {
               />
               <div>
                 <button
-                  className="bg-grey text-white px-3 py-1 font-semibold rounded"
+                  className="bg-grey text-white px-3 py-1 font-semibold rounded hover:bg-green-400 focus:outline-none focus:shadow-outline"
                   onClick={() => {
                     this.props.updatePost(
                       this.state.game,
