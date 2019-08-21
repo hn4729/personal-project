@@ -4,7 +4,8 @@ import "../../App.scss";
 import { connect } from "react-redux";
 import {
   requestUserData,
-  fetchAllUsers
+  fetchAllUsers,
+  logout
 } from "../../redux/reducers/userReducer";
 import axios from "axios";
 import { Redirect, Link } from "react-router-dom";
@@ -32,8 +33,16 @@ class Nav extends Component {
   componentDidMount() {
     this.props.requestUserData();
     this.props.fetchAllUsers();
-    console.log(this.props.loggedIn);
-    if (!this.props.loggedIn) {
+    // console.log(this.props.username);
+    // if (!this.props.gamertag) {
+    //   this.setState({ redirect: true });
+    //   this.renderRedirect();
+    // }
+  }
+
+  componentDidUpdate() {
+    // console.log(this.props.gamertag);
+    if (!this.props.gamertag) {
       this.setState({ redirect: true });
       this.renderRedirect();
     }
@@ -41,6 +50,7 @@ class Nav extends Component {
 
   logout = () => {
     axios.get("/auth/logout");
+    this.props.logout();
     this.setState({ redirect: true });
   };
 
@@ -355,5 +365,5 @@ function mapStateToProps(reduxState) {
 
 export default connect(
   mapStateToProps,
-  { requestUserData, fetchLikes, fetchUserPosts, fetchAllUsers }
+  { requestUserData, fetchLikes, fetchUserPosts, fetchAllUsers, logout }
 )(Nav);

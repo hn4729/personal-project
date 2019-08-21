@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { isLoggedIn } from "../../redux/reducers/userReducer";
+import { isLoggedIn, requestUserData } from "../../redux/reducers/userReducer";
 import "./WelcomeLogin.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -22,6 +22,7 @@ class WelcomeLogin extends Component {
         this.setState({ username: "", password: "" });
         // console.log(user.data);
         this.props.isLoggedIn();
+        this.props.requestUserData();
         this.props.history.push("/poggers");
       })
       .catch(error => {
@@ -94,5 +95,5 @@ function mapStateToProps(reduxState) {
 
 export default connect(
   mapStateToProps,
-  { isLoggedIn }
+  { isLoggedIn, requestUserData }
 )(WelcomeLogin);

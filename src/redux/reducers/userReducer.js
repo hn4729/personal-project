@@ -16,6 +16,7 @@ const FETCH_FOLLOWING = "FETCH_FOLLOWING";
 const FOLLOW_UNFOLLOW = "FOLLOW_UNFOLLOW";
 const FETCH_ALL_USERS = "FETCH_ALL_USERS";
 const EDIT_PROFILE_IMG = "EDIT_PROFILE_IMG";
+const LOGOUT = "LOGOUT";
 
 export const requestUserData = () => {
   let data = axios.get("auth/user-data").then(res => res.data);
@@ -28,6 +29,12 @@ export const requestUserData = () => {
 export const isLoggedIn = () => {
   return {
     type: IS_LOGGED_IN
+  };
+};
+
+export const logout = () => {
+  return {
+    type: LOGOUT
   };
 };
 
@@ -80,6 +87,15 @@ export default function(state = initialState, action) {
       return { ...state };
     case IS_LOGGED_IN:
       return { ...state, loggedIn: true };
+    case LOGOUT:
+      return {
+        ...state,
+        id: null,
+        username: "",
+        gamertag: "",
+        profile_img: "",
+        following: []
+      };
     default:
       return state;
   }
