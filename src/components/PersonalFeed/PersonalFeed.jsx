@@ -39,7 +39,7 @@ class PersonalFeed extends Component {
       // console.log(isFollowing);
     }
     return (
-      <div className="feed flex flex-col w-7/12 text-grey bg-gray-400 overflow-y sm:w-10/12 md:w-10/12">
+      <div className="feed flex flex-col w-7/12 text-grey bg-gray-400 overflow-y-auto sm:w-10/12 md:w-10/12">
         <div className="title flex justify-left items-center mb-5">
           <h1 className="m-2 text-2xl font-bold">Personal Feed</h1>
         </div>
