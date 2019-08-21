@@ -119,7 +119,7 @@ class PersonalFeed extends Component {
                               <img
                                 src={profile_img}
                                 alt="profile_image"
-                                className="w-16 h-auto rounded-full bg-white"
+                                className="w-16 h-16 rounded-full bg-white"
                               />
                             ) : (
                               <img
