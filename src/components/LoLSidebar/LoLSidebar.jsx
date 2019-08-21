@@ -14,7 +14,7 @@ export default class LoLSidebar extends Component {
   render() {
     return (
       <div className="flex flex-col justify-center items-center mb-2">
-        <div className="flex flex-row justify-center items-center mb-3 font-semibold rounded-full bg-green-400 w-full py-2 shadow-lg">
+        <div className="flex flex-row justify-center items-center mb-3 font-semibold rounded-full bg-green-400 w-5/6 py-2 shadow-lg">
           <img
             src="https://www.macupdate.com/images/icons256/47210.png"
             alt="LoL"
@@ -22,9 +22,9 @@ export default class LoLSidebar extends Component {
           />
           <h1>League of Legends</h1>
         </div>
-        <div className="flex flex-row justify-center items-center mb-3 bg-white rounded shadow">
+        <div className="flex flex-row justify-center items-center mb-3 bg-white rounded shadow font-semibold">
           <button
-            className="bg-white text-grey px-2 rounded"
+            className="bg-white text-grey px-2 rounded hover:bg-green-400"
             onClick={() => {
               this.setState({ league_id: 4198 });
             }}
@@ -32,7 +32,7 @@ export default class LoLSidebar extends Component {
             NA
           </button>
           <button
-            className="bg-white text-grey px-2"
+            className="bg-white text-grey px-2 hover:bg-green-400"
             onClick={() => {
               this.setState({ league_id: 4197 });
             }}
@@ -40,7 +40,7 @@ export default class LoLSidebar extends Component {
             EU
           </button>
           <button
-            className="bg-white text-grey px-2"
+            className="bg-white text-grey px-2 hover:bg-green-400"
             onClick={() => {
               this.setState({ league_id: 293 });
             }}
@@ -48,7 +48,7 @@ export default class LoLSidebar extends Component {
             LCK
           </button>
           <button
-            className="bg-white text-grey px-2 rounded"
+            className="bg-white text-grey px-2 rounded hover:bg-green-400"
             onClick={() => {
               this.setState({ league_id: 294 });
             }}

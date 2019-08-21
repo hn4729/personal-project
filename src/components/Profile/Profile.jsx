@@ -125,7 +125,7 @@ class Profile extends Component {
           <div className="flex flex-col justify-center items-center">
             <label>
               <i
-                className="material-icons m-2 cursor-pointer"
+                className="material-icons m-2 cursor-pointer hover:text-green-400"
                 onClick={() => {
                   widget.open();
                 }}
@@ -141,7 +141,7 @@ class Profile extends Component {
           isFollowing !== undefined &&
           isFollowing.length === 0 ? (
             <button
-              className="text-grey bg-white w-20"
+              className="text-grey px-4 py-2 text-lg m-3 bg-green-400 hover:bg-green-200 rounded-full shadow-md"
               onClick={() => {
                 this.props.followOrUnfollow(this.props.match.params.gamertag);
                 this.props.fetchFollowing();
@@ -153,7 +153,7 @@ class Profile extends Component {
             isFollowing !== undefined &&
             isFollowing.length > 0 ? (
             <button
-              className="text-grey bg-white w-20"
+              className="text-grey font-semibold px-4 py-2 text-lg m-3 bg-green-400 hover:bg-green-200 rounded-full shadow-md"
               onClick={() => {
                 this.props.followOrUnfollow(this.props.match.params.gamertag);
                 this.props.fetchFollowing();
@@ -288,7 +288,7 @@ class Profile extends Component {
                         <div className="flex mr-2">
                           <Link
                             to={`/poggers/post/${post_id}`}
-                            className="material-icons text-grey cursor-pointer mr-2"
+                            className="material-icons text-grey cursor-pointer mr-2 hover:text-green-400"
                           >
                             mode_comment
                           </Link>
@@ -296,7 +296,7 @@ class Profile extends Component {
                         </div>
                         <div className="flex justify-bottom md:mr-2 lg:mr-2">
                           <i
-                            className="material-icons text-grey cursor-pointer mr-2"
+                            className="material-icons text-grey cursor-pointer mr-2 hover:text-green-400"
                             onClick={() => {
                               this.props.addOrRemoveLike(post_id);
                               this.props.fetchLikes();
@@ -324,7 +324,7 @@ class Profile extends Component {
                           />
 
                           <i
-                            className="material-icons text-grey cursor-pointer"
+                            className="material-icons text-grey cursor-pointer hover:text-green-400"
                             onClick={() => {
                               this.props.deletePost(post_id);
                               this.props.fetchUserPosts(

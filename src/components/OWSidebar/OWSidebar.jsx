@@ -8,7 +8,7 @@ export default class OWSidebar extends Component {
   render() {
     return (
       <div className="flex flex-col justify-center items-center mb-2">
-        <div className="flex flex-row justify-center items-center mb-3 font-semibold rounded-full bg-green-400 w-full py-2 shadow-lg">
+        <div className="flex flex-row justify-center items-center mb-3 font-semibold rounded-full bg-green-400 w-5/6 py-2 shadow-lg">
           <img
             src="https://icon-library.net/images/overwatch-icon-png/overwatch-icon-png-10.jpg"
             alt="OW"

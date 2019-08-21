@@ -8,7 +8,7 @@ export default class CSGOSidebar extends Component {
   render() {
     return (
       <div className="flex flex-col justify-center items-center">
-        <div className="flex flex-row justify-center items-center mb-3 font-semibold rounded-full bg-green-400 w-full py-2 shadow-lg">
+        <div className="flex flex-row justify-center items-center mb-3 font-semibold rounded-full bg-green-400 w-5/6 py-2 shadow-lg">
           <img
             src="https://discordemoji.com/assets/emoji/csgo.png"
             alt="CSGO"
