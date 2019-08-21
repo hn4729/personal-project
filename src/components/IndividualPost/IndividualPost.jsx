@@ -22,6 +22,7 @@ import {
 import UpdatePost from "../UpdatePost/UpdatePost";
 import CreateComment from "../CreateComment/CreateComment";
 import UpdateComment from "../UpdateComment/UpdateComment";
+import ReactTwitchEmbedVideo from "react-twitch-embed-video";
 
 class IndividualPost extends Component {
   componentDidMount() {
@@ -96,6 +97,13 @@ class IndividualPost extends Component {
                   commentCount = +postCommentCount[0].count;
                 }
 
+                let findTwitch = "";
+                let arr;
+                if (content_text && content_text.includes("twitch.tv")) {
+                  arr = content_text.split("/");
+                  findTwitch = arr[arr.length - 1];
+                }
+
                 return (
                   <div
                     className="flex flex-col justify-center items-center mb-5"
@@ -147,6 +155,14 @@ class IndividualPost extends Component {
                           url={video_url}
                           width="100%"
                           height="auto"
+                        />
+                      ) : null}
+                      {findTwitch.length > 0 ? (
+                        <ReactTwitchEmbedVideo
+                          channel={findTwitch}
+                          layout="video"
+                          height="375px"
+                          width="100%"
                         />
                       ) : null}
 

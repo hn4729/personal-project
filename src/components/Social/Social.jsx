@@ -17,6 +17,7 @@ import { requestUserData } from "../../redux/reducers/userReducer";
 import { fetchCommentCount } from "../../redux/reducers/commentReducer";
 import CreatePost from "../CreatePost/CreatePost";
 import UpdatePost from "../UpdatePost/UpdatePost";
+import ReactTwitchEmbedVideo from "react-twitch-embed-video";
 
 class Social extends Component {
   componentDidMount() {
@@ -68,6 +69,13 @@ class Social extends Component {
                 commentCount = 0;
               } else {
                 commentCount = +postCommentCount[0].count;
+              }
+
+              let findTwitch = "";
+              let arr;
+              if (content_text && content_text.includes("twitch.tv")) {
+                arr = content_text.split("/");
+                findTwitch = arr[arr.length - 1];
               }
 
               return (
@@ -123,6 +131,14 @@ class Social extends Component {
                         url={video_url}
                         width="100%"
                         height="auto"
+                      />
+                    ) : null}
+                    {findTwitch.length > 0 ? (
+                      <ReactTwitchEmbedVideo
+                        channel={findTwitch}
+                        layout="video"
+                        height="375px"
+                        width="100%"
                       />
                     ) : null}
 

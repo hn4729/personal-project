@@ -23,6 +23,7 @@ import moment from "moment";
 import firebase from "firebase";
 import * as serviceAccount from "../../serviceAccount.json";
 import "../../App.scss";
+import ReactTwitchEmbedVideo from "react-twitch-embed-video";
 
 const storage = firebase.storage();
 const profileRef = storage.ref("profile_images");
@@ -208,6 +209,13 @@ class Profile extends Component {
                 commentCount = +postCommentCount[0].count;
               }
 
+              let findTwitch = "";
+              let arr;
+              if (content_text && content_text.includes("twitch.tv")) {
+                arr = content_text.split("/");
+                findTwitch = arr[arr.length - 1];
+              }
+
               return (
                 <div
                   className="flex flex-col justify-center items-center mb-5"
@@ -256,6 +264,14 @@ class Profile extends Component {
                         url={video_url}
                         width="100%"
                         height="auto"
+                      />
+                    ) : null}
+                    {findTwitch.length > 0 ? (
+                      <ReactTwitchEmbedVideo
+                        channel={findTwitch}
+                        layout="video"
+                        height="375px"
+                        width="100%"
                       />
                     ) : null}
 

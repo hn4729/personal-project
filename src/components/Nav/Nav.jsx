@@ -89,30 +89,34 @@ class Nav extends Component {
                 placeholder="Search..."
                 className="rounded px-1 h-10 ml-2 my-2 w-5/6 text-grey"
               />
-              <i className="mx-1 material-icons" onClick={this.toggleSearch}>
+              <i className="ml-5 material-icons" onClick={this.toggleSearch}>
                 cancel
               </i>
             </div>
-            {this.state.searchInput !== ""
-              ? users
-                  .filter(user =>
-                    user.gamertag.toLowerCase().includes(this.state.searchInput)
-                  )
-                  .map((user, index) => {
-                    return (
-                      <Link
-                        to={`/poggers/user/${user.gamertag}`}
-                        onClick={() => {
-                          this.props.fetchUserPosts(user.gamertag);
-                          this.toggleSearch();
-                        }}
-                        className="m-2 font-semibold"
-                      >
-                        {user.gamertag}
-                      </Link>
-                    );
-                  })
-              : null}
+            <div className="flex flex-col justify-center items-center overflow-auto">
+              {this.state.searchInput !== ""
+                ? users
+                    .filter(user =>
+                      user.gamertag
+                        .toLowerCase()
+                        .includes(this.state.searchInput)
+                    )
+                    .map((user, index) => {
+                      return (
+                        <Link
+                          to={`/poggers/user/${user.gamertag}`}
+                          onClick={() => {
+                            this.props.fetchUserPosts(user.gamertag);
+                            this.toggleSearch();
+                          }}
+                          className="m-2 font-semibold"
+                        >
+                          {user.gamertag}
+                        </Link>
+                      );
+                    })
+                : null}
+            </div>
           </div>
         )}
         <img
